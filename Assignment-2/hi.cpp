@@ -1,4 +1,4 @@
-// author:Aryanthepain
+// author: Aryanthepain
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -8,6 +8,7 @@ struct Node
     Node *next;
 };
 
+//done
 void insertAtPos(Node *head, int x, int i)
 {
     while (i > 0 && head->next != NULL)
@@ -23,6 +24,7 @@ void insertAtPos(Node *head, int x, int i)
     return;
 }
 
+//done
 void deleteAtPos(Node *head, int i)
 {
     while (i-- > 0)
@@ -52,6 +54,7 @@ void deleteAtPos(Node *head, int i)
     return;
 }
 
+//done
 void traverse(Node *head)
 {
     if (head->next != NULL)
@@ -66,6 +69,7 @@ void traverse(Node *head)
     return;
 }
 
+//done
 void search(Node *head, int x)
 {
     int count = 0;
@@ -85,6 +89,27 @@ void search(Node *head, int x)
     return;
 }
 
+//not done
+void update(Node *head, int i, int x)
+{
+    while (i > 0 && head->next != NULL)
+    {
+        i--;
+        head = head->next;
+    }
+    //if there is nothing on the position
+    if (head->next == NULL)
+    {
+        cout << "List not long enough" << endl;
+        return;
+    }
+    Node *next = (Node *)malloc(sizeof(Node));
+    next->val = x;
+    next->next = head->next;
+    head->next = next;
+
+    return;
+}
 void update() {}
 void sort() {}
 void reverse() {}
