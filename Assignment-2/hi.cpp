@@ -8,7 +8,6 @@ struct Node
     Node *next;
 };
 
-//done
 void insertAtPos(Node *head, int x, int i)
 {
     while (i > 0 && head->next != NULL)
@@ -24,7 +23,6 @@ void insertAtPos(Node *head, int x, int i)
     return;
 }
 
-//done
 void deleteAtPos(Node *head, int i)
 {
     while (i-- > 0)
@@ -54,7 +52,6 @@ void deleteAtPos(Node *head, int i)
     return;
 }
 
-//done
 void traverse(Node *head)
 {
     if (head->next != NULL)
@@ -69,7 +66,6 @@ void traverse(Node *head)
     return;
 }
 
-//done
 void search(Node *head, int x)
 {
     int count = 0;
@@ -89,7 +85,6 @@ void search(Node *head, int x)
     return;
 }
 
-//not done
 void update(Node *head, int i, int x)
 {
     while (i > 0 && head->next != NULL)
@@ -97,39 +92,133 @@ void update(Node *head, int i, int x)
         i--;
         head = head->next;
     }
-    //if there is nothing on the position
+    //if position is larger than list size
     if (head->next == NULL)
     {
-        cout << "List not long enough" << endl;
+        cerr << "error while updating list. List not long enough" << endl;
         return;
     }
-    Node *next = (Node *)malloc(sizeof(Node));
-    next->val = x;
-    next->next = head->next;
-    head->next = next;
+    head->next->val=x;
 
     return;
 }
-void update() {}
-void sort() {}
-void reverse() {}
+
+void deleteList(Node *head){
+	if(head->next==NULL)
+		return;
+	deleteList(head->next);
+	free(head);
+	return;
+}
+
+int size(Node *head){
+	if(head->next==NULL)
+		return 0;
+	return size(head->next)+1;
+}
+
+void changeHeadPos(Node *head, int i){
+	Node *temp = (Node *)malloc(sizeof(Node));
+	temp->next=head->next;
+	while(i>0){
+		i--;
+		if(temp->next==NULL)//list not long enough, head not changed
+			return;
+		temp=temp->next;
+	}
+	head->next=temp->next;
+	
+	return;
+}
+
+//not done
+void mergeSort(Node *first, Node *second){
+	
+}
+
+void sort(Node *head) {
+	if(size(head)==1)
+		return;
+	Node *first = (Node *)malloc(sizeof(Node));
+	Node *second = (Node *)malloc(sizeof(Node));
+	first->next=head->next;
+	second->next=head->next;
+	int listSize=(size(head)/2;
+	int firstSize=listSize-listSize/2;
+	changeHeadPos(second, size(head)/2);
+	Node *temp = (Node *)malloc(sizeof(Node));
+	changeHeadPos(temp, size(head)/2-1);
+	temp->next->next=NULL;
+}
+
+
+void reverse(Node *head) {
+	if(head->next==NULL){
+		cerr << "list is empty" << endl;
+		return;
+	}
+	Node *prev = (Node *)malloc(sizeof(Node));
+	prev=head->next;
+	if(prev->next==NULL){//only one element
+		return;
+	}
+	Node *curr = (Node *)malloc(sizeof(Node));
+	curr=prev->next;
+	if(curr->next==NULL){//only two elements
+		curr->next=head->next;
+		head->next=prev->next;
+		prev->next=NULL;
+		return;
+	}		
+	Node *next = (Node *)malloc(sizeof(Node));
+	next=curr->next;
+	
+	curr->next=prev;
+	head->next=curr;
+	prev->next=NULL;
+	prev=curr;
+	curr=next;
+	if(next->next!=NULL) 
+		next=next->next;
+		
+	while (next->next != NULL)
+    {
+		curr->next=prev;
+		head->next=curr;
+		prev=curr;
+		curr=next;
+		next=next->next;
+    }
+    
+    curr->next=prev;
+    if(curr!=next)
+		next->next=curr;
+    head->next=next;
+    
+    return;
+}
+
+void mergeLists(){}
+void createList(){}
 
 int main()
 {
     Node *head = (Node *)malloc(sizeof(Node));
-    head->val = NULL;
+//    head->val = NULL;
     head->next = NULL;
 
-    for (int i = 0; i < 3; i++)
+//    int n; cin>>n;
+    for (int i = 0; i < 5; i++)
     {
         int n;
         cin >> n;
-        insertAtPos(head, n, 1);
+        insertAtPos(head, n, 10);
     }
     traverse(head);
 
-    //	int n; cin>>n;
-    search(head, 3);
+    changeHeadPos(head, 2);
+    
+    traverse(head);
 
     return 0;
 }
