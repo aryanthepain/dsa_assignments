@@ -9,14 +9,13 @@ CXXFLAGS = -Iinclude -Wall -Wextra -pedantic
 
 # target name
 TARGET = hi
-SRC = $(TARGET1).cpp
-OBJ = $(TARGET1).o
+SRC = $(TARGET).cpp
+OBJ = $(TARGET).o
 
 # Default rule
-all: $(TARGET1)
-	@echo "Build complete. Executable: $(TARGET1)"
+all: $(TARGET)
+	@echo "Build complete. Executable: $(TARGET)"
 	@echo "'make run' to run program"
-#	@echo "'make second' to run second question"
 
 # Link the executable
 $(TARGET): $(OBJ)
@@ -29,11 +28,8 @@ $(TARGET): $(OBJ)
 	@echo "Compiled: $< -> $@"
 
 # run programs
-run: $(TARGET1)
-	./$(TARGET1)
-
-# second: $(TARGET2)
-#	 ./$(TARGET2)
+run: $(TARGET)
+	./$(TARGET)
 
 #to add to github repo
 #make git m="message" b="your-branch(main by defualt)"
