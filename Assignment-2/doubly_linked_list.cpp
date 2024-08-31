@@ -94,12 +94,12 @@ void traverse(Node *head)
     cout << head->val << endl;
 
     // debug code
-    while (head->prev != NULL)
+    /*while (head->prev != NULL)
     {
         cout << head->val << " ";
         head = head->prev;
     }
-    cout << "" << endl;
+    cout << "" << endl;*/
 
     return;
 }
