@@ -1,0 +1,15 @@
+doubly-linked-
+insert at first,last
+delete at first, last
+merge
+sort
+size
+reverse
+delete
+showlist
+
+singly-linked-
+insert at first, pos
+delete  at first,pos
+delete list
+reverse
