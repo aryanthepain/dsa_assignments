@@ -248,6 +248,20 @@ void mergeLists(Node *first, Node *second)
     return;
 }
 
+int getPos(Node *head, int i)
+{
+    int n = size(head);
+    if (i >= n)
+        i = n - 1; // get last element
+    i++;
+    while (i--)
+    {
+        head = head->next;
+    }
+
+    return head->val;
+}
+
 int main()
 {
     Node *head = (Node *)malloc(sizeof(Node));

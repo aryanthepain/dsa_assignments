@@ -280,6 +280,20 @@ void mergeLists(Node *first, Node *second)
     first->next = second->next;
 }
 
+int getPos(Node *head, int i)
+{
+    int n = size(head);
+    if (i >= n)
+        i = n - 1; // get last element
+    i++;
+    while (i--)
+    {
+        head = head->next;
+    }
+
+    return head->val;
+}
+
 int main()
 {
     Node *head = (Node *)malloc(sizeof(Node));
@@ -302,7 +316,7 @@ int main()
     traverse(head);
     // traverse(head1);
 
-    deleteAtPos(head, 3);
+    cout << getPos(head, 3) << endl;
     // mergeLists(head, head1);
 
     cout << "after" << endl;

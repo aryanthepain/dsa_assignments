@@ -19,6 +19,8 @@ int main()
 
     int arr[n];
 
+    cout << "Enter the elements of array" << endl;
+
     for (int i = 0; i < n; i++)
     {
         cin >> arr[i];
@@ -47,7 +49,7 @@ int main()
         }
     }
 
-    cout << third << endl;
+    cout << "Third Largest number- " << third << endl;
 
     return 0;
 }
