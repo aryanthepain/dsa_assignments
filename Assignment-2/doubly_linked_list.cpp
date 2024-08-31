@@ -253,11 +253,9 @@ void reverseMain(Node *head, Node *last)
     reverseMain(head->next, last);
 
     // switch previous and next
-    last->prev = last->next->next; // last->prev used as temp
-    last->next->next = last->next->prev;
-    last->next->prev = last->prev;
-    last->prev = nullptr;
-    last->next = last->next->next;
+    Node *temp = head->next;
+    head->next = head->prev;
+    head->prev = temp;
 
     return;
 }
@@ -273,34 +271,14 @@ void reverse(Node *head)
 
     reverseMain(head->next, last);
 
-    if (last->next == head)
-    {
-        free(last);
-        return;
-    }
     head->next->next = nullptr;
-    last->next->prev = head;
-    last->next->prev->next = last->next;
-    // head->next = last->next;
-    // if (head->next != nullptr)
-    // head->next->prev = head;
+    head->next = last->next;
+    head->next->prev = head;
 
     free(last);
     return;
 }
-/*
-void reverse(Node *head)
-{
-    if (head->next == nullptr || head->next->next == nullptr)
-        return;
 
-    Node *temp = head->next->next;
-    head->next->next = head->next->prev;
-    head->next->prev = temp;
-
-    reverse(head->next);
-}
-*/
 void mergeLists(Node *first, Node *second)
 {
     while (first->next != NULL)
@@ -308,16 +286,18 @@ void mergeLists(Node *first, Node *second)
         first = first->next;
     }
     first->next = second->next;
+    first->next->prev = first;
 }
 
 int main()
 {
     Node *head = (Node *)malloc(sizeof(Node));
-    // Node *head1 = (Node *)malloc(sizeof(Node));
+    Node *head1 = (Node *)malloc(sizeof(Node));
     //    head->val = NULL;
     head->next = NULL;
     head->prev = NULL;
-    // head1->next = NULL;
+    head1->prev = NULL;
+    head1->next = NULL;
 
     int n;
     cin >> n;
@@ -326,14 +306,14 @@ int main()
         int n;
         cin >> n;
         insertAtPos(head, n, 10);
-        // cin >> n;
-        // insertAtPos(head1, n, 10);
+        cin >> n;
+        insertAtPos(head1, n, 10);
     }
     cout << "before" << endl;
     traverse(head);
-    // traverse(head1);
+    traverse(head1);
 
-    reverse(head);
+    mergeLists(head, head1);
 
     cout << "after" << endl;
     traverse(head);
