@@ -6,6 +6,7 @@ struct Node
 {
     int val;
     Node *next;
+    Node *prev;
 };
 
 void insertAtPos(Node *head, int x, int i)
@@ -17,10 +18,30 @@ void insertAtPos(Node *head, int x, int i)
     }
     Node *next = (Node *)malloc(sizeof(Node));
     next->val = x;
+    next->prev = head;
     next->next = head->next;
+    if (head->next != NULL)
+        head->next->prev = next;
     head->next = next;
 
     return;
+}
+
+int size(Node *head)
+{
+    if (head->next == NULL)
+        return 0;
+    return size(head->next) + 1;
+}
+
+void insertAtFirst(Node *head, int x)
+{
+    insertAtPos(head, x, 0);
+}
+
+void insertAtLast(Node *head, int x)
+{
+    insertAtPos(head, x, size(head) + 1);
 }
 
 void deleteAtPos(Node *head, int i)
@@ -43,13 +64,22 @@ void deleteAtPos(Node *head, int i)
         return;
     }
 
-    Node *temp = (Node *)malloc(sizeof(Node));
-    temp->next = head->next->next;
-    free(head->next);
+    Node *temp = head->next;
+    temp->next->prev = head;
     head->next = temp->next;
     free(temp);
 
     return;
+}
+
+void deleteFirst(Node *head)
+{
+    deleteAtPos(head, 0);
+}
+
+void deleteLast(Node *head)
+{
+    deleteAtPos(head, size(head) - 1);
 }
 
 void traverse(Node *head)
@@ -63,6 +93,14 @@ void traverse(Node *head)
     }
     cout << head->val << endl;
 
+    // debug code
+    while (head->prev != NULL)
+    {
+        cout << head->val << " ";
+        head = head->prev;
+    }
+    cout << "" << endl;
+
     return;
 }
 
@@ -71,13 +109,13 @@ void search(Node *head, int x)
     int count = 0;
     while (head->next != NULL)
     {
-        count++;
         head = head->next;
         if (head->val == x)
         {
-            cout << count - 1 << endl;
+            cout << count << endl;
             return;
         }
+        count++;
     }
 
     cout << "not found" << endl;
@@ -112,13 +150,6 @@ void deleteList(Node *head)
     return;
 }
 
-int size(Node *head)
-{
-    if (head->next == NULL)
-        return 0;
-    return size(head->next) + 1;
-}
-
 void changeHeadPos(Node *head, int i)
 {
     Node *temp = (Node *)malloc(sizeof(Node));
@@ -126,8 +157,10 @@ void changeHeadPos(Node *head, int i)
     while (i > 0)
     {
         i--;
-        if (temp->next == NULL) // list not long enough, head not changed
+        if (temp->next == NULL)
+        { // list not long enough, head not changed
             return;
+        }
         temp = temp->next;
     }
     head->next = temp->next;
@@ -142,18 +175,23 @@ void sort(Node *head)
         return;
     Node *first = (Node *)malloc(sizeof(Node));
     first->next = head->next;
+    head->next->prev = first;
+    first->prev = NULL;
     // int firstSize = listSize - listSize / 2;
     Node *second = (Node *)malloc(sizeof(Node));
-    second->next = head->next;
+    second->next = first->next;
+    second->prev = NULL;
     changeHeadPos(second, listSize / 2);
-    Node *temp = (Node *)malloc(sizeof(Node));
-    changeHeadPos(temp, listSize / 2 - 1);
-    temp->next->next = NULL;
+    second->next->prev->next = NULL;
+    second->next->prev = second;
 
-    // debug code
-    traverse(first);
-    traverse(second);
-    traverse(temp);
+    /*    // debug code
+        cout << "first" << endl;
+        traverse(first);
+        cout << "second" << endl;
+        traverse(second);
+        cout << "temp" << endl;
+        traverse(temp); */
 
     sort(first);
     sort(second);
@@ -165,12 +203,16 @@ void sort(Node *head)
             if (second->next->next == NULL)
             {
                 head->next = second->next;
+                head->next->prev = head;
                 second->next->next = first->next;
+                first->next->prev = second->next;
                 break;
             }
             head->next = second->next;
             second->next = second->next->next;
+            second->next->prev = second;
             head->next->next = NULL;
+            head->next->prev = head;
             head = head->next;
         }
         else
@@ -178,77 +220,104 @@ void sort(Node *head)
             if (first->next->next == NULL)
             {
                 head->next = first->next;
+                head->next->prev = head;
                 first->next->next = second->next;
+                second->next->prev = first->next;
                 break;
             }
             head->next = first->next;
             first->next = first->next->next;
+            first->next->prev = first;
             head->next->next = NULL;
+            head->next->prev = head;
             head = head->next;
         }
     }
+
+    free(first);
+    free(second);
+
+    return;
+}
+
+void reverseMain(Node *head, Node *last)
+{
+    if (head->next == NULL)
+    {
+        last->next = head;
+        head->next = head->prev;
+        head->prev = nullptr;
+        return;
+    }
+
+    reverseMain(head->next, last);
+
+    // switch previous and next
+    last->prev = last->next->next; // last->prev used as temp
+    last->next->next = last->next->prev;
+    last->next->prev = last->prev;
+    last->prev = nullptr;
+    last->next = last->next->next;
 
     return;
 }
 
 void reverse(Node *head)
 {
-    if (head->next == NULL)
+    if (head->next == NULL || head->next->next == nullptr)
+        return;
+
+    Node *last = (Node *)malloc(sizeof(Node));
+    last->next = nullptr;
+    last->prev = nullptr;
+
+    reverseMain(head->next, last);
+
+    if (last->next == head)
     {
-        cerr << "list is empty" << endl;
+        free(last);
         return;
     }
-    Node *prev = (Node *)malloc(sizeof(Node));
-    prev = head->next;
-    if (prev->next == NULL)
-    { // only one element
-        return;
-    }
-    Node *curr = (Node *)malloc(sizeof(Node));
-    curr = prev->next;
-    if (curr->next == NULL)
-    { // only two elements
-        curr->next = head->next;
-        head->next = prev->next;
-        prev->next = NULL;
-        return;
-    }
-    Node *next = (Node *)malloc(sizeof(Node));
-    next = curr->next;
+    head->next->next = nullptr;
+    last->next->prev = head;
+    last->next->prev->next = last->next;
+    // head->next = last->next;
+    // if (head->next != nullptr)
+    // head->next->prev = head;
 
-    curr->next = prev;
-    head->next = curr;
-    prev->next = NULL;
-    prev = curr;
-    curr = next;
-    if (next->next != NULL)
-        next = next->next;
-
-    while (next->next != NULL)
-    {
-        curr->next = prev;
-        head->next = curr;
-        prev = curr;
-        curr = next;
-        next = next->next;
-    }
-
-    curr->next = prev;
-    if (curr != next)
-        next->next = curr;
-    head->next = next;
-
+    free(last);
     return;
 }
+/*
+void reverse(Node *head)
+{
+    if (head->next == nullptr || head->next->next == nullptr)
+        return;
 
-void mergeLists() {}
-void createList() {}
+    Node *temp = head->next->next;
+    head->next->next = head->next->prev;
+    head->next->prev = temp;
+
+    reverse(head->next);
+}
+*/
+void mergeLists(Node *first, Node *second)
+{
+    while (first->next != NULL)
+    {
+        first = first->next;
+    }
+    first->next = second->next;
+}
 
 int main()
 {
     Node *head = (Node *)malloc(sizeof(Node));
+    // Node *head1 = (Node *)malloc(sizeof(Node));
     //    head->val = NULL;
     head->next = NULL;
+    head->prev = NULL;
+    // head1->next = NULL;
 
     int n;
     cin >> n;
@@ -257,12 +326,17 @@ int main()
         int n;
         cin >> n;
         insertAtPos(head, n, 10);
+        // cin >> n;
+        // insertAtPos(head1, n, 10);
     }
+    cout << "before" << endl;
     traverse(head);
+    // traverse(head1);
 
-    sort(head);
+    reverse(head);
 
-    // traverse(head);
+    cout << "after" << endl;
+    traverse(head);
 
     return 0;
 }

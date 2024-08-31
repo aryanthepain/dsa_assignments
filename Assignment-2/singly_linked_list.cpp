@@ -214,6 +214,10 @@ void sort(Node *head)
         }
     }
 
+    free(first);
+    free(second);
+    free(temp);
+
     return;
 }
 
@@ -279,10 +283,10 @@ void mergeLists(Node *first, Node *second)
 int main()
 {
     Node *head = (Node *)malloc(sizeof(Node));
-    Node *head1 = (Node *)malloc(sizeof(Node));
+    // Node *head1 = (Node *)malloc(sizeof(Node));
     //    head->val = NULL;
     head->next = NULL;
-    head1->next = NULL;
+    // head1->next = NULL;
 
     int n;
     cin >> n;
@@ -291,14 +295,15 @@ int main()
         int n;
         cin >> n;
         insertAtPos(head, n, 10);
-        cin >> n;
-        insertAtPos(head1, n, 10);
+        // cin >> n;
+        // insertAtPos(head1, n, 10);
     }
     cout << "before" << endl;
     traverse(head);
-    traverse(head1);
+    // traverse(head1);
 
-    mergeLists(head, head1);
+    deleteAtPos(head, 3);
+    // mergeLists(head, head1);
 
     cout << "after" << endl;
     traverse(head);
