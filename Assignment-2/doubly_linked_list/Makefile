@@ -8,7 +8,7 @@ CXX = g++
 CXXFLAGS = -Iinclude -Wall -Wextra -pedantic
 
 # target name
-TARGET = hi
+TARGET = doubly_linked_list
 SRC = $(TARGET).cpp
 OBJ = $(TARGET).o
 
