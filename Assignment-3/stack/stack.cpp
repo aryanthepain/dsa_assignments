@@ -12,17 +12,15 @@ void pop(Node *head)
 
 int getTop(Node *head)
 {
-    getPos(head, 0);
+    return getPos(head, 0);
 }
 
 bool isEmpty(Node *head)
 {
-    if (head->next)
-        return false;
-    return true;
+    if (head->next == NULL)
+        return true;
+    return false;
 }
-
-int size(Node *head);
 
 void printStack(Node *head)
 {
@@ -90,8 +88,8 @@ int main()
         }
         case 3:
         {
-            cout << "Top element:" << endl;
-            getTop(head);
+            cout << "Top element: ";
+            cout << getTop(head) << endl;
             break;
         }
         case 4:
@@ -104,7 +102,7 @@ int main()
         }
         case 5:
         {
-            cout << "The current size is:" << size(head) << endl;
+            cout << "The current size is: " << size(head) << endl;
             break;
         }
         case 6:
