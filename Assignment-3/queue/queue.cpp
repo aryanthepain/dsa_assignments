@@ -1,14 +1,14 @@
 // author: Aryanthepain
 #include "queue.h"
 
-void push(Node *head, int x)
+void push(Node *last, int x)
 {
-    insertAtLast(head, x);
+    insertAtLast(last, x);
 }
 
-void pop(Node *head)
+void pop(Node *head, Node *last)
 {
-    deleteFirst(head);
+    deleteFirst(head, last);
 }
 
 int getTop(Node *head)
@@ -23,12 +23,12 @@ bool isEmpty(Node *head)
     return false;
 }
 
-void printQueue(Node *head)
+void printQueue(Node *head, Node *last)
 {
     while (!isEmpty(head))
     {
         cout << getTop(head) << " ";
-        pop(head);
+        pop(head, last);
     }
     cout << " " << endl;
 
@@ -56,6 +56,8 @@ int main()
     cout << "Functions on queue" << endl;
     Node *head = (Node *)malloc(sizeof(Node));
     head->next = NULL;
+    Node *last = (Node *)malloc(sizeof(Node));
+    last->next = head;
 
     while (true)
     {
@@ -78,12 +80,12 @@ int main()
             cout << "Input element: " << endl;
             int n;
             cin >> n;
-            push(head, n);
+            push(last, n);
             break;
         }
         case 2:
         {
-            pop(head);
+            pop(head, last);
             cout << "deleting first element" << endl;
             break;
         }
@@ -109,7 +111,7 @@ int main()
         case 6:
         {
             cout << "Queue:" << endl;
-            printQueue(head);
+            printQueue(head, last);
             break;
         }
         default:

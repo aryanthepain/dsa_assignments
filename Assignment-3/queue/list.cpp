@@ -23,9 +23,15 @@ int size(Node *head)
     return size(head->next) + 1;
 }
 
-void insertAtLast(Node *head, int x)
+void insertAtLast(Node *last, int x)
 {
-    insertAtPos(head, x, size(head) + 1);
+    Node *next = (Node *)malloc(sizeof(Node));
+    next->val = x;
+    next->next = nullptr;
+    last->next->next = next;
+    last->next = next;
+
+    return;
 }
 
 void deleteAtPos(Node *head, int i)
@@ -58,9 +64,15 @@ void deleteAtPos(Node *head, int i)
     return;
 }
 
-void deleteFirst(Node *head)
+void deleteFirst(Node *head, Node *last)
 {
     deleteAtPos(head, 0);
+    if (head->next == nullptr)
+    {
+        last->next = head;
+    }
+
+    return;
 }
 
 void traverse(Node *head)

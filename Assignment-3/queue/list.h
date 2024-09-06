@@ -14,11 +14,11 @@ void insertAtPos(Node *head, int x, int i);
 
 int size(Node *head);
 
-void insertAtLast(Node *head, int x);
+void insertAtLast(Node *last, int x);
 
 void deleteAtPos(Node *head, int i);
 
-void deleteFirst(Node *head);
+void deleteFirst(Node *head, Node *last);
 
 void traverse(Node *head);
 
