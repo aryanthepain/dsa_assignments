@@ -1,6 +1,7 @@
 // author: Aryanthepain
 #include <bits/stdc++.h>
 #include "queue.h"
+#include "stack.h"
 using namespace std;
 
 void push(Node *head, Node *head1, Node *last, Node *last1, int x)
@@ -51,6 +52,7 @@ int menu()
     return n;
 }
 
+/*
 int main()
 {
     cout << "Functions on stack" << endl;
@@ -130,4 +132,4 @@ int main()
     }
 
     return 0;
-}
+}*/

@@ -51,7 +51,6 @@ int menu()
     return n;
 }
 
-// comment out main while calculating time
 int main()
 {
     cout << "Functions on queue" << endl;

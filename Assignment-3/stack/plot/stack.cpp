@@ -1,36 +1,35 @@
-// author: Aryanthepain
-#include <bits/stdc++.h>
-#include "queue.h"
-using namespace std;
+#include "stack.h"
 
-void push(Node *head, Node *head1, Node *last, Node *last1, int x)
+void push(Node *head, int x)
+{
+    insertAtFirst(head, x);
+}
+
+void pop(Node *head)
+{
+    deleteFirst(head);
+}
+
+int getTop(Node *head)
+{
+    return getPos(head, 0);
+}
+
+bool isEmpty(Node *head)
+{
+    if (head->next == NULL)
+        return true;
+    return false;
+}
+
+void printStack(Node *head)
 {
     while (!isEmpty(head))
     {
-        enqueue(last1, getTop(head));
-        dequeue(head, last);
+        cout << getTop(head) << " ";
+        pop(head);
     }
-
-    enqueue(last, x);
-
-    while (!isEmpty(head1))
-    {
-        enqueue(last, getTop(head1));
-        dequeue(head1, last1);
-    }
-
-    return;
-}
-
-void pop(Node *head, Node *last)
-{
-    dequeue(head, last);
-    return;
-}
-
-void printStack(Node *head, Node *last)
-{
-    printQueue(head, last);
+    cout << " " << endl;
 
     return;
 }
@@ -51,17 +50,12 @@ int menu()
     return n;
 }
 
+/*
 int main()
 {
     cout << "Functions on stack" << endl;
     Node *head = (Node *)malloc(sizeof(Node));
     head->next = NULL;
-    Node *last = (Node *)malloc(sizeof(Node));
-    last->next = head;
-    Node *head1 = (Node *)malloc(sizeof(Node));
-    head1->next = NULL;
-    Node *last1 = (Node *)malloc(sizeof(Node));
-    last1->next = head1;
 
     while (true)
     {
@@ -74,11 +68,6 @@ int main()
                 deleteList(head);
                 free(head);
             }
-            if (head1)
-            {
-                deleteList(head1);
-                free(head1);
-            }
 
             return 0;
         }
@@ -89,12 +78,12 @@ int main()
             cout << "Input element:" << endl;
             int n;
             cin >> n;
-            push(head, head1, last, last1, n);
+            push(head, n);
             break;
         }
         case 2:
         {
-            pop(head, last);
+            pop(head);
             cout << "deleting first element" << endl;
             break;
         }
@@ -120,7 +109,7 @@ int main()
         case 6:
         {
             cout << "Stack:" << endl;
-            printStack(head, last);
+            printStack(head);
             break;
         }
         default:
@@ -130,4 +119,4 @@ int main()
     }
 
     return 0;
-}
+}*/

@@ -1,40 +1,62 @@
 // author: Aryanthepain
-#include <bits/stdc++.h>
 #include "queue.h"
-using namespace std;
 
-void push(Node *head, Node *head1, Node *last, Node *last1, int x)
+void enqueue(Node *last, int x)
+{
+    Node *newNode = new Node;
+    newNode->val = x;
+    newNode->next = nullptr;
+
+    if (last->next)
+    {
+        last->next->next = newNode;
+    }
+    last->next = newNode;
+
+    return;
+}
+
+void dequeue(Node *head, Node *last)
+{
+    if (head->next == nullptr)
+    {
+        return;
+    }
+    Node *temp = head->next;
+    head->next = head->next->next;
+    if (head->next == nullptr)
+    {
+        last->next = head;
+    }
+    free(temp);
+
+    return;
+}
+
+int getTop(Node *head)
+{
+    if (head->next)
+        return head->next->val;
+    return -1;
+}
+
+bool isEmpty(Node *head)
+{
+    return (head->next == nullptr);
+}
+
+void printQueue(Node *head, Node *last)
 {
     while (!isEmpty(head))
     {
-        enqueue(last1, getTop(head));
+        cout << getTop(head) << " ";
         dequeue(head, last);
     }
-
-    enqueue(last, x);
-
-    while (!isEmpty(head1))
-    {
-        enqueue(last, getTop(head1));
-        dequeue(head1, last1);
-    }
+    cout << endl;
 
     return;
 }
-
-void pop(Node *head, Node *last)
-{
-    dequeue(head, last);
-    return;
-}
-
-void printStack(Node *head, Node *last)
-{
-    printQueue(head, last);
-
-    return;
-}
-
+/*
 int menu()
 {
     cout << "Press the number corresponding to the function you want to execute(-1 to exit)" << endl;
@@ -43,7 +65,7 @@ int menu()
     cout << "3. Get Top element" << endl;
     cout << "4. isEmpty" << endl;
     cout << "5. Size" << endl;
-    cout << "6. Print stack(delete Stack)" << endl;
+    cout << "6. Print queue(delete queue)" << endl;
 
     int n;
     cin >> n;
@@ -53,15 +75,11 @@ int menu()
 
 int main()
 {
-    cout << "Functions on stack" << endl;
+    cout << "Functions on queue" << endl;
     Node *head = (Node *)malloc(sizeof(Node));
     head->next = NULL;
     Node *last = (Node *)malloc(sizeof(Node));
     last->next = head;
-    Node *head1 = (Node *)malloc(sizeof(Node));
-    head1->next = NULL;
-    Node *last1 = (Node *)malloc(sizeof(Node));
-    last1->next = head1;
 
     while (true)
     {
@@ -74,11 +92,6 @@ int main()
                 deleteList(head);
                 free(head);
             }
-            if (head1)
-            {
-                deleteList(head1);
-                free(head1);
-            }
 
             return 0;
         }
@@ -86,10 +99,10 @@ int main()
         {
         case 1:
         {
-            cout << "Input element:" << endl;
+            cout << "Input element: " << endl;
             int n;
             cin >> n;
-            push(head, head1, last, last1, n);
+            enqueue(last, n);
             break;
         }
         case 2:
@@ -119,8 +132,8 @@ int main()
         }
         case 6:
         {
-            cout << "Stack:" << endl;
-            printStack(head, last);
+            cout << "Queue:" << endl;
+            printQueue(head, last);
             break;
         }
         default:
@@ -131,3 +144,4 @@ int main()
 
     return 0;
 }
+*/
