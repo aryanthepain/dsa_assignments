@@ -1,36 +1,36 @@
 // author: Aryanthepain
+#include <bits/stdc++.h>
 #include "queue.h"
+using namespace std;
 
-void enqueue(Node *last, int x)
-{
-    insertAtLast(last, x);
-}
-
-void dequeue(Node *head, Node *last)
-{
-    deleteFirst(head, last);
-}
-
-int getTop(Node *head)
-{
-    return getPos(head, 0);
-}
-
-bool isEmpty(Node *head)
-{
-    if (head->next == NULL)
-        return true;
-    return false;
-}
-
-void printQueue(Node *head, Node *last)
+void push(Node *head, Node *head1, Node *last, Node *last1, int x)
 {
     while (!isEmpty(head))
     {
-        cout << getTop(head) << " ";
+        enqueue(last1, getTop(head));
         dequeue(head, last);
     }
-    cout << " " << endl;
+
+    enqueue(last, x);
+
+    while (!isEmpty(head1))
+    {
+        enqueue(last, getTop(head1));
+        dequeue(head1, last1);
+    }
+
+    return;
+}
+
+void pop(Node *head, Node *last)
+{
+    dequeue(head, last);
+    return;
+}
+
+void printStack(Node *head, Node *last)
+{
+    printQueue(head, last);
 
     return;
 }
@@ -43,7 +43,7 @@ int menu()
     cout << "3. Get Top element" << endl;
     cout << "4. isEmpty" << endl;
     cout << "5. Size" << endl;
-    cout << "6. Print queue(delete queue)" << endl;
+    cout << "6. Print stack(delete Stack)" << endl;
 
     int n;
     cin >> n;
@@ -53,11 +53,15 @@ int menu()
 
 int main()
 {
-    cout << "Functions on queue" << endl;
+    cout << "Functions on stack" << endl;
     Node *head = (Node *)malloc(sizeof(Node));
     head->next = NULL;
     Node *last = (Node *)malloc(sizeof(Node));
     last->next = head;
+    Node *head1 = (Node *)malloc(sizeof(Node));
+    head1->next = NULL;
+    Node *last1 = (Node *)malloc(sizeof(Node));
+    last1->next = head1;
 
     while (true)
     {
@@ -70,6 +74,11 @@ int main()
                 deleteList(head);
                 free(head);
             }
+            if (head1)
+            {
+                deleteList(head1);
+                free(head1);
+            }
 
             return 0;
         }
@@ -77,15 +86,15 @@ int main()
         {
         case 1:
         {
-            cout << "Input element: " << endl;
+            cout << "Input element:" << endl;
             int n;
             cin >> n;
-            enqueue(last, n);
+            push(head, head1, last, last1, n);
             break;
         }
         case 2:
         {
-            dequeue(head, last);
+            pop(head, last);
             cout << "deleting first element" << endl;
             break;
         }
@@ -110,8 +119,8 @@ int main()
         }
         case 6:
         {
-            cout << "Queue:" << endl;
-            printQueue(head, last);
+            cout << "Stack:" << endl;
+            printStack(head, last);
             break;
         }
         default:

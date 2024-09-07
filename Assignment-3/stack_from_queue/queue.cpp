@@ -3,24 +3,46 @@
 
 void enqueue(Node *last, int x)
 {
-    insertAtLast(last, x);
+    Node *newNode = new Node;
+    newNode->val = x;
+    newNode->next = nullptr;
+
+    if (last->next)
+    {
+        last->next->next = newNode;
+    }
+    last->next = newNode;
+
+    return;
 }
 
 void dequeue(Node *head, Node *last)
 {
-    deleteFirst(head, last);
+    if (head->next == nullptr)
+    {
+        return;
+    }
+    Node *temp = head->next;
+    head->next = head->next->next;
+    if (head->next == nullptr)
+    {
+        last->next = head;
+    }
+    free(temp);
+
+    return;
 }
 
 int getTop(Node *head)
 {
-    return getPos(head, 0);
+    if (head->next)
+        return head->next->val;
+    return -1;
 }
 
 bool isEmpty(Node *head)
 {
-    if (head->next == NULL)
-        return true;
-    return false;
+    return (head->next == nullptr);
 }
 
 void printQueue(Node *head, Node *last)
@@ -30,11 +52,11 @@ void printQueue(Node *head, Node *last)
         cout << getTop(head) << " ";
         dequeue(head, last);
     }
-    cout << " " << endl;
+    cout << endl;
 
     return;
 }
-
+/*
 int menu()
 {
     cout << "Press the number corresponding to the function you want to execute(-1 to exit)" << endl;
@@ -85,7 +107,7 @@ int main()
         }
         case 2:
         {
-            dequeue(head, last);
+            pop(head, last);
             cout << "deleting first element" << endl;
             break;
         }
@@ -122,3 +144,4 @@ int main()
 
     return 0;
 }
+*/
