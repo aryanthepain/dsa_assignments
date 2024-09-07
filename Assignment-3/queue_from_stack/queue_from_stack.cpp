@@ -105,7 +105,7 @@ int main()
         }
         case 4:
         {
-            cout << "The stack is ";
+            cout << "The queue is ";
             if (!isEmpty(head))
                 cout << "not ";
             cout << "empty" << endl;
