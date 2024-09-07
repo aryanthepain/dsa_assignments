@@ -50,6 +50,7 @@ int menu()
     return n;
 }
 
+/*
 int main()
 {
     cout << "Functions on stack" << endl;
@@ -118,4 +119,4 @@ int main()
     }
 
     return 0;
-}
+}*/

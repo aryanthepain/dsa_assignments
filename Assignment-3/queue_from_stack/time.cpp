@@ -78,7 +78,6 @@ int main()
     file.close();
 
     // plotting
-    //  int plot = system("gnuplot time.gp");
     if (system("gnuplot time.gp"))
     {
         cerr << "Error running gnuplot for time.gp" << endl;

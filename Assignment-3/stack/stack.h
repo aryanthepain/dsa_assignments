@@ -6,4 +6,8 @@
 #include "list.h"
 using namespace std;
 
+void push(Node *head, int x);
+
+void pop(Node *head);
+
 #endif
