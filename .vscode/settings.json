@@ -1,6 +1,7 @@
 {
-    "makefile.makefilePath": "Assignment-2\\Makefile",
-    "files.associations": {
-        "ostream": "cpp"
-    }
+  "makefile.makefilePath": "Assignment-2\\Makefile",
+  "files.associations": {
+    "ostream": "cpp",
+    "iostream": "cpp"
+  }
 }
