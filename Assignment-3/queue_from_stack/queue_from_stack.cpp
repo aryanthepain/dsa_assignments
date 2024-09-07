@@ -1,6 +1,7 @@
 // author: Aryanthepain
 #include <bits/stdc++.h>
 #include "stack.h"
+#include "queue.h"
 
 void enqueue(Node *head, Node *head1, int x)
 {
@@ -54,6 +55,7 @@ int menu()
     return n;
 }
 
+// comment out while calculating time
 int main()
 {
     cout << "Functions on queue" << endl;
