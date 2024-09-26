@@ -18,7 +18,7 @@ public:
 
     void deleteAtPos(int i);
 
-    void search(int x);
+    int search(int x);
 
     void update(int i, int x);
 

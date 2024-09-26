@@ -121,7 +121,7 @@ void sll::printList()
     return;
 }
 
-void sll::search(int x)
+int sll::search(int x)
 {
     int count = 0;
     Node *temp = head;
@@ -136,9 +136,7 @@ void sll::search(int x)
         temp = temp->next;
     }
 
-    cout << "not found" << endl;
-
-    return;
+    return count;
 }
 
 void sll::update(int pos, int val)
