@@ -11,13 +11,21 @@ private:
     sll arr[10];
 
 public:
-    void insert(int x);
+    ~hashMap()
+    {
+        for (int i = 0; i < 10; i++)
+        {
+            arr[i].deleteList();
+        }
+    }
 
-    void search(int x);
+    void insert(int x);
 
     void printAll();
 
     void deleteElement(int x);
+
+    int search(int x);
 };
 
 #endif

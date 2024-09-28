@@ -8,13 +8,14 @@ using namespace std;
 class sll
 {
 public:
+    int size = 0;
     Node *head = NULL;
 
     void insert(int x);
 
     void printList();
 
-    int size();
+    int listSize();
 
     void deleteAtPos(int i);
 
@@ -25,6 +26,10 @@ public:
     void deleteList();
 
     int getPos(int i);
+
+    bool isEmpty();
+
+    void deleteElement(int x);
 };
 
 #endif

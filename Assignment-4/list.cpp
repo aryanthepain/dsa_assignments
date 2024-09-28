@@ -19,7 +19,7 @@ void insertAtPos(Node *head, int x, int i)
 }
 */
 
-int sll::size()
+int sll::listSize()
 {
     Node *temp = head;
     int l = 0;
@@ -36,6 +36,7 @@ void sll::insert(int x)
     Node *newnode = new Node(x);
     Node *temp = head;
     head = newnode;
+    size++;
     if (temp != NULL)
     {
         head->next = temp;
@@ -45,7 +46,7 @@ void sll::insert(int x)
 /*
 void insertAtLast(Node *head, int x)
 {
-    insertAtPos(head, x, size(head) + 1);
+    insertAtPos(head, x, listSize(head) + 1);
 }
 */
 
@@ -59,10 +60,12 @@ void sll::deleteAtPos(int i)
         {
             delete head;
             head = nullptr;
+            size--;
             return;
         }
         delete head;
         head = temp;
+        size--;
         return;
     }
 
@@ -87,11 +90,13 @@ void sll::deleteAtPos(int i)
     {
         delete temp;
         prev->next = NULL;
+        size--;
         return;
     }
 
     prev->next = temp->next;
     delete temp;
+    size--;
 
     return;
 }
@@ -104,19 +109,25 @@ void deleteFirst(Node *head)
 
 void deleteLast(Node *head)
 {
-    deleteAtPos(head, size(head) - 1);
+    deleteAtPos(head, listSize(head) - 1);
 }
 */
 
 void sll::printList()
 {
+    if (!head)
+    {
+        return;
+    }
+
     Node *temp = head;
-    while (temp->next != NULL)
+
+    while (temp)
     {
         cout << temp->val << " ";
         temp = temp->next;
     }
-    cout << temp->val << " ";
+    // cout << temp->val << " ";
 
     return;
 }
@@ -129,14 +140,20 @@ int sll::search(int x)
     {
         if (temp->val == x)
         {
-            cout << count << endl;
-            return;
+            return count;
         }
         count++;
         temp = temp->next;
     }
 
-    return count;
+    return -1;
+}
+
+bool sll::isEmpty()
+{
+    if (head)
+        return false;
+    return true;
 }
 
 void sll::update(int pos, int val)
@@ -175,6 +192,7 @@ void sll::deleteList()
         return;
     deleteListHelp(head);
     head = nullptr;
+    size = 0;
 
     return;
 }
@@ -200,7 +218,7 @@ void changeHeadPos(Node *head, int i)
 
 void sort(Node *head)
 {
-    int listSize = size(head);
+    int listSize = listSize(head);
     if (listSize == 1)
         return;
     Node *first = (Node *)malloc(sizeof(Node));
@@ -324,7 +342,7 @@ void mergeLists(Node *first, Node *second)
 
 int sll::getPos(int i)
 {
-    int n = size();
+    int n = listSize();
     Node *temp = head;
     if (i >= n)
         i = n - 1; // get last element
@@ -337,6 +355,41 @@ int sll::getPos(int i)
     return temp->val;
 }
 
+void sll::deleteElement(int x)
+{
+    if (!head)
+    {
+        return;
+    } // empty list
+
+    Node *temp = head->next;
+
+    // first element
+    if (head->val == x)
+    {
+        delete head;
+        head = temp;
+        size--;
+        return;
+    }
+
+    Node *prev = head;
+
+    while (temp)
+    {
+        if (temp->val == x)
+        {
+            prev->next = temp->next;
+            delete temp;
+            size--;
+            break;
+        }
+        temp = temp->next;
+        prev = prev->next;
+    }
+
+    return;
+}
 /*
 int main()
 {
@@ -510,7 +563,7 @@ int main()
         }
         case 12:
         {
-            cout << size(head) << endl;
+            cout << listSize(head) << endl;
             break;
         }
         default:
