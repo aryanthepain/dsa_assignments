@@ -104,7 +104,7 @@ int main()
         }
         case 4:
         {
-            cout << "Input element to search for" << endl;
+            cout << "Input element to search for:" << endl;
             int n;
             cin >> n;
             cout << hm.search(n) << endl;

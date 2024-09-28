@@ -7,7 +7,7 @@ CXXFLAGS = -Iinclude -Wall -Wextra -pedantic
 # Source and object files
 SOURCES = $(wildcard *.cpp)
 OBJECTS = $(patsubst %.cpp, %.o, $(SOURCES))
-OBJ_NAME = hash
+OBJ_NAME = heap
 
 # Default rule
 all: $(OBJ_NAME)
