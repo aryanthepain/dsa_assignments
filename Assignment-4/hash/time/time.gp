@@ -1,5 +1,5 @@
 set terminal pngcairo size 1000,1000
-set output 'hash_plot.png'
+set output 'hash_search_plot.png'
 
 set title 'Hash Performance Comparison'
 set ylabel 'Time (in micro sec) -->'

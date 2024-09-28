@@ -16,7 +16,7 @@ void timeMY(int n, vector<double> &time_vect)
     }
     for (int i = 0; i < n; ++i)
     {
-        hm.deleteElement(i);
+        hm.search(i);
     }
     auto end = high_resolution_clock::now();
 
@@ -37,7 +37,7 @@ void timeSTL(int n, vector<double> &time_vect)
     }
     for (int i = 0; i < n; ++i)
     {
-        m.erase(i);
+        m.find(i);
     }
     auto end = high_resolution_clock::now();
     duration<double, std::micro> duration = end - start;
