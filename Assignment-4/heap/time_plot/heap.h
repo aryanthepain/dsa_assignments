@@ -29,6 +29,11 @@ public:
         arr = new int[size];
     }
 
+    ~maxHeap()
+    {
+        delete[] arr;
+    }
+
     // functions
     void insert(int x);
     void deleteElement(int x);

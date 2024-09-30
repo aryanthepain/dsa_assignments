@@ -4,7 +4,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-class maxHeap
+class binaryTree
 {
 private:
     int *arr;
@@ -16,14 +16,21 @@ private:
     int left(int i);
     int right(int i);
 
-    void insertHelper(int x, int i);
-    void deleteHelper(int i);
     int getElementOnPos(int x);
+    void deleteHelper(int i);
 
 public:
     // constructor and deconstrutor
-    maxHeap(int size);
-    ~maxHeap();
+    binaryTree(int n)
+    {
+        maxSize = n;
+        size = 0;
+        arr = new int[size];
+    }
+    ~binaryTree()
+    {
+        delete[] arr;
+    }
 
     // functions
     void insert(int x);
@@ -31,19 +38,6 @@ public:
     void printAll();
     void printTree(int index = 0, int level = 0);
     int searchElement(int x);
-    int heapSize() { return size; }
 };
-
-maxHeap::maxHeap(int n)
-{
-    maxSize = n;
-    size = 0;
-    arr = new int[size];
-}
-
-maxHeap::~maxHeap()
-{
-    delete[] arr;
-}
 
 #endif
