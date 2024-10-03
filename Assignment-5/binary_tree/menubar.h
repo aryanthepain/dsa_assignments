@@ -13,6 +13,9 @@ int menu()
     cout << "3. Print all elements" << endl;
     cout << "4. Print elements as tree" << endl;
     cout << "5. Search element" << endl;
+    cout << "6. pre order traversal" << endl;
+    cout << "7. in order traversal" << endl;
+    cout << "8. post order traversal" << endl;
 
     int n;
     cin >> n;
@@ -73,6 +76,21 @@ int menuBar()
             int n;
             cin >> n;
             cout << h.searchElement(n) << endl;
+            break;
+        }
+        case 6:
+        {
+            h.preOrder();
+            break;
+        }
+        case 7:
+        {
+            h.inOrder();
+            break;
+        }
+        case 8:
+        {
+            h.postOrder();
             break;
         }
         default:

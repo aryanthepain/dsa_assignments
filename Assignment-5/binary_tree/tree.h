@@ -38,6 +38,9 @@ public:
     void printAll();
     void printTree(int index = 0, int level = 0);
     int searchElement(int x);
+    void preOrder(int i = 0);
+    void inOrder(int i = 0);
+    void postOrder(int i = 0);
 };
 
 #endif

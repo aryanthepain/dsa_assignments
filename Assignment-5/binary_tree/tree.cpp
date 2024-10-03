@@ -74,6 +74,12 @@ void binaryTree::deleteHelper(int i)
     {
         return;
     }
+    if (i == size - 1)
+    {
+        arr[i] = -1;
+        size--;
+        return;
+    }
 
     if (l < size && arr[l] >= 0)
     {
@@ -146,6 +152,62 @@ void binaryTree::printTree(int index, int level)
 
     // Print the left child recursively
     printTree(2 * index + 1, level + 1);
+}
+
+void binaryTree::preOrder(int i)
+{
+    if (i >= size || arr[i] < 0)
+    {
+        return;
+    }
+
+    cout << arr[i] << " ";
+    preOrder(left(i));
+    preOrder(right(i));
+
+    if (i == 0)
+    {
+        cout << endl;
+    }
+    return;
+}
+
+void binaryTree::inOrder(int i)
+{
+
+    if (i >= size || arr[i] < 0)
+    {
+        return;
+    }
+
+    inOrder(left(i));
+    cout << arr[i] << " ";
+    inOrder(right(i));
+
+    if (i == 0)
+    {
+        cout << endl;
+    }
+    return;
+}
+
+void binaryTree::postOrder(int i)
+{
+    if (i >= size || arr[i] < 0)
+    {
+        return;
+    }
+
+    postOrder(left(i));
+    postOrder(right(i));
+    cout << arr[i] << " ";
+
+    if (i == 0)
+    {
+        cout << endl;
+    }
+
+    return;
 }
 
 /*
