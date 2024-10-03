@@ -70,7 +70,29 @@ void binaryTree::deleteHelper(int i)
     int l = left(i);
     int r = right(i);
 
-    if (l < size && arr[])
+    if (l > size || (arr[l] < 0 && arr[r] < 0))
+    {
+        return;
+    }
+
+    if (l < size && arr[l] >= 0)
+    {
+        arr[i] = arr[l];
+        arr[l] = -1;
+        deleteHelper(l);
+        return;
+    }
+    if (r < size && arr[r] >= 0)
+    {
+        arr[i] = arr[r];
+        arr[r] = -1;
+        deleteHelper(r);
+        return;
+    }
+
+    arr[i] = -1;
+
+    return;
 }
 void binaryTree::deleteElement(int x)
 {
