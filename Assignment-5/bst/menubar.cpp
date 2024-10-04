@@ -73,7 +73,6 @@ int menuBar()
         case 5:
         {
             t.preOrder();
-            cout << endl;
             break;
         }
         case 6:
