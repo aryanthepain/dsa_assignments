@@ -7,7 +7,7 @@ CXXFLAGS = -Iinclude -Wall -Wextra -pedantic
 # Source and object files
 SOURCES = $(wildcard *.cpp)
 OBJECTS = $(patsubst %.cpp, %.o, $(SOURCES))
-OBJ_NAME = tree
+OBJ_NAME = bst
 
 # Default rule
 all: $(OBJ_NAME)
