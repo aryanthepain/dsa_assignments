@@ -23,15 +23,15 @@ public:
     ~binarySearchTree()
     {
         if (large)
-            large->~binarySearchTree();
+            delete large;
         if (small)
-            small->~binarySearchTree();
+            delete small;
 
-        delete large;
-        delete small;
         large = nullptr;
         small = nullptr;
         val = -1;
+
+        delete this;
     }
 
     // functions
