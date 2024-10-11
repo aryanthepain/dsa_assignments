@@ -35,15 +35,7 @@ bool isNumber(char b)
 
 bool isOperator(char b)
 {
-    for (int i = 0; i < 4; i++)
-    {
-        if (operators[i] == b)
-        {
-            return true;
-        }
-    }
-
-    return false;
+    return (b == '+' || b == '-' || b == '*' || b == '/');
 }
 
 bool isOpenBracket(char b)
@@ -336,7 +328,7 @@ vector<char> infixToPostfix(vector<char> infix)
         if (infix[i] == ' ')
             continue;
 
-        cerr << "Invalid token used. Valid tokens are digits 0-9 and operators- +, -, *, /" << endl;
+        cerr << "Invalid token used. Valid tokens are digits 0-9 and operators- +, -, *, /, (, and )" << endl;
     }
 
     while (!opStack.empty())
