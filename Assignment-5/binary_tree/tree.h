@@ -1,6 +1,6 @@
 // author: Aryanthepain
-#ifndef HEAP_H
-#define HEAP_H
+#ifndef TREE_H
+#define TREE_H
 #include <bits/stdc++.h>
 using namespace std;
 

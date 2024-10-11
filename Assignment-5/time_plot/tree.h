@@ -29,7 +29,6 @@ public:
 
         large = nullptr;
         small = nullptr;
-        val = -1;
 
         delete this;
     }
