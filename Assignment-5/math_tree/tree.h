@@ -34,8 +34,6 @@ class mathTree
 private:
     mathTreeNode *ptr;
     mathTreeNode *curr;
-    stack<mathTreeNode *> opStack;
-    stack<char> numberStack;
 
 public:
     mathTree(string n);

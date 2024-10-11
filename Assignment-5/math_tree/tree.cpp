@@ -380,6 +380,30 @@ vector<char> infixToPostfix(vector<char> infix)
     return postfix;
 }
 
+mathTreeNode *build_tree(vector<char> expression)
+{
+    stack<mathTreeNode *> treeStack;
+
+    for (int i = 0; i < expression.size(); i++)
+    {
+        if (isNumber(expression[i]))
+        {
+            treeStack.push(new mathTreeNode(expression[i]));
+            continue;
+        }
+
+        // in postfix, token can be number or operator and nothing else
+        mathTreeNode *newNode = new mathTreeNode(expression[i]);
+        newNode->right = treeStack.top();
+        treeStack.pop();
+        newNode->left = treeStack.top();
+        treeStack.pop();
+        treeStack.push(newNode);
+    }
+
+    return treeStack.top();
+}
+
 mathTree::mathTree(string n)
 {
     vector<char> infix;
@@ -390,6 +414,8 @@ mathTree::mathTree(string n)
     }
 
     vector<char> postfix = infixToPostfix(infix);
+
+    this->ptr = build_tree(postfix);
 }
 
 mathTree::~mathTree()
@@ -409,36 +435,10 @@ int main()
 {
     string n;
     cin >> n;
-    // cout << n << endl;
-    vector<char> infix;
 
-    for (int i = 0; i < n.size(); i++)
-    {
-        infix.push_back(n[i]);
-    }
+    mathTree tree(n);
 
-    vector<char> tokens = infixToPostfix(infix);
-
-    for (int i = 0; i < tokens.size(); i++)
-    {
-        cout << tokens[i];
-    }
-    cout << endl;
-    // for (int i = 0; i < n.size(); i++)
-    // {
-    //     tokens.push_back(n[i]);
-    // }
-
-    // h.printAll();
-    // cout << "----------------" << endl;
-    // h.printTree();
-    // int b;
-    // cin >> b;
-    // h.deleteElement(b);
-
-    // h.printAll();
-    // cout << "----------------" << endl;
-    // printTree(h.arr, h.size);
+    tree.printTree();
 
     return 0;
 }
