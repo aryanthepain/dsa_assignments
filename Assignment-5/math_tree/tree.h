@@ -15,13 +15,13 @@ public:
     char val;
     mathTreeNode *right;
     mathTreeNode *left;
-    mathTreeNode(char x = '.');
+    mathTreeNode(char x);
     ~mathTreeNode();
 
     // functions
-    // void insertOp(char b, char next, stack<char> &numstack, stack<char> &opstack, mathTreeNode *&current, mathTreeNode *&root);
-    void insert(int x);
     void printTree(int level = 0);
+    // void insertOp(char b, char next, stack<char> &numstack, stack<char> &opstack, mathTreeNode *&current, mathTreeNode *&root);
+    // void insert(int x);
     // void deleteElement(int x);
     // bool searchElement(int x);
     // void preOrder();
@@ -33,7 +33,6 @@ class mathTree
 {
 private:
     mathTreeNode *ptr;
-    mathTreeNode *curr;
 
 public:
     mathTree(string n);

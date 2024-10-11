@@ -55,38 +55,6 @@ bool isCloseBracket(char b)
     return (b == ')');
 }
 
-void mathTreeNode::insert(int x)
-{
-    if (x == val)
-    {
-        return;
-    }
-    else if (x > val)
-    {
-        if (right)
-        {
-            right->insert(x);
-        }
-        else
-        {
-            right = new mathTreeNode(x);
-        }
-    }
-    else
-    {
-        if (left)
-        {
-            left->insert(x);
-        }
-        else
-        {
-            left = new mathTreeNode(x);
-        }
-    }
-
-    return;
-}
-
 void mathTreeNode::printTree(int level)
 {
 
@@ -300,8 +268,7 @@ void mathTreeNode::postOrder()
 
     return;
 }
-*/
-
+//
 // void mathTreeNode::insertOp(char b, char next, stack<char> &numstack, stack<char> &opstack, mathTreeNode *&current, mathTreeNode *&root)
 // {
 //     val = b;
@@ -313,6 +280,7 @@ void mathTreeNode::postOrder()
 //         right = new mathTreeNode
 //     }
 // }
+*/
 
 int determinePriority(char curr)
 {
@@ -430,7 +398,7 @@ void mathTree::printTree()
     return;
 }
 
-// /*
+/*
 int main()
 {
     string n;
@@ -442,4 +410,4 @@ int main()
 
     return 0;
 }
-// */
+*/
