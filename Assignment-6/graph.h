@@ -33,6 +33,8 @@ public:
 
     void printMatrix();
     void connectedComponents();
+
+    int outputSize() { return size; };
 };
 
 #endif

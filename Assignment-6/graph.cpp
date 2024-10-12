@@ -98,6 +98,8 @@ void graph::printNeighbours(int x)
             cout << i << " ";
         }
     }
+
+    cout << endl;
 }
 
 void graph::dfsHelper(int x, vector<bool> &visited)
