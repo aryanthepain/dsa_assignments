@@ -17,7 +17,7 @@ private:
 
 public:
     graph(int n);
-    // no need for destructor as we are using vectors
+    ~graph();
 
     // functions
     void addEdge(int first, int second, int weight);
@@ -36,6 +36,13 @@ public:
     void connectedComponents();
 
     int outputSize() { return size; };
+
+    // shortest path algorithms
+    void dijkstra(int a, int b);
+    void bellmanFord(int a);
+    void floydWarshall();
+
+    void generateRandomGraph();
 };
 
 #endif

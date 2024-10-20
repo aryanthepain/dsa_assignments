@@ -13,6 +13,12 @@ graph::graph(int n)
     }
 }
 
+graph::~graph()
+{
+    adj_mat.clear();
+    size = 0;
+}
+
 bool graph::outsideBounds(int x)
 {
     return (x >= size || x < 0);
@@ -79,11 +85,11 @@ void graph::printMatrix()
         {
             if (adj_mat[i][j] == INF)
             {
-                cout << "i" << endl;
+                cout << "i" << " ";
             }
             else
             {
-                cout << adj_mat[i][j] << endl;
+                cout << adj_mat[i][j] << " ";
             }
         }
         cout << endl;
@@ -205,6 +211,25 @@ void graph::connectedComponents()
     }
 }
 
+void graph::generateRandomGraph()
+{
+    srand(time(0)); // Seed for random number generation
+
+    int numEdges = rand() % size + size;
+
+    for (int i = 0; i < numEdges; ++i)
+    {
+        int u = rand() % size;
+        int v = rand() % size;
+        int weight = rand() % 8 + 1; // Weights between 1 and 9
+
+        if (u != v)
+        {
+            addEdge(u, v, weight);
+        }
+    }
+}
+
 /*
 int main()
 {
@@ -213,10 +238,7 @@ int main()
     cin >> n;
     graph hi(n);
 
-    for (int i = 0; i < n * 2; i++)
-    {
-        hi.addEdge(rand() % n, rand() % n);
-    }
+    // hi.generateRandomGraph();
 
     hi.printMatrix();
 
@@ -230,19 +252,42 @@ int main()
             hi.printMatrix();
             continue;
         }
+        if (me == 0)
+        {
+            int m, n, w;
+            cin >> m >> n >> w;
+            hi.addEdge(m, n, w);
+            continue;
+        }
         if (me == -1)
         {
             break;
         }
 
-        cout << "Node:" << endl;
-        int i, j;
-        cin >> i;
-        // cin >> j;
+        // cout << "Node:" << endl;
+        // int i, j;
+        // cin >> i;
+        // // cin >> j;
 
-        hi.deleteNode(i);
+        if (me == 2)
+        {
+            cout << "Input nodes to check shortest distance between: " << endl;
+            int m, n;
+            cin >> m >> n;
+            hi.dijkstra(m, n);
+        }
+        if (me == 3)
+        {
+            cout << "Input source node:" << endl;
+            int m;
+            cin >> m;
+            hi.bellmanFord(m);
+        }
+        if (me == 4)
+        {
+            cout << "____________________________" << endl;
+            hi.floydWarshall();
+        }
     }
-
-    hi.connectedComponents();
 }
 */
