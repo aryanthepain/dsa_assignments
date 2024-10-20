@@ -227,6 +227,10 @@ void graph::generateRandomGraph()
         {
             addEdge(u, v, weight);
         }
+        else
+        {
+            i--;
+        }
     }
 }
 

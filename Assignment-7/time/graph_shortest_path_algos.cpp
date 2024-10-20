@@ -55,24 +55,26 @@ void graph::dijkstra(int src, int dest)
         return;
     }
 
-    // Output the distance from source to destination
-    cout << "Distance from node " << src << " to node " << dest << " is " << dist[dest] << endl;
+    // output not required for time
+    /*
+        // Output the distance from source to destination
+        cout << "Distance from node " << src << " to node " << dest << " is " << dist[dest] << endl;
 
-    // Output the path from source to destination
-    vector<int> path;
-    for (int v = dest; v != -1; v = parent[v])
-    {
-        path.push_back(v);
-    }
-    reverse(path.begin(), path.end());
+        // Output the path from source to destination
+        vector<int> path;
+        for (int v = dest; v != -1; v = parent[v])
+        {
+            path.push_back(v);
+        }
+        reverse(path.begin(), path.end());
 
-    cout << "Path: ";
-    for (int v : path)
-    {
-        cout << v << " ";
-    }
-    cout << endl;
-
+        cout << "Path: ";
+        for (int v : path)
+        {
+            cout << v << " ";
+        }
+        cout << endl;
+    */
     return;
 }
 
@@ -124,20 +126,22 @@ void graph::bellmanFord(int src)
         }
     }
 
-    // Output the distances from the source to each node
-    cout << "Distances from node " << src << ":" << endl;
-    for (int i = 0; i < size; ++i)
-    {
-        if (dist[i] == INF)
+    // output not required for time
+    /*
+        // Output the distances from the source to each node
+        cout << "Distances from node " << src << ":" << endl;
+        for (int i = 0; i < size; ++i)
         {
-            cout << i << ": I" << endl;
+            if (dist[i] == INF)
+            {
+                cout << i << ": I" << endl;
+            }
+            else
+            {
+                cout << i << ": " << dist[i] << endl;
+            }
         }
-        else
-        {
-            cout << i << ": " << dist[i] << endl;
-        }
-    }
-
+    */
     return;
 }
 
@@ -158,24 +162,25 @@ void graph::floydWarshall()
             }
         }
     }
-
-    // Output the shortest distances between all pairs of nodes
-    cout << "Shortest distances between every pair of nodes:" << endl;
-    for (int i = 0; i < size; ++i)
-    {
-        for (int j = 0; j < size; ++j)
+    // output not required for time
+    /*
+        // Output the shortest distances between all pairs of nodes
+        cout << "Shortest distances between every pair of nodes:" << endl;
+        for (int i = 0; i < size; ++i)
         {
-            if (dist[i][j] == INF)
+            for (int j = 0; j < size; ++j)
             {
-                cout << "I ";
+                if (dist[i][j] == INF)
+                {
+                    cout << "I ";
+                }
+                else
+                {
+                    cout << dist[i][j] << " ";
+                }
             }
-            else
-            {
-                cout << dist[i][j] << " ";
-            }
+            cout << endl;
         }
-        cout << endl;
-    }
-
+    */
     return;
 }
