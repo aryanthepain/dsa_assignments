@@ -16,5 +16,6 @@ void printArr(int8_t *arr, ll n);
 void bubble_sort(int8_t *arr, ll n);
 void selection_sort(int8_t *arr, ll n);
 void insertion_sort(int8_t *arr, ll n);
+void bucket_sort(int8_t *arr, ll n);
 
 #endif

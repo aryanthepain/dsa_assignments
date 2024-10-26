@@ -3,13 +3,13 @@
 
 int main()
 {
-    ll n = 100000;
+    ll n = 10000;
     int8_t *arr = new int8_t[n];
-    // printArr(arr, n);
+    printArr(arr, n);
     cout << "hello" << endl;
 
-    insertion_sort(arr, n);
-    // printArr(arr, n);
+    bucket_sort(arr, n);
+    printArr(arr, n);
 
     delete[] arr;
 }
