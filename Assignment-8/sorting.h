@@ -14,5 +14,7 @@ void printArr(int8_t *arr, ll n);
 
 // sorting functions
 int8_t *bubble_sort(int8_t *arr, ll n);
+int8_t *selection_sort(int8_t *arr, ll n);
+int8_t *insertion_sort(int8_t *arr, ll n);
 
 #endif
