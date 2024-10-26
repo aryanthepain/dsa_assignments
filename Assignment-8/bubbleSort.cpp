@@ -1,7 +1,7 @@
 // author: Aryanthepain
 #include "sorting.h"
 
-int8_t *bubble_sort(int8_t *arr, ll n)
+void bubble_sort(int8_t *arr, ll n)
 {
     bool sorted = false;
 
@@ -18,5 +18,5 @@ int8_t *bubble_sort(int8_t *arr, ll n)
         }
     }
 
-    return arr;
+    return;
 }

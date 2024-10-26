@@ -8,6 +8,8 @@ int main()
     // printArr(arr, n);
     cout << "hello" << endl;
 
-    selection_sort(arr, n);
+    insertion_sort(arr, n);
     // printArr(arr, n);
+
+    delete[] arr;
 }

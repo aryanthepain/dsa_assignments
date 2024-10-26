@@ -16,7 +16,7 @@ ll find_min_index(int8_t *arr, ll start, ll size)
     return min;
 }
 
-int8_t *selection_sort(int8_t *arr, ll n)
+void selection_sort(int8_t *arr, ll n)
 {
     for (ll i = 0; i < n; i++)
     {
@@ -24,5 +24,5 @@ int8_t *selection_sort(int8_t *arr, ll n)
         swap(arr[i], arr[min_index]);
     }
 
-    return arr;
+    return;
 }
