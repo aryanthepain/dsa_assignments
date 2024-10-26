@@ -16,6 +16,6 @@ void assignArray(int8_t *arr, ll n)
 {
     for (ll i = 0; i < n; i++)
     {
-        arr[i] = rand() % MAXIMUM;
+        arr[i] = rand() % (MAXIMUM + 1);
     }
 }
