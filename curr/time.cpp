@@ -18,6 +18,7 @@ void measureAndCompareSorts(ll sizes[], int numSizes)
         int8_t *copy = new int8_t[n];
 
         file << n << ",";
+        cout << n << ",";
         file.flush();
         // Measure Insertion Sort
         assignArray(arr, n);
@@ -28,6 +29,7 @@ void measureAndCompareSorts(ll sizes[], int numSizes)
         auto end = high_resolution_clock::now();
         auto duration = duration_cast<microseconds>(end - start).count();
         file << duration << ",";
+        cout << duration << ",";
         file.flush();
 
         // Measure Bubble Sort
@@ -39,6 +41,7 @@ void measureAndCompareSorts(ll sizes[], int numSizes)
         end = high_resolution_clock::now();
         duration = duration_cast<microseconds>(end - start).count();
         file << duration << ",";
+        cout << duration << ",";
         file.flush();
 
         // Measure Selection Sort
@@ -50,6 +53,7 @@ void measureAndCompareSorts(ll sizes[], int numSizes)
         end = high_resolution_clock::now();
         duration = duration_cast<microseconds>(end - start).count();
         file << duration << ",";
+        cout << duration << ",";
         file.flush();
 
         // Measure Quick Sort
@@ -61,6 +65,7 @@ void measureAndCompareSorts(ll sizes[], int numSizes)
         end = high_resolution_clock::now();
         duration = duration_cast<microseconds>(end - start).count();
         file << duration << ",";
+        cout << duration << ",";
         file.flush();
 
         // Measure Merge Sort
@@ -72,6 +77,7 @@ void measureAndCompareSorts(ll sizes[], int numSizes)
         end = high_resolution_clock::now();
         duration = duration_cast<microseconds>(end - start).count();
         file << duration << ",";
+        cout << duration << ",";
         file.flush();
 
         // Measure Radix Sort
@@ -83,6 +89,7 @@ void measureAndCompareSorts(ll sizes[], int numSizes)
         end = high_resolution_clock::now();
         duration = duration_cast<microseconds>(end - start).count();
         file << duration << ",";
+        cout << duration << ",";
         file.flush();
 
         // Measure Bucket Sort
@@ -94,6 +101,7 @@ void measureAndCompareSorts(ll sizes[], int numSizes)
         end = high_resolution_clock::now();
         duration = duration_cast<microseconds>(end - start).count();
         file << duration << ",";
+        cout << duration << ",";
         file.flush();
 
         // Measure STL Sort
@@ -105,6 +113,7 @@ void measureAndCompareSorts(ll sizes[], int numSizes)
         end = high_resolution_clock::now();
         duration = duration_cast<microseconds>(end - start).count();
         file << duration << "\n";
+        cout << duration << "\n";
         file.flush();
 
         // Clean up
@@ -118,8 +127,8 @@ void measureAndCompareSorts(ll sizes[], int numSizes)
 int main()
 {
     cout << "hello" << endl;
-    // ll sizes[] = {10, 100, 1000, 10000, 100000};
-    ll sizes[] = {10, 1000, 1000000, 1000000000};
+    ll sizes[] = {10, 100, 1000, 10000, 100000, 1000000, 10000000, 100000000, 1000000000};
+//    ll sizes[] = {10, 1000, 1000000, 1000000000};
     int numSizes = sizeof(sizes) / sizeof(sizes[0]);
     measureAndCompareSorts(sizes, numSizes);
     return 0;
