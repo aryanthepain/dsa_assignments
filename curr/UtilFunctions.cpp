@@ -19,3 +19,11 @@ void assignArray(int8_t *arr, ll n)
         arr[i] = rand() % (MAXIMUM + 1);
     }
 }
+
+void copy_array(int8_t *src, int8_t *dest, ll n)
+{
+    for (ll i = 0; i < n; ++i)
+    {
+        dest[i] = src[i];
+    }
+}
