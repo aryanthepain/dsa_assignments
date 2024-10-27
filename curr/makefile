@@ -8,7 +8,7 @@ CXXFLAGS = -Iinclude -Wall -Wextra -pedantic
 OBJDIR = obj
 SOURCES = $(wildcard *.cpp)
 OBJECTS = $(patsubst %.cpp, $(OBJDIR)/%.o, $(SOURCES))
-OBJ_NAME = sort
+OBJ_NAME = $(OBJDIR)/sort
 
 # Default rule
 all: $(OBJ_NAME)
@@ -46,7 +46,7 @@ push:
 
 # Clean up generated files
 clean:
-	rm -rf $(OBJECTS) $(OBJ_NAME)
+	rm -rf $(OBJDIR)
 	@echo "Cleaned up generated files."
 
 # Phony targets
