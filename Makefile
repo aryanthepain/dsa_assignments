@@ -18,9 +18,6 @@ SOURCES = $(wildcard *.cpp)
 OBJECTS = $(patsubst %.cpp, %.o, $(SOURCES))
 OBJ_NAME = run
 
-change: 
-	cd Assignment-8
-
 # Default rule
 all: $(OBJ_NAME)
 	@echo "Build complete. Executable: $(OBJ_NAME)"
