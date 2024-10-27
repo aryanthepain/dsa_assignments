@@ -5,8 +5,9 @@ CC = g++
 CXXFLAGS = -Iinclude -Wall -Wextra -pedantic
 
 # Source and object files
+OBJDIR = obj
 SOURCES = $(wildcard *.cpp)
-OBJECTS = $(patsubst %.cpp, %.o, $(SOURCES))
+OBJECTS = $(patsubst %.cpp, $(OBJDIR)/%.o, $(SOURCES))
 OBJ_NAME = sort
 
 # Default rule
@@ -22,9 +23,14 @@ $(OBJ_NAME): $(OBJECTS)
 	@echo "Linking complete. Created executable: $@"
 
 # Compile source files to object files
-%.o: %.cpp
+$(OBJDIR)/%.o: %.cpp | $(OBJDIR)
 	$(CC) $(CXXFLAGS) -c $< -o $@
 	@echo "Compiled: $< -> $@"
+
+# Create the object directory if it doesn't exist
+$(OBJDIR):
+	mkdir -p $(OBJDIR)
+	@echo "Created directory: $(OBJDIR)"
 
 #to add to github repo
 #make git m="message" b="your-branch(main by defualt)"
