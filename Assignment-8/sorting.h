@@ -18,5 +18,6 @@ void selection_sort(int8_t *arr, ll n);
 void insertion_sort(int8_t *arr, ll n);
 void bucket_sort(int8_t *arr, ll n);
 void radix_sort(int8_t *arr, ll n);
+void merge_sort(int8_t *arr, ll r, ll l = 0);
 
 #endif
