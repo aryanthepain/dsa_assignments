@@ -16,7 +16,7 @@ CXXFLAGS = -Iinclude -Wall -Wextra -pedantic
 # Source and object files
 SOURCES = $(wildcard *.cpp)
 OBJECTS = $(patsubst %.cpp, %.o, $(SOURCES))
-OBJ_NAME = queue
+OBJ_NAME = run
 
 # Default rule
 all: $(OBJ_NAME)
