@@ -9,7 +9,7 @@ int main()
     printArr(arr, n);
     cout << "hello" << endl;
 
-    merge_sort(arr, n);
+    quick_sort(arr, n);
     printArr(arr, n);
 
     delete[] arr;
