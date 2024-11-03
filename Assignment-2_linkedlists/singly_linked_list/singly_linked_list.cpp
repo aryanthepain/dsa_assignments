@@ -169,24 +169,18 @@ void sort(Node *head)
     int listSize = size(head);
     if (listSize == 1)
         return;
+
     Node *first = (Node *)malloc(sizeof(Node));
     first->next = head->next;
-    // int firstSize = listSize - listSize / 2;
     Node *second = (Node *)malloc(sizeof(Node));
     second->next = head->next;
+
     changeHeadPos(second, listSize / 2);
+
     Node *temp = (Node *)malloc(sizeof(Node));
     temp->next = head->next;
     changeHeadPos(temp, listSize / 2 - 1);
     temp->next->next = NULL;
-
-    /*    // debug code
-        cout << "first" << endl;
-        traverse(first);
-        cout << "second" << endl;
-        traverse(second);
-        cout << "temp" << endl;
-        traverse(temp); */
 
     sort(first);
     sort(second);
@@ -205,20 +199,19 @@ void sort(Node *head)
             second->next = second->next->next;
             head->next->next = NULL;
             head = head->next;
+            continue;
         }
-        else
+
+        if (first->next->next == NULL)
         {
-            if (first->next->next == NULL)
-            {
-                head->next = first->next;
-                first->next->next = second->next;
-                break;
-            }
             head->next = first->next;
-            first->next = first->next->next;
-            head->next->next = NULL;
-            head = head->next;
+            first->next->next = second->next;
+            break;
         }
+        head->next = first->next;
+        first->next = first->next->next;
+        head->next->next = NULL;
+        head = head->next;
     }
 
     free(first);

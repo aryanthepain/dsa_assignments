@@ -5,24 +5,32 @@ using ll = long long;
 
 int count_digits(ll num)
 {
-    int count = 0;
+    int no_of_digits = 0;
     while (num != 0)
     {
-        count++;
+        no_of_digits++;
         num /= 10;
     }
-    return count;
+    return no_of_digits;
+}
+
+ll reverse_number(ll x)
+{
+    ll y = 0;
+
+    while (x != 0)
+    {
+        y = y * 10 + x % 10;
+        x = x / 10;
+    }
+
+    return y;
 }
 
 bool check_palindrome(ll num)
 {
-    ll palindrome = 0;
-    ll temp = num;
-    while (temp != 0)
-    {
-        palindrome = palindrome * 10 + temp % 10;
-        temp = temp / 10;
-    }
+    ll palindrome = reverse_number(num);
+
     if (num == palindrome)
     {
         return true;
@@ -54,39 +62,44 @@ int main()
             return 0;
 
         int digits = count_digits(number); // number of digits of the input number
-        int count = 0;                     // number of palindromes
+        int palindrome_count = 0;
 
         cout << "palindromes:" << endl;
 
-        vector<ll> numbers;
+        vector<ll> palindromes;
         for (ll i = 3; i <= digits; i++)
         {
             ll temp = number;
+
+            // check if temp is a palindrome 'i' digits at a time
             while (temp >= 100)
             {
-                ll check = temp % (power(10, i));
-                if (check_palindrome(check))
+                ll curr = temp % (power(10, i));
+                if (check_palindrome(curr))
                 {
-                    int found = 0;
-                    for (int i = 0; i < numbers.size(); i++)
+                    bool palindrome_already_found = false;
+
+                    // check if palindrome already exists
+                    for (int i = 0; i < palindromes.size(); i++)
                     {
-                        if (check == numbers[i])
+                        if (curr == palindromes[i])
                         {
-                            found = 1;
+                            palindrome_already_found = true;
                             break;
                         }
                     }
-                    if (found == 0)
+
+                    if (!palindrome_already_found)
                     {
-                        numbers.push_back(check);
-                        cout << check << endl;
-                        count++;
+                        palindromes.push_back(curr);
+                        cout << curr << endl;
+                        palindrome_count++;
                     }
                 }
                 temp /= 10;
             }
         }
-        cout << "No of palindromes:" << count << endl;
+        cout << "No of palindromes:" << palindrome_count << endl;
         cout << "==============" << endl;
     }
 

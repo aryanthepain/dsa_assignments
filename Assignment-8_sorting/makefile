@@ -15,7 +15,7 @@ all: $(OBJ_NAME)
 	@echo "Build complete. Executable: $(OBJ_NAME)"
 
 run: all
-	time ./${OBJ_NAME}
+	time ./$(OBJ_NAME)
 
 # Link the executable
 $(OBJ_NAME): $(OBJECTS)
@@ -32,11 +32,11 @@ $(OBJDIR):
 	mkdir -p $(OBJDIR)
 	@echo "Created directory: $(OBJDIR)"
 
-#to add to github repo
-#make git m="message" b="your-branch(main by defualt)"
+# to add to github repo
+# make git m="message" b="your-branch(main by defualt)"
 b?=main
-m?=$(shell date '+%Y-%m-%d %H:%M:%S')
-git: 
+m?=$(shell date '+%d-%m-%Y %H:%M:%S')
+git:
 	git add .
 	git commit -m "$(m)"
 	git push origin $(b)
@@ -49,5 +49,5 @@ clean:
 	rm -rf $(OBJDIR)
 	@echo "Cleaned up generated files."
 
-# Phony targets
-.PHONY: all clean
+# Phony targets.
+.PHONY: all run git push clean

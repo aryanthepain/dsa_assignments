@@ -1,5 +1,7 @@
 // author:Aryanthepain
 #include <bits/stdc++.h>
+#define MAX 20
+#define random_number rand() % MAX
 using namespace std;
 using ll = long long;
 
@@ -11,23 +13,22 @@ void print_array(int x, int y, int *arr)
         {
             cout << *(arr + i * y + j) << " ";
         }
-        cout << "" << endl;
+        cout << endl;
     }
     return;
 }
 
 int main()
 {
-    int max = 20; // maximum value the random values can take
-    cout << "To multiply two randomnly generated matrices(we will be taking max number to be " << max << " for not having too high numbers)" << endl;
+    cout << "To multiply two randomnly generated matrices(we will be taking max number to be " << MAX << " for not having too high numbers)" << endl;
 
-    int m = rand() % max + 1;
-    int n = rand() % max + 1;
-    int p = rand() % max + 1;
+    int m = random_number + 1;
+    int n = random_number + 1;
+    int p = random_number + 1;
 
     // defining arrays
-    int first[m][n];
-    int second[n][p];
+    int a_matrix[m][n];
+    int b_matrix[n][p];
     int product[m][p];
 
     // generate first matrix
@@ -35,7 +36,7 @@ int main()
     {
         for (int j = 0; j < n; j++)
         {
-            first[i][j] = rand() % max;
+            a_matrix[i][j] = random_number;
         }
     }
 
@@ -44,7 +45,7 @@ int main()
     {
         for (int j = 0; j < p; j++)
         {
-            second[i][j] = rand() % max;
+            b_matrix[i][j] = random_number;
         }
     }
 
@@ -56,7 +57,7 @@ int main()
             int temp = 0;
             for (int k = 0; k < n; k++)
             {
-                temp += first[i][k] * second[k][j];
+                temp += a_matrix[i][k] * b_matrix[k][j];
             }
             product[i][j] = temp;
         }
@@ -65,10 +66,10 @@ int main()
     // printing matrices
     cout << "\nFirst matrix:(" << m << "*" << n << ")"
          << endl;
-    print_array(m, n, (int *)first);
+    print_array(m, n, (int *)a_matrix);
     cout << "\nSecond matrix:(" << n << "*" << p << ")"
          << endl;
-    print_array(n, p, (int *)second);
+    print_array(n, p, (int *)b_matrix);
     cout << "\nProduct matrix:(" << m << "*" << p << ")" << endl;
     print_array(m, p, (int *)product);
 

@@ -9,8 +9,8 @@ CXX = g++
 CXXFLAGS = -Iinclude -Wall -Wextra -pedantic
 
 # target name
-TARGET1 = 230150003_1_aryan_gupta
-TARGET2 = 230150003_2_aryan_gupta
+TARGET1 = check_palindrome
+TARGET2 = matrix_multiplication
 
 SRC1 = $(TARGET1).cpp
 SRC2 = $(TARGET2).cpp
