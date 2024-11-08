@@ -1,0 +1,80 @@
+Array Creation and Manipulation:
+
+array(): create array
+zeros(): create array with all zeroes
+ones(): create array with all ones
+arange(): Create array with values in specified range.
+linspace(): Create array with equally spaced values.
+reshape(): Change array's shape without altering data.
+flatten(): Convert multi-dimensional array to 1D.
+concatenate(): Join multiple arrays along an axis.
+split(): Split array into multiple sub-arrays.
+
+Mathematical Operations:
+
+add(): Element-wise addition of arrays.
+subtract(): Element-wise subtraction of arrays.
+multiply(): Element-wise multiplication of arrays.
+divide(): Element-wise division of arrays.
+power(): Raise array elements to a power.
+dot(): Dot product of two arrays.
+sum(): Sum of array elements.
+mean(): Mean of array elements.
+std(): Standard deviation of array elements.
+var(): Variance of array elements.
+cumsum(): Cumulative sum of array elements.
+cumprod(): Cumulative product of array elements.
+sin(): Sine of array elements.
+cos(): Cosine of array elements.
+exp(): Exponential of array elements.
+log(): Natural logarithm of array elements.
+
+Linear Algebra:
+
+dot(): Dot product of two arrays.
+matmul(): Matrix multiplication of two arrays.
+transpose(): Transpose of an array (swap axes).
+inverse(): Inverse of a matrix.
+det(): Determinant of a matrix.
+eig(): Eigenvalues and eigenvectors of a matrix.
+
+Random Sampling:
+
+random.rand(): Generate array of random numbers from a uniform distribution.
+random.randint(): Generate random integers within a specified range.
+random.shuffle(): Shuffle the elements of an array randomly.
+random.choice(): Randomly select elements from an array with or without replacement.
+
+Pandas Functionalities:
+Data Structures:
+
+DataFrame: Two-dimensional labeled data structure with columns of potentially different types.
+
+DataFrame Operations:
+
+head(): Return the first n rows of the DataFrame.
+tail(): Return the last n rows of the DataFrame.
+shape: Return a tuple representing the dimensionality of the DataFrame.
+columns: Return the column labels of the DataFrame.
+index: Return the row labels of the DataFrame.
+describe(): Generate descriptive statistics for numeric columns.
+drop(): Remove rows or columns from the DataFrame.
+merge(): Merge DataFrame objects with a database-style join.
+concat(): Concatenate DataFrame objects along a particular axis.
+groupby(): Group DataFrame using a mapper or by series of columns.
+
+Data Selection and Indexing:
+
+.loc: Access a group of rows and columns by labels or a boolean array.
+.iloc: Access a group of rows and columns by integer position.
+at(): Access a single value for a row/column label pair.
+iat(): Access a single value for a row/column pair by integer position.
+
+Extra functions:
+
+read_csv: Read a comma-separated values (CSV) file into a DataFrame.
+copy: Create a copy of the DataFrame or Series.
+print: Display the content of the DataFrame or Series.
+median: Calculate the median of the DataFrame or Series.
+quartiles: Calculate the quartiles of the DataFrame or Series.
+is.na: Detect missing values in the DataFrame or Series.
