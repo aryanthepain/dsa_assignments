@@ -292,5 +292,119 @@ T Array<T>::iat(size_t index) const
     }
     return data[index]; // Access by index
 }
+
+// Calculate Quartiles
+template <>
+tuple<double, double, double> Array<double>::quartiles() const
+{
+    if (data.empty())
+    {
+        throw invalid_argument("Array is empty.");
+    }
+
+    // Sort the data to calculate quartiles
+    vector<double> sortedData = data; // Create a copy to sort
+    std::sort(sortedData.begin(), sortedData.end());
+
+    double Q1, Q2, Q3;
+
+    // Calculate Q2 (median)
+    size_t n = sortedData.size();
+    if (n % 2 == 0) // Even number of elements
+    {
+        Q2 = (sortedData[n / 2 - 1] + sortedData[n / 2]) / 2.0;
+    }
+    else // Odd number of elements
+    {
+        Q2 = sortedData[n / 2];
+    }
+
+    // Calculate Q1 (median of the first half)
+    vector<double> lowerHalf(sortedData.begin(), sortedData.begin() + n / 2);
+    if (lowerHalf.size() % 2 == 0) // Even number of elements
+    {
+        Q1 = (lowerHalf[lowerHalf.size() / 2 - 1] + lowerHalf[lowerHalf.size() / 2]) / 2.0;
+    }
+    else // Odd number of elements
+    {
+        Q1 = lowerHalf[lowerHalf.size() / 2];
+    }
+
+    // Calculate Q3 (median of the second half)
+    vector<double> upperHalf(sortedData.begin() + (n + 1) / 2, sortedData.end());
+    if (upperHalf.size() % 2 == 0) // Even number of elements
+    {
+        Q3 = (upperHalf[upperHalf.size() / 2 - 1] + upperHalf[upperHalf.size() / 2]) / 2.0;
+    }
+    else // Odd number of elements
+    {
+        Q3 = upperHalf[upperHalf.size() / 2];
+    }
+
+    return make_tuple(Q1, Q2, Q3);
+}
+
+// Sort the array in place
+template <typename T>
+void Array<T>::sort()
+{
+    std::sort(data.begin(), data.end());
+} // Calculate Quartiles
+template <>
+tuple<double, double, double> Array<double>::quartiles() const
+{
+    if (data.empty())
+    {
+        throw invalid_argument("Array is empty.");
+    }
+
+    // Sort the data to calculate quartiles
+    vector<double> sortedData = data; // Create a copy to sort
+    std::sort(sortedData.begin(), sortedData.end());
+
+    double Q1, Q2, Q3;
+
+    // Calculate Q2 (median)
+    size_t n = sortedData.size();
+    if (n % 2 == 0) // Even number of elements
+    {
+        Q2 = (sortedData[n / 2 - 1] + sortedData[n / 2]) / 2.0;
+    }
+    else // Odd number of elements
+    {
+        Q2 = sortedData[n / 2];
+    }
+
+    // Calculate Q1 (median of the first half)
+    vector<double> lowerHalf(sortedData.begin(), sortedData.begin() + n / 2);
+    if (lowerHalf.size() % 2 == 0) // Even number of elements
+    {
+        Q1 = (lowerHalf[lowerHalf.size() / 2 - 1] + lowerHalf[lowerHalf.size() / 2]) / 2.0;
+    }
+    else // Odd number of elements
+    {
+        Q1 = lowerHalf[lowerHalf.size() / 2];
+    }
+
+    // Calculate Q3 (median of the second half)
+    vector<double> upperHalf(sortedData.begin() + (n + 1) / 2, sortedData.end());
+    if (upperHalf.size() % 2 == 0) // Even number of elements
+    {
+        Q3 = (upperHalf[upperHalf.size() / 2 - 1] + upperHalf[upperHalf.size() / 2]) / 2.0;
+    }
+    else // Odd number of elements
+    {
+        Q3 = upperHalf[upperHalf.size() / 2];
+    }
+
+    return make_tuple(Q1, Q2, Q3);
+}
+
+// Sort the array in place
+template <typename T>
+void Array<T>::sort()
+{
+    std::sort(data.begin(), data.end());
+}
 // Note: For string operations, you may want to implement specific functions as needed,
 // since mathematical operations like add, subtract, etc., do not apply to strings.

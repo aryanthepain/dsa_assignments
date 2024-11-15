@@ -34,13 +34,17 @@ public:
     double sum();
     double mean();
     double std();
-    double var();       // Variance
-    Array<T> cumsum();  // Cumulative sum
-    Array<T> cumprod(); // Cumulative product
-    Array<T> sin();     // Sine
-    Array<T> cos();     // Cosine
-    Array<T> exp();     // Exponential
-    Array<T> log();     // Natural logarithm
+    double var();                                    // Variance
+    Array<T> cumsum();                               // Cumulative sum
+    Array<T> cumprod();                              // Cumulative product
+    Array<T> sin();                                  // Sine
+    Array<T> cos();                                  // Cosine
+    Array<T> exp();                                  // Exponential
+    Array<T> log();                                  // Natural logarithm
+    tuple<double, double, double> quartiles() const; // Returns Q1, Q2, Q3 Quartiles
+
+    // Sort
+    void sort(); // Sorts the array in place
 
     // Random Sampling
     static Array<T> randomRand(size_t size);
