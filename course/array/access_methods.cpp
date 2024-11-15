@@ -1,4 +1,4 @@
-#include "include/Array.h"
+#include "../include/Array.h"
 
 // Subscript operator for read/write access
 template <typename T>

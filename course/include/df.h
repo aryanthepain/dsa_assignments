@@ -1,5 +1,5 @@
-#ifndef DATAFRAME_H
-#define DATAFRAME_H
+#ifndef DF_H
+#define DF_H
 
 #include <bits/stdc++.h>
 #include "Array.h"
@@ -21,8 +21,10 @@ public:
               const vector<string> &colNames,
               const vector<string> &rowLabels);
 
+    DataFrame(const string &csvFilePath);
+
     // Method to print the DataFrame
     void print() const;
 };
 
-#endif // DATAFRAME_H
+#endif // DF_H
