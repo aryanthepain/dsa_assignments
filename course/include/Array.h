@@ -18,19 +18,14 @@ public:
     static Array<T> arange(double start, double end, double step);
     static Array<T> linspace(double start, double end, size_t num);
 
+    // Access methods
+    T loc(size_t index) const; // Access by index
+
     // Print function
     void print() const;
-};
 
-// print functions
-template <typename T>
-void Array<T>::print() const
-{
-    for (const T &val : data)
-    {
-        cout << val << " ";
-    }
-    cout << endl;
-}
+    // Return the data
+    vector<T> getData() const;
+};
 
 #endif // ARRAY_H

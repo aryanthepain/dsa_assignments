@@ -1,61 +1,60 @@
-// author: Aryanthepain
-#include "include/testing.h"
+#include "include/testing.h" // Adjust the path as necessary
 
 int main()
 {
-    // Test with double
-    vector<double> darr = {1, 2, 3, 4, 5, 6};
-    Array<double> arrayFromDoubleVector(darr);
-    cout << "Array from double Vector: ";
-    arrayFromDoubleVector.print();
+    // Create an Array of doubles
+    Array<double> doubleArray(vector<double>{1.1, 2.2, 3.3, 4.4, 5.5});
 
-    // Test with int
-    vector<int> iarr = {1, 2, 3, 4, 5, 6};
-    Array<int> arrayFromIntVector(iarr);
-    cout << "Array from int Vector: ";
-    arrayFromIntVector.print();
+    // Test print() method for doubles
+    cout << "Double Array: ";
+    doubleArray.print(); // Should print: 1.1 2.2 3.3 4.4 5.5
 
-    // Test with string
-    vector<string> sarr = {"1", "2", "3", "4", "5", "6", "a", "b", "c"};
-    Array<string> arrayFromStringVector(sarr);
-    cout << "Array from string Vector: ";
-    arrayFromStringVector.print();
+    // Test loc() method for doubles
+    try
+    {
+        cout << "Accessing index 2 using loc (double): " << doubleArray.loc(2) << endl; // Should print 3.3
+        cout << "Accessing index 5 using loc (double): " << doubleArray.loc(5) << endl; // Should throw an exception
+    }
+    catch (const out_of_range &e)
+    {
+        cerr << "Error: " << e.what() << endl;
+    }
 
-    // Test with char
-    vector<char> carr = {'1', '2', '3', '4', '5', '6', 'a', 'b', 'c'};
-    Array<char> arrayFromCharVector(carr);
-    cout << "Array from char Vector: ";
-    arrayFromCharVector.print();
+    // Test getData() method for doubles
+    vector<double> doubleData = doubleArray.getData();
+    cout << "Data from getData (double): ";
+    for (const double &val : doubleData)
+    {
+        cout << val << " "; // Should print: 1.1 2.2 3.3 4.4 5.5
+    }
+    cout << endl;
 
-    // Create an array of zeros
-    Array<double> zerosArray = Array<double>::zeros(5);
-    cout << "Zeros Array: ";
-    zerosArray.print();
+    // Create an Array of strings
+    Array<string> stringArray(vector<string>{"one", "two", "three", "four", "five"});
 
-    // Create an array of ones
-    Array<double> onesArray = Array<double>::ones(5);
-    cout << "Ones Array: ";
-    onesArray.print();
+    // Test print() method for strings
+    cout << "String Array: ";
+    stringArray.print(); // Should print: one two three four five
 
-    // Create an array with arange
-    Array<double> rangeArray = Array<double>::arange(0.0, 5.0, 0.5);
-    cout << "Arange Array: ";
-    rangeArray.print();
+    // Test loc() method for strings
+    try
+    {
+        cout << "Accessing index 2 using loc (string): " << stringArray.loc(2) << endl; // Should print "three"
+        cout << "Accessing index 5 using loc (string): " << stringArray.loc(5) << endl; // Should throw an exception
+    }
+    catch (const out_of_range &e)
+    {
+        cerr << "Error: " << e.what() << endl;
+    }
 
-    // Create an array with linspace
-    Array<double> linspaceArray = Array<double>::linspace(0.0, 1.0, 5);
-    cout << "Linspace Array: ";
-    linspaceArray.print();
-
-    // Create an array of zeros
-    Array<string> szerosArray = Array<string>::zeros(5);
-    cout << "Zeros Array(string): ";
-    szerosArray.print();
-
-    // Create an array of ones
-    Array<string> sonesArray = Array<string>::ones(5);
-    cout << "Ones Array(string): ";
-    sonesArray.print();
+    // Test getData() method for strings
+    vector<string> stringData = stringArray.getData();
+    cout << "Data from getData (string): ";
+    for (const string &val : stringData)
+    {
+        cout << val << " "; // Should print: one two three four five
+    }
+    cout << endl;
 
     return 0;
 }
