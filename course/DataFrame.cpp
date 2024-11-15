@@ -1,13 +1,15 @@
 #include "DataFrame.h"
 
 // Constructor
-DataFrame::DataFrame(const vector<vector<double>> &inputData,
-                     const vector<string> &colLabels,
-                     const vector<string> &rowLabels)
+template <typename T>
+DataFrame<T>::DataFrame(const vector<vector<T>> &inputData,
+                        const vector<string> &colLabels,
+                        const vector<string> &rowLabels)
     : data(inputData), columns(colLabels), index(rowLabels) {}
 
 // Constructor to load from CSV
-DataFrame::DataFrame(const string &filename)
+template <typename T>
+DataFrame<T>::DataFrame(const string &filename)
 {
     ifstream file(filename);
     string line;
@@ -25,12 +27,23 @@ DataFrame::DataFrame(const string &filename)
         // Read data
         while (getline(file, line))
         {
-            vector<double> row;
+            vector<T> row;
             stringstream rowStream(line);
             string value;
             while (getline(rowStream, value, ','))
             {
-                row.push_back(stod(value));
+                if constexpr (is_same<T, double>::value)
+                {
+                    row.push_back(stod(value)); // Convert to double
+                }
+                else if constexpr (is_same<T, int>::value)
+                {
+                    row.push_back(stoi(value)); // Convert to int
+                }
+                else
+                {
+                    row.push_back(value); // For string or other types
+                }
             }
             data.push_back(row);
         }
@@ -39,7 +52,8 @@ DataFrame::DataFrame(const string &filename)
 }
 
 // Print the first n rows
-void DataFrame::head(size_t n)
+template <typename T>
+void DataFrame<T>::head(size_t n)
 {
     for (size_t i = 0; i < n && i < data.size(); ++i)
     {
@@ -52,9 +66,10 @@ void DataFrame::head(size_t n)
 }
 
 // Calculate the sum of a column
-double DataFrame::sum(size_t columnIndex)
+template <typename T>
+T DataFrame<T>::sum(size_t columnIndex)
 {
-    double total = 0;
+    T total = T(); // Initialize total to the default value of T
     for (const auto &row : data)
     {
         total += row[columnIndex];
@@ -63,28 +78,31 @@ double DataFrame::sum(size_t columnIndex)
 }
 
 // Calculate the mean of a column
-double DataFrame::mean(size_t columnIndex)
+template <typename T>
+double DataFrame<T>::mean(size_t columnIndex)
 {
-    return sum(columnIndex) / data.size();
+    return static_cast<double>(sum(columnIndex)) / data.size();
 }
 
 // Calculate the median of a column
-double DataFrame::median(size_t columnIndex)
+template <typename T>
+double DataFrame<T>::median(size_t columnIndex)
 {
-    vector<double> columnData;
+    vector<T> columnData;
     for (const auto &row : data)
     {
         columnData.push_back(row[columnIndex]);
     }
     sort(columnData.begin(), columnData.end());
     size_t mid = columnData.size() / 2;
-    return (columnData.size() % 2 == 0) ? (columnData[mid - 1] + columnData[mid]) / 2 : columnData[mid];
+    return (columnData.size() % 2 == 0) ? (static_cast<double>(columnData[mid - 1]) + static_cast<double>(columnData[mid])) / 2 : static_cast<double>(columnData[mid]);
 }
 
 // Filter rows based on a condition
-void DataFrame::filter(const string &columnName, double threshold)
+template <typename T>
+void DataFrame<T>::filter(const string &columnName, T threshold)
 {
-    size_t columnIndex = distance(columns.begin(), find(columns.begin(), columns.end(), columnName));
+    size_t columnIndex = find(columns.begin(), columns.end(), columnName) - columns.begin();
     for (const auto &row : data)
     {
         if (row[columnIndex] > threshold)
@@ -99,13 +117,15 @@ void DataFrame::filter(const string &columnName, double threshold)
 }
 
 // Print the DataFrame
-void DataFrame::print()
+template <typename T>
+void DataFrame<T>::print()
 {
     for (const auto &col : columns)
     {
         cout << setw(10) << col << " ";
     }
     cout << endl;
+
     for (const auto &row : data)
     {
         for (const auto &val : row)
@@ -115,3 +135,43 @@ void DataFrame::print()
         cout << endl;
     }
 }
+
+// Get the shape of the DataFrame
+template <typename T>
+pair<size_t, size_t> DataFrame<T>::shape()
+{
+    return {data.size(), columns.size()};
+}
+
+// Get the column names
+template <typename T>
+vector<string> DataFrame<T>::getColumns()
+{
+    return columns;
+}
+
+// Get the index (row labels)
+template <typename T>
+vector<string> DataFrame<T>::getIndex()
+{
+    return index;
+}
+
+// Describe the DataFrame (basic statistics)
+template <typename T>
+void DataFrame<T>::describe()
+{
+    for (size_t i = 0; i < columns.size(); ++i)
+    {
+        cout << "Column: " << columns[i] << endl;
+        cout << "Sum: " << sum(i) << endl;
+        cout << "Mean: " << mean(i) << endl;
+        cout << "Median: " << median(i) << endl;
+        cout << endl;
+    }
+}
+
+// Explicit template instantiation for common types
+template class DataFrame<int>;
+template class DataFrame<double>;
+template class DataFrame<string>;
