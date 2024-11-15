@@ -1,4 +1,4 @@
-#include "include/array.h"
+#include "include/Array.h"
 
 // Constructors
 Array Array::zeros(size_t size)

@@ -175,3 +175,203 @@ void DataFrame<T>::describe()
 template class DataFrame<int>;
 template class DataFrame<double>;
 template class DataFrame<string>;
+
+// Constructor for generic DataFrame
+template <typename T>
+DataFrame<T>::DataFrame(const vector<vector<T>> &inputData,
+                        const vector<string> &colLabels,
+                        const vector<string> &rowLabels)
+    : data(inputData), columns(colLabels), index(rowLabels) {}
+
+// Specialization constructor for Array
+DataFrame<Array>::DataFrame(const vector<vector<Array>> &inputData,
+                            const vector<string> &colLabels,
+                            const vector<string> &rowLabels)
+    : data(inputData), columns(colLabels), index(rowLabels) {}
+
+// Print the first n rows for Array DataFrame
+void DataFrame<Array>::head(size_t n)
+{
+    for (size_t i = 0; i < n && i < data.size(); ++i)
+    {
+        for (const auto &val : data[i])
+        {
+            val.print(); // Assuming Array has a print function
+        }
+        cout << endl;
+    }
+}
+
+// Calculate the sum of a column for Array DataFrame
+Array DataFrame<Array>::sum(size_t columnIndex)
+{
+    Array total = Array::zeros(data[0][columnIndex].getData().size());
+    for (const auto &row : data)
+    {
+        Array temp = row[columnIndex];
+        total = total.add(temp); // Assuming add method exists in Array
+    }
+    return total;
+}
+
+// Calculate the mean of a column for Array DataFrame
+double DataFrame<Array>::mean(size_t columnIndex)
+{
+    Array columnSum = sum(columnIndex);
+    return columnSum.mean(); // Assuming mean method exists in Array
+}
+
+// Print the DataFrame for Array DataFrame
+void DataFrame<Array>::print()
+{
+    for (const auto &col : columns)
+    {
+        cout << setw(10) << col << " ";
+    }
+    cout << endl;
+
+    for (const auto &row : data)
+    {
+        for (const auto &val : row)
+        {
+            val.print(); // Assuming Array has a print function
+        }
+        cout << endl;
+    }
+}
+
+// Other methods like tail, shape, getColumns, getIndex, describe can be implemented similarly.
+#include "DataFrame.h"
+
+// Constructor for generic DataFrame
+template <typename T>
+DataFrame<T>::DataFrame(const vector<vector<T>> &inputData,
+                        const vector<string> &colLabels,
+                        const vector<string> &rowLabels)
+    : data(inputData), columns(colLabels), index(rowLabels) {}
+
+// Specialization constructor for Array
+DataFrame<Array>::DataFrame(const vector<vector<Array>> &inputData,
+                            const vector<string> &colLabels,
+                            const vector<string> &rowLabels)
+    : data(inputData), columns(colLabels), index(rowLabels) {}
+
+// Print the first n rows for Array DataFrame
+void DataFrame<Array>::head(size_t n)
+{
+    for (size_t i = 0; i < n && i < data.size(); ++i)
+    {
+        for (const auto &val : data[i])
+        {
+            val.print(); // Assuming Array has a print function
+        }
+        cout << endl;
+    }
+}
+
+// Calculate the sum of a column for Array DataFrame
+Array DataFrame<Array>::sum(size_t columnIndex)
+{
+    Array total = Array::zeros(data[0][columnIndex].getData().size());
+    for (const auto &row : data)
+    {
+        Array temp = row[columnIndex];
+        total = total.add(temp); // Assuming add method exists in Array
+    }
+    return total;
+}
+
+// Calculate the mean of a column for Array DataFrame
+double DataFrame<Array>::mean(size_t columnIndex)
+{
+    Array columnSum = sum(columnIndex);
+    return columnSum.mean(); // Assuming mean method exists in Array
+}
+
+// Print the DataFrame for Array DataFrame
+void DataFrame<Array>::print()
+{
+    for (const auto &col : columns)
+    {
+        cout << setw(10) << col << " ";
+    }
+    cout << endl;
+
+    for (const auto &row : data)
+    {
+        for (const auto &val : row)
+        {
+            val.print(); // Assuming Array has a print function
+        }
+        cout << endl;
+    }
+}
+
+// Other methods like tail, shape, getColumns, getIndex, describe can be implemented similarly.
+#include "DataFrame.h"
+
+// Constructor for generic DataFrame
+template <typename T>
+DataFrame<T>::DataFrame(const vector<vector<T>> &inputData,
+                        const vector<string> &colLabels,
+                        const vector<string> &rowLabels)
+    : data(inputData), columns(colLabels), index(rowLabels) {}
+
+// Specialization constructor for Array
+DataFrame<Array>::DataFrame(const vector<vector<Array>> &inputData,
+                            const vector<string> &colLabels,
+                            const vector<string> &rowLabels)
+    : data(inputData), columns(colLabels), index(rowLabels) {}
+
+// Print the first n rows for Array DataFrame
+void DataFrame<Array>::head(size_t n)
+{
+    for (size_t i = 0; i < n && i < data.size(); ++i)
+    {
+        for (const auto &val : data[i])
+        {
+            val.print(); // Assuming Array has a print function
+        }
+        cout << endl;
+    }
+}
+
+// Calculate the sum of a column for Array DataFrame
+Array DataFrame<Array>::sum(size_t columnIndex)
+{
+    Array total = Array::zeros(data[0][columnIndex].getData().size());
+    for (const auto &row : data)
+    {
+        Array temp = row[columnIndex];
+        total = total.add(temp); // Assuming add method exists in Array
+    }
+    return total;
+}
+
+// Calculate the mean of a column for Array DataFrame
+double DataFrame<Array>::mean(size_t columnIndex)
+{
+    Array columnSum = sum(columnIndex);
+    return columnSum.mean(); // Assuming mean method exists in Array
+}
+
+// Print the DataFrame for Array DataFrame
+void DataFrame<Array>::print()
+{
+    for (const auto &col : columns)
+    {
+        cout << setw(10) << col << " ";
+    }
+    cout << endl;
+
+    for (const auto &row : data)
+    {
+        for (const auto &val : row)
+        {
+            val.print(); // Assuming Array has a print function
+        }
+        cout << endl;
+    }
+}
+
+// Other methods like tail, shape, getColumns, getIndex, describe can be implemented similarly.
