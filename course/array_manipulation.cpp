@@ -64,6 +64,35 @@ Array<T> Array<T>::sample(size_t sampleSize) const
     return Array<T>(sampleData);
 }
 
+// Slice the array
+template <typename T>
+Array<T> Array<T>::slice(size_t start, size_t end)
+{
+    if (start >= data.size() || end > data.size() || start > end)
+    {
+        throw out_of_range("Invalid slice indices.");
+    }
+    return Array<T>(vector<T>(data.begin() + start, data.begin() + end));
+}
+
+// Unique values
+template <typename T>
+Array<T> Array<T>::unique() const
+{
+    std::vector<T> uniqueData = data;                              // Create a copy
+    std::sort(uniqueData.begin(), uniqueData.end());               // Sort the data
+    auto last = std::unique(uniqueData.begin(), uniqueData.end()); // Remove duplicates
+    uniqueData.erase(last, uniqueData.end());                      // Erase the "removed" duplicates
+    return Array<T>(uniqueData);                                   // Return a new Array containing the unique values
+}
+
+// Count occurrences of a value
+template <typename T>
+size_t Array<T>::count(const T &value) const
+{
+    return std::count(data.begin(), data.end(), value);
+}
+
 // template instantiations
 template class Array<double>;
 template class Array<std::string>;
