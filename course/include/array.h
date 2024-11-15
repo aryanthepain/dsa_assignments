@@ -34,6 +34,13 @@ public:
     double sum();
     double mean();
     double std();
+    double var();       // Variance
+    Array<T> cumsum();  // Cumulative sum
+    Array<T> cumprod(); // Cumulative product
+    Array<T> sin();     // Sine
+    Array<T> cos();     // Cosine
+    Array<T> exp();     // Exponential
+    Array<T> log();     // Natural logarithm
 
     // Random Sampling
     static Array<T> randomRand(size_t size);
@@ -48,4 +55,4 @@ public:
     }
 };
 
-#endif
+#endif // ARRAY_H

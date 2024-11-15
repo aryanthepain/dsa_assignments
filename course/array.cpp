@@ -130,6 +130,77 @@ double Array<double>::std()
     return sqrt(accum / data.size());
 }
 
+// Variance
+template <>
+double Array<double>::var()
+{
+    double meanVal = mean();
+    double accum = 0.0;
+    for (double d : data)
+    {
+        accum += (d - meanVal) * (d - meanVal);
+    }
+    return accum / data.size();
+}
+
+// Cumulative Sum
+template <>
+Array<double> Array<double>::cumsum()
+{
+    vector<double> result(data.size());
+    result[0] = data[0];
+    for (size_t i = 1; i < data.size(); ++i)
+    {
+        result[i] = result[i - 1] + data[i];
+    }
+    return Array<double>(result);
+}
+
+// Cumulative Product
+template <>
+Array<double> Array<double>::cumprod()
+{
+    vector<double> result(data.size());
+    result[0] = data[0];
+    for (size_t i = 1; i < data.size(); ++i)
+    {
+        result[i] = result[i - 1] * data[i];
+    }
+    return Array<double>(result);
+}
+
+// Sine
+template <>
+Array<double> Array<double>::sin()
+{
+    return elementWiseOperation([](double a)
+                                { return std::sin(a); });
+}
+
+// Cosine
+template <>
+Array<double> Array<double>::cos()
+{
+    return elementWiseOperation([](double a)
+                                { return std::cos(a); });
+}
+
+// Exponential
+template <>
+Array<double> Array<double>::exp()
+{
+    return elementWiseOperation([](double a)
+                                { return std::exp(a); });
+}
+
+// Natural Logarithm
+template <>
+Array<double> Array<double>::log()
+{
+    return elementWiseOperation([](double a)
+                                { return std::log(a); });
+}
+
 // Random Sampling for double
 template <>
 Array<double> Array<double>::randomRand(size_t size)
