@@ -10,8 +10,9 @@ class Array
 private:
     vector<T> data;
 
-    Array<T> elementWiseOperation(const Array<T> &other, function<T(T, T)> op);
-    Array<T> elementWiseOperation(function<T(T)> op);
+    // Helper functions
+    Array<T> elementWiseOperation(const Array<T> &other, std::function<T(T, T)> op) const;
+    Array<T> elementWiseOperation(std::function<T(T)> op) const;
 
 public:
     // Constructors
@@ -36,6 +37,26 @@ public:
     Array<T> slice(size_t start, size_t end);                          // Slice the array
     Array<T> unique() const;                                           // Unique values
     size_t count(const T &value) const;                                // Count occurrences of a value
+
+    // Mathematical Operations for double
+    Array<double> add(const Array<double> &other) const;
+    Array<double> subtract(const Array<double> &other) const;
+    Array<double> multiply(const Array<double> &other) const;
+    Array<double> divide(const Array<double> &other) const;
+    Array<double> power(double exponent) const;
+    double sum() const;
+    double mean() const;
+    double std() const;
+    double var() const;                                   // Variance
+    Array<double> cumsum() const;                         // Cumulative sum
+    Array<double> cumprod() const;                        // Cumulative product
+    Array<double> sin() const;                            // Sine
+    Array<double> cos() const;                            // Cosine
+    Array<double> exp() const;                            // Exponential
+    Array<double> log() const;                            // Natural logarithm
+    std::tuple<double, double, double> quartiles() const; // Returns Q1, Q2, Q3 Quartiles
+    double max() const;                                   // Maximum value
+    double min() const;                                   // Minimum value
 };
 
 #endif // ARRAY_H
