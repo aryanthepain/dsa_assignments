@@ -28,6 +28,11 @@ sin(): Sine of array elements.
 cos(): Cosine of array elements.
 exp(): Exponential of array elements.
 log(): Natural logarithm of array elements.
+max(): Returns the maximum value among the elements in the array.
+min(): Returns the minimum value among the elements in the array.
+slice(): Returns a new array containing elements from the original array starting from start to end.
+unique(): Returns a new array containing only the unique values from the original array.
+count(): Counts and returns the number of occurrences of a specified value in the array.
 
 Linear Algebra:
 

@@ -42,6 +42,11 @@ public:
     Array<T> exp();                                  // Exponential
     Array<T> log();                                  // Natural logarithm
     tuple<double, double, double> quartiles() const; // Returns Q1, Q2, Q3 Quartiles
+    T max() const;                                   // Maximum value
+    T min() const;                                   // Minimum value
+    Array<T> slice(size_t start, size_t end);        // Slice the array
+    Array<T> unique() const;                         // Unique values
+    size_t count(const T &value) const;              // Count occurrences of a value
 
     // Sort
     void sort(); // Sorts the array in place

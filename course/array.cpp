@@ -406,5 +406,56 @@ void Array<T>::sort()
 {
     std::sort(data.begin(), data.end());
 }
+
+// Maximum value
+template <typename T>
+T Array<T>::max() const
+{
+    if (data.empty())
+    {
+        throw invalid_argument("Array is empty.");
+    }
+    return *max_element(data.begin(), data.end());
+}
+
+// Minimum value
+template <typename T>
+T Array<T>::min() const
+{
+    if (data.empty())
+    {
+        throw invalid_argument("Array is empty.");
+    }
+    return *min_element(data.begin(), data.end());
+}
+
+// Slice the array
+template <typename T>
+Array<T> Array<T>::slice(size_t start, size_t end)
+{
+    if (start >= data.size() || end > data.size() || start >= end)
+    {
+        throw out_of_range("Invalid slice indices.");
+    }
+    return Array<T>(vector<T>(data.begin() + start, data.begin() + end));
+}
+
+// Unique values
+template <typename T>
+Array<T> Array<T>::unique() const
+{
+    vector<T> uniqueData = data;                                                      // Create a copy
+    sort(uniqueData.begin(), uniqueData.end());                                       // Sort the data
+    uniqueData.erase(unique(uniqueData.begin(), uniqueData.end()), uniqueData.end()); // Remove duplicates
+    return Array<T>(uniqueData);
+}
+
+// Count occurrences of a value
+template <typename T>
+size_t Array<T>::count(const T &value) const
+{
+    return std::count(data.begin(), data.end(), value);
+}
+
 // Note: For string operations, you may want to implement specific functions as needed,
 // since mathematical operations like add, subtract, etc., do not apply to strings.
