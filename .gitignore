@@ -2,3 +2,6 @@
 *.exe
 obj
 obj/
+temp
+temp/
+temp.*
