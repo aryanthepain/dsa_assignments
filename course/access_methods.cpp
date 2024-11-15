@@ -1,5 +1,27 @@
 #include "include/Array.h"
 
+// Subscript operator for read/write access
+template <typename T>
+T &Array<T>::operator[](size_t index)
+{
+    if (index >= data.size())
+    {
+        throw out_of_range("Index out of bounds");
+    }
+    return data[index];
+}
+
+// Subscript operator for read-only access
+template <typename T>
+const T &Array<T>::operator[](size_t index) const
+{
+    if (index >= data.size())
+    {
+        throw out_of_range("Index out of bounds");
+    }
+    return data[index];
+}
+
 // print function
 template <typename T>
 void Array<T>::print() const
@@ -9,17 +31,6 @@ void Array<T>::print() const
         cout << val << " ";
     }
     cout << endl;
-}
-
-// Access by label (index)
-template <typename T>
-T Array<T>::loc(size_t index) const
-{
-    if (index >= data.size())
-    {
-        throw out_of_range("Index " + to_string(index) + " is out of bounds. Valid range is 0 to " + to_string(data.size() - 1) + ".");
-    }
-    return data[index]; // Access by index
 }
 
 // Return the data
