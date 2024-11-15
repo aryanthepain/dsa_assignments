@@ -86,3 +86,41 @@ print: Display the content of the DataFrame or Series.
 median: Calculate the median of the DataFrame or Series.
 quartiles: Calculate the quartiles of the DataFrame or Series.
 is.na: Detect missing values in the DataFrame or Series.
+
+New dataframe objects
+
+DataFrame: Initializes a DataFrame with provided data, column labels, and row labels.
+DataFrame: Constructs a DataFrame by loading data from a specified CSV file.
+head: Displays the first 'n' rows of the DataFrame.
+tail: Displays the last 'n' rows of the DataFrame.
+shape(): Returns the dimensions of the DataFrame as a pair (rows, columns).
+getColumns(): Retrieves a list of column names in the DataFrame.
+getIndex(): Returns the row index labels of the DataFrame.
+describe(): Provides summary statistics of the DataFrame's numerical columns.
+sum: Calculates and returns the sum of values in the specified column.
+mean: Computes and returns the average of values in the specified column.
+median: Calculates and returns the median value of the specified column
+filter: Filters the DataFrame based on a threshold value in a specified column.
+print(): Outputs the entire DataFrame to the console.
+copy: Create a copy of the DataFrame or Series.
+is.na: Detect missing values in the DataFrame or Series.
+median: Calculate the median of the DataFrame or Series.
+quartiles: Calculate the quartiles of the DataFrame or Series.
+drop(): Remove rows or columns from the DataFrame.
+merge(): Merge DataFrame objects with a database-style join.
+concat(): Concatenate DataFrame objects along a particular axis.
+iloc: Allows for integer-location based indexing to select rows and columns by their integer positions.
+loc: Allows for label-based indexing to select rows and columns by their labels.
+sort_values(): Sorts the DataFrame by the values of one or more columns.
+groupby(): Groups the DataFrame using a mapper or by a Series of columns, allowing for aggregation operations.
+apply(): Applies a function along an axis of the DataFrame (rows or columns).
+fillna(): Fills missing values in the DataFrame with specified values or methods.
+dropna(): Removes rows or columns with missing values.
+corr(): Computes pairwise correlation of columns, excluding NA/null values.
+unique(): Returns the unique values in a column.
+nunique(): Returns the number of unique values in a column.
+sample(): Returns a random sample of items from the DataFrame
+to_csv(): Exports the DataFrame to a CSV file.
+plot(): Provides a simple interface for creating basic plots from the DataFrame.
+hist(): Generates a histogram of the specified column(s)
+boxplot(): Creates a box plot for the specified column(s).

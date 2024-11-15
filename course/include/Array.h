@@ -16,6 +16,7 @@ private:
 
 public:
     // Constructors
+    Array() : data() {} // Initializes an empty vector
     Array(const vector<T> &data) : data(data) {}
     static Array<T> zeros(size_t size);
     static Array<T> ones(size_t size);
