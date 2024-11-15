@@ -23,6 +23,8 @@ public:
 
     // Access methods
     T loc(size_t index) const; // Access by index
+    T &operator[](size_t index);
+    const T &operator[](size_t index) const;
 
     // Array Manipulation
     static Array<T> concatenate(const Array<T> &a, const Array<T> &b); // concatenate two arrays
@@ -30,6 +32,9 @@ public:
     static Array<T> randomRand(size_t size);                           // Random Sampling
     void sort();                                                       // Sorts the array in place
     Array<T> sample(size_t sampleSize) const;                          // Sample from the array
+    Array<T> slice(size_t start, size_t end);                          // Slice the array
+    Array<T> unique() const;                                           // Unique values
+    size_t count(const T &value) const;                                // Count occurrences of a value
 
     // Print function
     void print() const;

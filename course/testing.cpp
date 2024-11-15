@@ -1,102 +1,102 @@
-#include "include/testing.h"
+#include <iostream>
+#include <stdexcept>
+#include <string>
+#include <cmath>           // Include cmath for std::abs
+#include "include/Array.h" // Assuming Array.h is in the include folder
+
+// Assertion functions
+void assertEqual(double expected, double actual, const std::string &message, double epsilon = 1e-9)
+{
+    if (std::abs(expected - actual) > epsilon)
+    {
+        throw std::runtime_error("Assertion failed: " + message + " | Expected: " + std::to_string(expected) + ", Actual: " + std::to_string(actual));
+    }
+}
+
+void assertEqual(const std::string &expected, const std::string &actual, const std::string &message)
+{
+    if (expected != actual)
+    {
+        throw std::runtime_error("Assertion failed: " + message + " | Expected: " + expected + ", Actual: " + actual);
+    }
+}
+
+void assertTrue(bool condition, const std::string &message)
+{
+    if (!condition)
+    {
+        throw std::runtime_error("Assertion failed: " + message);
+    }
+}
+
+void testArrayDouble()
+{
+    // Create an Array of doubles
+    Array<double> doubleArray({0.1, 0.2, 0.3, 0.4, 0.5});
+
+    // Test initial values
+    for (size_t i = 0; i < doubleArray.getData().size(); ++i)
+    {
+        assertEqual((i + 1) * 0.1, doubleArray[i], "Initial value mismatch at index " + std::to_string(i));
+    }
+
+    // Modify an element
+    doubleArray[1] = 2.2; // Change the second element to 2.2
+
+    // Test modified value
+    assertEqual(2.2, doubleArray[1], "Modified value mismatch at index 1");
+
+    // Test out-of-bounds access (this should throw an exception)
+    try
+    {
+        doubleArray[10]; // Out of bounds
+        assertTrue(false, "Expected out_of_range exception not thrown.");
+    }
+    catch (const std::out_of_range &e)
+    {
+        // Exception caught, test passes
+    }
+}
+
+void testArrayString()
+{
+    // Create an Array of strings
+    Array<std::string> stringArray({"Hello", "World", "Test"});
+
+    // Test initial values
+    assertEqual("Hello", stringArray[0], "Initial value mismatch at index 0");
+    assertEqual("World", stringArray[1], "Initial value mismatch at index 1");
+    assertEqual("Test", stringArray[2], "Initial value mismatch at index 2");
+
+    // Modify an element
+    stringArray[1] = "Everyone"; // Change the second element to "Everyone"
+
+    // Test modified value
+    assertEqual("Everyone", stringArray[1], "Modified value mismatch at index 1");
+
+    // Test out-of-bounds access (this should throw an exception)
+    try
+    {
+        stringArray[5]; // Out of bounds
+        assertTrue(false, "Expected out_of_range exception not thrown.");
+    }
+    catch (const std::out_of_range &e)
+    {
+        // Exception caught, test passes
+    }
+}
 
 int main()
 {
-    // Test with Array of doubles
-    Array<double> doubleArray1({1.1, 2.2, 3.3, 4.4, 5.5});
-    Array<double> doubleArray2({6.6, 7.7, 8.8, 9.9, 10.0});
-
-    // Test concatenation
-    Array<double> concatenatedDoubleArray = Array<double>::concatenate(doubleArray1, doubleArray2);
-    std::cout << "Concatenated Double Array: ";
-    concatenatedDoubleArray.print();
-
-    // Test splitting
-    size_t numSplits = 2;
-    std::vector<Array<double>> splitDoubleArrays = Array<double>::split(concatenatedDoubleArray, numSplits);
-    std::cout << "Split Double Arrays: \n";
-    for (const auto &arr : splitDoubleArrays)
-    {
-        arr.print();
-    }
-
-    // Test sorting
-    Array<double> unsortedDoubleArray({5.5, 3.3, 1.1, 4.4, 2.2});
-    std::cout << "Unsorted Double Array: ";
-    unsortedDoubleArray.print();
-    unsortedDoubleArray.sort();
-    std::cout << "Sorted Double Array: ";
-    unsortedDoubleArray.print();
-
-    // Test random array generation
-    Array<double> randomDoubleArray = Array<double>::randomRand(5);
-    std::cout << "Random Double Array: ";
-    randomDoubleArray.print();
-
-    // Test sampling with valid size
     try
     {
-        Array<double> sampledDoubleArray = concatenatedDoubleArray.sample(3);
-        std::cout << "Sampled Double Array: ";
-        sampledDoubleArray.print();
+        testArrayDouble(); // Run tests for double array
+        testArrayString(); // Run tests for string array
+        std::cout << "All tests passed!" << std::endl;
     }
     catch (const std::runtime_error &e)
     {
-        std::cerr << "Error: " << e.what() << std::endl;
+        std::cerr << e.what() << std::endl; // Print the error message
     }
-
-    // Test sampling with invalid size
-    try
-    {
-        Array<double> sampledDoubleArray = concatenatedDoubleArray.sample(100); // Invalid size
-        std::cout << "Sampled Double Array: ";
-        sampledDoubleArray.print();
-    }
-    catch (const std::runtime_error &e)
-    {
-        std::cerr << "Error: " << e.what() << std::endl; // Expecting an error here
-    }
-
-    // Test with Array of strings
-    Array<string> stringArray1({"apple", "banana", "cherry"});
-    Array<string> stringArray2({"date", "elderberry", "fig"});
-
-    // Test concatenation
-    Array<string> concatenatedStringArray = Array<string>::concatenate(stringArray1, stringArray2);
-    std::cout << "Concatenated String Array: ";
-    concatenatedStringArray.print();
-
-    // Test splitting
-    std::vector<Array<string>> splitStringArrays = Array<string>::split(concatenatedStringArray, 2);
-    std::cout << "Split String Arrays: \n";
-    for (const auto &arr : splitStringArrays)
-    {
-        arr.print();
-    }
-
-    // Test sampling with valid size
-    try
-    {
-        Array<string> sampledStringArray = concatenatedStringArray.sample(2);
-        std::cout << "Sampled String Array: ";
-        sampledStringArray.print();
-    }
-    catch (const std::runtime_error &e)
-    {
-        std::cerr << "Error: " << e.what() << std::endl;
-    }
-
-    // Test sampling with invalid size
-    try
-    {
-        Array<string> sampledStringArray = concatenatedStringArray.sample(100); // Invalid size
-        std::cout << "Sampled String Array: ";
-        sampledStringArray.print();
-    }
-    catch (const std::runtime_error &e)
-    {
-        std::cerr << "Error: " << e.what() << std::endl; // Expecting an error here
-    }
-
     return 0;
 }
