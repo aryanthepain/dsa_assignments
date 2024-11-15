@@ -1,4 +1,4 @@
-#include "include/Array_copy.h"
+#include "include/Array.h"
 
 // Template specializations for double
 template <>
@@ -46,15 +46,4 @@ template <>
 Array<string> Array<string>::ones(size_t size)
 {
     return Array<string>(vector<string>(size, "1"));
-}
-
-// Print function
-template <typename T>
-void Array<T>::print() const
-{
-    for (const T &val : data)
-    {
-        cout << val << " ";
-    }
-    cout << endl;
 }

@@ -22,4 +22,15 @@ public:
     void print() const;
 };
 
+// print functions
+template <typename T>
+void Array<T>::print() const
+{
+    for (const T &val : data)
+    {
+        cout << val << " ";
+    }
+    cout << endl;
+}
+
 #endif // ARRAY_H
