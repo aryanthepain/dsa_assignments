@@ -21,6 +21,13 @@ public:
     // Access methods
     T loc(size_t index) const; // Access by index
 
+    // Array Manipulation
+    static Array<T> concatenate(const Array<T> &a, const Array<T> &b); // concatenate two arrays
+    static vector<Array<T>> split(const Array<T> &a, size_t num);      // split into multiple arrays
+    static Array<T> randomRand(size_t size);                           // Random Sampling
+    void sort();                                                       // Sorts the array in place
+    Array<T> sample(size_t sampleSize) const;                          // Sample from the array
+
     // Print function
     void print() const;
 

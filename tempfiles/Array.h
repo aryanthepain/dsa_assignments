@@ -24,6 +24,7 @@ public:
     // Array Manipulation
     static Array<T> concatenate(const Array<T> &a, const Array<T> &b);
     static vector<Array<T>> split(const Array<T> &a, size_t num);
+    Array<T> sample(size_t sampleSize) const; // Sample from the array
 
     // Mathematical Operations
     Array<T> add(const Array<T> &other);

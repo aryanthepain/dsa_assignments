@@ -459,3 +459,26 @@ size_t Array<T>::count(const T &value) const
 
 // Note: For string operations, you may want to implement specific functions as needed,
 // since mathematical operations like add, subtract, etc., do not apply to strings.
+
+template <typename T>
+Array<T> Array<T>::sample(size_t sampleSize) const
+{
+    if (sampleSize > data.size())
+    {
+        throw std::runtime_error("Sample size cannot be greater than the original array size.");
+    }
+
+    vector<T> sampleData;
+    sampleData.reserve(sampleSize);
+
+    std::random_device rd;
+    std::mt19937 mt(rd());
+    std::uniform_int_distribution<int> dist(0, data.size() - 1);
+
+    for (size_t i = 0; i < sampleSize; ++i)
+    {
+        sampleData.push_back(data[dist(mt)]);
+    }
+
+    return Array<T>(sampleData);
+}

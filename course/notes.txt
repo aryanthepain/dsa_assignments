@@ -1,3 +1,5 @@
+use only double and string
+
 Array Creation and Manipulation:
 
 array(): create array
@@ -33,6 +35,7 @@ min(): Returns the minimum value among the elements in the array.
 slice(): Returns a new array containing elements from the original array starting from start to end.
 unique(): Returns a new array containing only the unique values from the original array.
 count(): Counts and returns the number of occurrences of a specified value in the array.
+sample()
 
 Linear Algebra:
 

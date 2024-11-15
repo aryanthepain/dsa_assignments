@@ -1,60 +1,102 @@
-#include "include/testing.h" // Adjust the path as necessary
+#include "include/testing.h"
 
 int main()
 {
-    // Create an Array of doubles
-    Array<double> doubleArray(vector<double>{1.1, 2.2, 3.3, 4.4, 5.5});
+    // Test with Array of doubles
+    Array<double> doubleArray1({1.1, 2.2, 3.3, 4.4, 5.5});
+    Array<double> doubleArray2({6.6, 7.7, 8.8, 9.9, 10.0});
 
-    // Test print() method for doubles
-    cout << "Double Array: ";
-    doubleArray.print(); // Should print: 1.1 2.2 3.3 4.4 5.5
+    // Test concatenation
+    Array<double> concatenatedDoubleArray = Array<double>::concatenate(doubleArray1, doubleArray2);
+    std::cout << "Concatenated Double Array: ";
+    concatenatedDoubleArray.print();
 
-    // Test loc() method for doubles
+    // Test splitting
+    size_t numSplits = 2;
+    std::vector<Array<double>> splitDoubleArrays = Array<double>::split(concatenatedDoubleArray, numSplits);
+    std::cout << "Split Double Arrays: \n";
+    for (const auto &arr : splitDoubleArrays)
+    {
+        arr.print();
+    }
+
+    // Test sorting
+    Array<double> unsortedDoubleArray({5.5, 3.3, 1.1, 4.4, 2.2});
+    std::cout << "Unsorted Double Array: ";
+    unsortedDoubleArray.print();
+    unsortedDoubleArray.sort();
+    std::cout << "Sorted Double Array: ";
+    unsortedDoubleArray.print();
+
+    // Test random array generation
+    Array<double> randomDoubleArray = Array<double>::randomRand(5);
+    std::cout << "Random Double Array: ";
+    randomDoubleArray.print();
+
+    // Test sampling with valid size
     try
     {
-        cout << "Accessing index 2 using loc (double): " << doubleArray.loc(2) << endl; // Should print 3.3
-        cout << "Accessing index 5 using loc (double): " << doubleArray.loc(5) << endl; // Should throw an exception
+        Array<double> sampledDoubleArray = concatenatedDoubleArray.sample(3);
+        std::cout << "Sampled Double Array: ";
+        sampledDoubleArray.print();
     }
-    catch (const out_of_range &e)
+    catch (const std::runtime_error &e)
     {
-        cerr << "Error: " << e.what() << endl;
+        std::cerr << "Error: " << e.what() << std::endl;
     }
 
-    // Test getData() method for doubles
-    vector<double> doubleData = doubleArray.getData();
-    cout << "Data from getData (double): ";
-    for (const double &val : doubleData)
-    {
-        cout << val << " "; // Should print: 1.1 2.2 3.3 4.4 5.5
-    }
-    cout << endl;
-
-    // Create an Array of strings
-    Array<string> stringArray(vector<string>{"one", "two", "three", "four", "five"});
-
-    // Test print() method for strings
-    cout << "String Array: ";
-    stringArray.print(); // Should print: one two three four five
-
-    // Test loc() method for strings
+    // Test sampling with invalid size
     try
     {
-        cout << "Accessing index 2 using loc (string): " << stringArray.loc(2) << endl; // Should print "three"
-        cout << "Accessing index 5 using loc (string): " << stringArray.loc(5) << endl; // Should throw an exception
+        Array<double> sampledDoubleArray = concatenatedDoubleArray.sample(100); // Invalid size
+        std::cout << "Sampled Double Array: ";
+        sampledDoubleArray.print();
     }
-    catch (const out_of_range &e)
+    catch (const std::runtime_error &e)
     {
-        cerr << "Error: " << e.what() << endl;
+        std::cerr << "Error: " << e.what() << std::endl; // Expecting an error here
     }
 
-    // Test getData() method for strings
-    vector<string> stringData = stringArray.getData();
-    cout << "Data from getData (string): ";
-    for (const string &val : stringData)
+    // Test with Array of strings
+    Array<string> stringArray1({"apple", "banana", "cherry"});
+    Array<string> stringArray2({"date", "elderberry", "fig"});
+
+    // Test concatenation
+    Array<string> concatenatedStringArray = Array<string>::concatenate(stringArray1, stringArray2);
+    std::cout << "Concatenated String Array: ";
+    concatenatedStringArray.print();
+
+    // Test splitting
+    std::vector<Array<string>> splitStringArrays = Array<string>::split(concatenatedStringArray, 2);
+    std::cout << "Split String Arrays: \n";
+    for (const auto &arr : splitStringArrays)
     {
-        cout << val << " "; // Should print: one two three four five
+        arr.print();
     }
-    cout << endl;
+
+    // Test sampling with valid size
+    try
+    {
+        Array<string> sampledStringArray = concatenatedStringArray.sample(2);
+        std::cout << "Sampled String Array: ";
+        sampledStringArray.print();
+    }
+    catch (const std::runtime_error &e)
+    {
+        std::cerr << "Error: " << e.what() << std::endl;
+    }
+
+    // Test sampling with invalid size
+    try
+    {
+        Array<string> sampledStringArray = concatenatedStringArray.sample(100); // Invalid size
+        std::cout << "Sampled String Array: ";
+        sampledStringArray.print();
+    }
+    catch (const std::runtime_error &e)
+    {
+        std::cerr << "Error: " << e.what() << std::endl; // Expecting an error here
+    }
 
     return 0;
 }
