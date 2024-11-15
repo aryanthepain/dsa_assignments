@@ -53,6 +53,12 @@ public:
     {
         return data;
     }
+
+    // Access methods
+    T loc(size_t index) const;  // Access by label (index)
+    T iloc(size_t index) const; // Access by integer position
+    T at(size_t index) const;   // Fast access by index
+    T iat(size_t index) const;  // Fast access by integer position
 };
 
 #endif // ARRAY_H

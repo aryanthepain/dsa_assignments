@@ -249,5 +249,48 @@ Array<T> Array<T>::elementWiseOperation(function<T(T)> op)
     return Array<T>(result);
 }
 
+// Access by label (index)
+template <typename T>
+T Array<T>::loc(size_t index) const
+{
+    if (index >= data.size())
+    {
+        throw out_of_range("Index out of bounds.");
+    }
+    return data[index]; // Access by index
+}
+
+// Access by integer position
+template <typename T>
+T Array<T>::iloc(size_t index) const
+{
+    if (index >= data.size())
+    {
+        throw out_of_range("Index out of bounds.");
+    }
+    return data[index]; // Access by index
+}
+
+// Fast access by index
+template <typename T>
+T Array<T>::at(size_t index) const
+{
+    if (index >= data.size())
+    {
+        throw out_of_range("Index out of bounds.");
+    }
+    return data[index]; // Access by index
+}
+
+// Fast access by integer position
+template <typename T>
+T Array<T>::iat(size_t index) const
+{
+    if (index >= data.size())
+    {
+        throw out_of_range("Index out of bounds.");
+    }
+    return data[index]; // Access by index
+}
 // Note: For string operations, you may want to implement specific functions as needed,
 // since mathematical operations like add, subtract, etc., do not apply to strings.
