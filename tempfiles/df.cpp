@@ -1,4 +1,4 @@
-#include "DataFrame.h"
+#include "df.h"
 
 // Constructor implementation
 DataFrame::DataFrame(const std::vector<std::vector<std::variant<double, std::string>>> &inputData,
@@ -85,6 +85,28 @@ DataFrame::DataFrame(const std::string &csvFilePath)
     }
 }
 
+// Method to print the DataFrame
+void DataFrame::print() const
+{
+    std::cout << std::setw(10) << ""; // Space for row labels
+    for (const auto &colName : columnNames)
+    {
+        std::cout << std::setw(10) << colName; // Adjust width as needed
+    }
+    std::cout << std::endl;
+
+    for (size_t i = 0; i < indexLabels.size(); ++i)
+    {
+        std::cout << std::setw(10) << indexLabels[i]; // Print row label
+        for (const auto &column : columns)
+        {
+            std::visit([i](const auto &array)
+                       { std::cout << std::setw(10) << array[i]; }, column);
+        }
+        std::cout << std::endl; // New line after each row
+    }
+}
+
 // Head method implementation
 void DataFrame::head(size_t n) const
 {
@@ -148,12 +170,18 @@ void DataFrame::describe() const
     }
 }
 
-// Statistical methods implementations (sum, mean, median, quartiles, etc.) would follow a similar pattern as shown previously.
+// Statistical methods implementations
+double DataFrame::sum(size_t col) const
+{
+    // Implementation for sum
+}
 
-``` ```cpp
-    // Median method implementation
-    double
-    DataFrame::median(size_t col) const
+double DataFrame::mean(size_t col) const
+{
+    // Implementation for mean
+}
+
+double DataFrame::median(size_t col) const
 {
     if (col >= columns.size())
     {
@@ -171,7 +199,6 @@ void DataFrame::describe() const
         } }, columns[col]);
 }
 
-// Quartiles method implementation
 std::tuple<double, double, double> DataFrame::quartiles(size_t col) const
 {
     if (col >= columns.size())
@@ -243,7 +270,7 @@ void DataFrame::fillna(const std::variant<double, std::string> &value)
         std::visit([this, &value](auto &array)
                    {
             for (auto& elem : array) {
-                if (elem == std::variant<double, std::string>{}) { // Adjust based on how missing values are represented
+                if (elem == std ::variant<double, std::string>{}) { // Adjust based on how missing values are represented
                     elem = value;
                 }
             } }, columns[col]);
@@ -287,7 +314,7 @@ std::variant<double, std::string> DataFrame::iloc(size_t row, size_t col) const
         std::cout << "Index out of bounds!" << std::endl;
         return {};
     }
-    return std::visit([row, col](const auto &array)
+    return std::visit([row](const auto &array)
                       {
                           return array[row]; // Return the element at the specified row and column
                       },
@@ -376,7 +403,7 @@ std::vector<std::string> DataFrame::unique(size_t col) const
         for (const auto& value : array) {
             uniqueSet.insert(value);
         }
-        uniqueValues.assign(uniqueSet.begin(), uniqueSet.end()); }, columns[col]);
+ uniqueValues.assign(uniqueSet.begin(), uniqueSet.end()); }, columns[col]);
     return uniqueValues;
 }
 
