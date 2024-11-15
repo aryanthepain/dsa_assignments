@@ -25,6 +25,8 @@ public:
     static Array<T> concatenate(const Array<T> &a, const Array<T> &b);
     static vector<Array<T>> split(const Array<T> &a, size_t num);
     Array<T> sample(size_t sampleSize) const; // Sample from the array
+    void sort();                              // Sorts the array in place
+    static Array<T> randomRand(size_t size);  // Random Sampling
 
     // Mathematical Operations
     Array<T> add(const Array<T> &other);
@@ -48,12 +50,6 @@ public:
     Array<T> slice(size_t start, size_t end);        // Slice the array
     Array<T> unique() const;                         // Unique values
     size_t count(const T &value) const;              // Count occurrences of a value
-
-    // Sort
-    void sort(); // Sorts the array in place
-
-    // Random Sampling
-    static Array<T> randomRand(size_t size);
 
     // Print function
     void print() const;

@@ -10,6 +10,9 @@ class Array
 private:
     vector<T> data;
 
+    Array<T> elementWiseOperation(const Array<T> &other, function<T(T, T)> op);
+    Array<T> elementWiseOperation(function<T(T)> op);
+
 public:
     // Constructors
     Array(const vector<T> &data) : data(data) {}
