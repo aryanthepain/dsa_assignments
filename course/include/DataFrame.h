@@ -11,31 +11,32 @@
 #include <stdexcept>
 #include <thread>
 #include <mutex>
+using namespace std;
 
 class DataFrame
 {
 private:
-    std::vector<std::vector<double>> data; // Assuming numeric data
-    std::vector<std::string> columns;
-    std::vector<std::string> index;
+    vector<vector<double>> data; // Assuming numeric data
+    vector<string> columns;
+    vector<string> index;
 
 public:
-    DataFrame(const std::vector<std::vector<double>> &inputData,
-              const std::vector<std::string> &colLabels,
-              const std::vector<std::string> &rowLabels);
+    DataFrame(const vector<vector<double>> &inputData,
+              const vector<string> &colLabels,
+              const vector<string> &rowLabels);
 
-    DataFrame(const std::string &filename); // Constructor to load from CSV
+    DataFrame(const string &filename); // Constructor to load from CSV
 
     void head(size_t n);
     void tail(size_t n);
-    std::pair<size_t, size_t> shape();
-    std::vector<std::string> getColumns();
-    std::vector<std::string> getIndex();
+    pair<size_t, size_t> shape();
+    vector<string> getColumns();
+    vector<string> getIndex();
     void describe();
     double sum(size_t columnIndex);
     double mean(size_t columnIndex);
     double median(size_t columnIndex);
-    void filter(const std::string &columnName, double threshold);
+    void filter(const string &columnName, double threshold);
     void print();
 };
 
