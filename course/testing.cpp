@@ -1,23 +1,20 @@
-#include "include/df.h"
+#include "include/testing.h" // Ensure this includes your DataFrame class definition
+
+void testDataFrameFromCSV(const string &csvFilePath)
+{
+    // Create a DataFrame from the provided CSV file
+    DataFrame df(csvFilePath);
+
+    // Print out the data (assuming a method to access the data exists)
+    df.print();
+}
 
 int main()
 {
-    // Sample data for testing
-    vector<vector<variant<double, string>>> inputData = {
-        {1.0, "Alice"},
-        {2.0, "Bob"},
-        {3.0, "Charlie"},
-        {4.0, "David"},
-        {5.0, "Eve"}};
+    string csvFilePath = "./data.csv";
 
-    vector<string> columnNames = {"Age", "Name"};
-    vector<string> rowLabels = {"Row1", "Row2", "Row3", "Row4", "Row5"};
-
-    // Create a DataFrame
-    DataFrame df(inputData, columnNames, rowLabels);
-
-    // Print the DataFrame
-    df.print();
+    // Call the test function with the provided CSV file path
+    testDataFrameFromCSV(csvFilePath);
 
     return 0;
 }

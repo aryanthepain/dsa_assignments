@@ -18,8 +18,7 @@ private:
 public:
     // Constructors
     DataFrame(const vector<vector<variant<double, string>>> &inputData,
-              const vector<string> &colNames,
-              const vector<string> &rowLabels);
+              const vector<string> &colNames);
 
     DataFrame(const string &csvFilePath);
 

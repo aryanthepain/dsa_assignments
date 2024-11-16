@@ -1,9 +1,8 @@
 #include "../include/df.h"
 
 DataFrame::DataFrame(const vector<vector<variant<double, string>>> &inputData,
-                     const vector<string> &colNames,
-                     const vector<string> &rowLabels)
-    : columnNames(colNames), indexLabels(rowLabels), columns(colNames.size()) // Initialize columns with the number of columns
+                     const vector<string> &colNames)
+    : columnNames(colNames), columns(colNames.size()) // Initialize columns with the number of columns
 {
     if (!inputData.empty())
     {
@@ -36,6 +35,13 @@ DataFrame::DataFrame(const vector<vector<variant<double, string>>> &inputData,
             {
                 columns[col] = Array<string>(stringColumn);
             }
+        }
+
+        // Automatically assign index labels as "1", "2", "3", ...
+        indexLabels.resize(inputData.size());
+        for (size_t i = 0; i < inputData.size(); ++i)
+        {
+            indexLabels[i] = to_string(i); // Start indexing from 1
         }
     }
 }
@@ -115,11 +121,11 @@ DataFrame::DataFrame(const string &csvFilePath)
             }
         }
 
-        // Optionally, you can initialize indexLabels if needed
+        // Automatically assign index labels as "1", "2", "3", ...
         indexLabels.resize(inputData.size());
         for (size_t i = 0; i < inputData.size(); ++i)
         {
-            indexLabels[i] = to_string(i); // or any other logic for row labels
+            indexLabels[i] = to_string(i + 1); // Start indexing from 1
         }
     }
 }
