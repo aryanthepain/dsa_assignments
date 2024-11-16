@@ -34,6 +34,8 @@ public:
     variant<double, string> loc(const string &rowLabel, const string &colLabel) const; // Label-based indexing
     DataFrame sample(size_t sampleSize) const;                                         // Sample method
     void to_csv(const string &filePath) const;                                         // Export to CSV
+    // give row name for an entry in a column
+    // give column name for an entry in a row
 
     // Describe the dataframe
     void describe() const;                   // describe the entire dataframe
