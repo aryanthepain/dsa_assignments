@@ -41,7 +41,7 @@ DataFrame::DataFrame(const vector<vector<variant<double, string>>> &inputData,
         indexLabels.resize(inputData.size());
         for (size_t i = 0; i < inputData.size(); ++i)
         {
-            indexLabels[i] = to_string(i); // Start indexing from 1
+            indexLabels[i] = i; // Start indexing from 1
         }
     }
 }
@@ -125,7 +125,7 @@ DataFrame::DataFrame(const string &csvFilePath)
         indexLabels.resize(inputData.size());
         for (size_t i = 0; i < inputData.size(); ++i)
         {
-            indexLabels[i] = to_string(i + 1); // Start indexing from 1
+            indexLabels[i] = i; // Start indexing from 1
         }
     }
 }
