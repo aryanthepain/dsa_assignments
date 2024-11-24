@@ -35,21 +35,5 @@ int main()
     // df.to_csv("output.csv");
     // cout << "Data exported to output.csv" << endl;
 
-    // Test getRowName function
-    cout << "Testing getRowName:" << endl;
-    for (size_t i = 0; i < df.getIndex().size(); ++i)
-    {
-        string rowName = df.getRowName(i, "Name"); // Get row name for the "Name" column
-        cout << "Row index " << i << ": " << rowName << endl;
-    }
-
-    // Test getColumnName function
-    cout << "\nTesting getColumnName:" << endl;
-    for (size_t i = 0; i < df.getColumns().size(); ++i)
-    {
-        string columnName = df.getColumnName(i, "Alice"); // Get column name for the row with label "Alice"
-        cout << "Column index " << i << ": " << columnName << endl;
-    }
-
     return 0;
 }

@@ -32,9 +32,7 @@ public:
     variant<double, string> iloc(size_t row, size_t col) const;                        // Integer-location based indexing
     variant<double, string> loc(const string &rowLabel, const string &colLabel) const; // Label-based indexing
     // Sample method
-    void to_csv(const string &filePath) const;                           // Export to CSV
-    string getRowName(size_t rowIndex, const string &colLabel) const;    // give row name for an entry in a column
-    string getColumnName(size_t colIndex, const string &rowLabel) const; // give column name for an entry in a row
+    void to_csv(const string &filePath) const; // Export to CSV
 };
 
 #endif // DF_H
