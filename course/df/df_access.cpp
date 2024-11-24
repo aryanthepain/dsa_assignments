@@ -171,3 +171,28 @@ void DataFrame::to_csv(const string &filePath) const
         cerr << "Unable to open file for writing." << endl;
     }
 }
+
+size_t DataFrame::searchRowByColumn(const string &colLabel, const variant<double, string> &value) const
+{
+    // Find the index of the column label
+    auto colIt = find(columnNames.begin(), columnNames.end(), colLabel);
+    if (colIt == columnNames.end())
+    {
+        cerr << "Column label not found!" << endl;
+        return -1; // Indicate not found
+    }
+    size_t colIndex = distance(columnNames.begin(), colIt);
+
+    // Search for the value in the specified column
+    const auto &columnData = get<0>(columns[colIndex]); // Assuming columns are of type Array<double>
+    for (size_t rowIndex = 0; rowIndex < columnData.size(); ++rowIndex)
+    {
+        if (columnData[rowIndex] == value) // Compare with the value
+        {
+            return rowIndex; // Return the row index if found
+        }
+    }
+
+    cerr << "Value not found in column!" << endl;
+    return -1; // Indicate not found
+}

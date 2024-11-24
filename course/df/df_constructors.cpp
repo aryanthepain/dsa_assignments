@@ -121,7 +121,7 @@ DataFrame::DataFrame(const string &csvFilePath)
             }
         }
 
-        // Automatically assign index labels as "1", "2", "3", ...
+        // Automatically assign index labels as 1, 2, 3, ...
         indexLabels.resize(inputData.size());
         for (size_t i = 0; i < inputData.size(); ++i)
         {

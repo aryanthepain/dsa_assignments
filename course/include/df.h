@@ -31,6 +31,11 @@ public:
     // Copy method
     variant<double, string> iloc(size_t row, size_t col) const;                 // Integer-location based indexing
     variant<double, string> loc(size_t rowLabel, const string &colLabel) const; // Label-based indexing
+
+    // search row name for an entry of a column
+    size_t searchRowByColumn(const string &colLabel, const variant<double, string> &value) const;
+    // search column name for an entry of a row
+    size_t searchColumnByRow(size_t rowIndex, const variant<double, string> &value) const;
     // Sample method
     void to_csv(const string &filePath) const; // Export to CSV
 };
