@@ -172,27 +172,63 @@ void DataFrame::to_csv(const string &filePath) const
     }
 }
 
-size_t DataFrame::searchRowByColumn(const string &colLabel, const variant<double, string> &value) const
+int DataFrame::searchRowByColumn(const string &colLabel, const variant<double, string> &value) const
 {
-    // Find the index of the column label
     auto colIt = find(columnNames.begin(), columnNames.end(), colLabel);
     if (colIt == columnNames.end())
     {
         cerr << "Column label not found!" << endl;
-        return -1; // Indicate not found
+        return -1; // Column not found
     }
-    size_t colIndex = distance(columnNames.begin(), colIt);
 
-    // Search for the value in the specified column
-    const auto &columnData = get<0>(columns[colIndex]); // Assuming columns are of type Array<double>
-    for (size_t rowIndex = 0; rowIndex < columnData.size(); ++rowIndex)
+    size_t colIndex = distance(columnNames.begin(), colIt);
+    const ColumnType &columnData = columns[colIndex];
+
+    return std::visit([&](const auto &array) -> int
+                      {
+                          for (size_t i = 0; i < array.size(); ++i)
+                          {
+                              if (value == (variant<double, string>)array[i])
+                              {
+                                  return static_cast<int>(i); // Return found index as int
+                              }
+                          }
+                          return (int)(-1); // Value not found
+                      },
+                      columnData);
+}
+
+int DataFrame::searchColumnByRow(size_t rowIndex, const variant<double, string> &value) const
+{
+    if (rowIndex >= indexLabels.size())
     {
-        if (columnData[rowIndex] == value) // Compare with the value
+        cerr << "Row index out of bounds!" << endl;
+        return -1; // Row index out of bounds
+    }
+
+    for (size_t colIndex = 0; colIndex < columns.size(); ++colIndex)
+    {
+        const ColumnType &columnData = columns[colIndex];
+
+        int result = std::visit([&](const auto &array) -> int
+                                {
+                                    if (rowIndex < array.size())
+                                    {
+                                        if (value == (variant<double, string>)array[rowIndex])
+                                        {
+                                            return static_cast<int>(colIndex); // Return found column index as int
+                                        }
+                                    }
+                                    return (int)(-1); // Value not found
+                                },
+                                columnData);
+
+        if (result != -1)
         {
-            return rowIndex; // Return the row index if found
+            return result; // Return found column index
         }
     }
 
-    cerr << "Value not found in column!" << endl;
-    return -1; // Indicate not found
+    cerr << "Value not found in row!" << endl;
+    return -1; // Value not found
 }

@@ -129,3 +129,14 @@ DataFrame::DataFrame(const string &csvFilePath)
         }
     }
 }
+
+void DataFrame::addColumn(const string &name, const ColumnType &data)
+{
+    columnNames.push_back(name);
+    columns.push_back(data);
+}
+
+void DataFrame::addIndexLabel(size_t label)
+{
+    indexLabels.push_back(label);
+}
