@@ -40,6 +40,13 @@ vector<T> Array<T>::getData() const
     return data;
 }
 
+// Return the size of the array
+template <typename T>
+size_t Array<T>::size() const
+{
+    return data.size();
+}
+
 // template instantiations
 template class Array<double>;
 template class Array<std::string>;
