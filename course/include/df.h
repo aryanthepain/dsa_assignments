@@ -29,8 +29,8 @@ public:
     vector<string> getColumns() const; // get column names
     vector<size_t> getIndex() const;   // get row index labels
     // Copy method
-    variant<double, string> iloc(size_t row, size_t col) const;                        // Integer-location based indexing
-    variant<double, string> loc(const string &rowLabel, const string &colLabel) const; // Label-based indexing
+    variant<double, string> iloc(size_t row, size_t col) const;                 // Integer-location based indexing
+    variant<double, string> loc(size_t rowLabel, const string &colLabel) const; // Label-based indexing
     // Sample method
     void to_csv(const string &filePath) const; // Export to CSV
 };
