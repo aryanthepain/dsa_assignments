@@ -28,7 +28,8 @@ public:
     const T &operator[](size_t index) const;
     void print() const;        // Print function
     vector<T> getData() const; // Return the data
-    size_t size() const;       // Return the size of the array
+    size_t search(const T &value) const;
+    size_t size() const; // Return the size of the array
 
     // Array Manipulation
     static Array<T> concatenate(const Array<T> &a, const Array<T> &b); // concatenate two arrays

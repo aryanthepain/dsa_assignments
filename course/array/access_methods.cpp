@@ -40,6 +40,20 @@ vector<T> Array<T>::getData() const
     return data;
 }
 
+// Function to search for a value in the array
+template <typename T>
+size_t Array<T>::search(const T &value) const
+{
+    for (size_t i = 0; i < data.size(); ++i)
+    {
+        if (data[i] == value)
+        {
+            return i; // Return the index if found
+        }
+    }
+    return -1; // Indicate not found
+}
+
 // Return the size of the array
 template <typename T>
 size_t Array<T>::size() const
