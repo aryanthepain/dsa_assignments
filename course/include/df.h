@@ -15,6 +15,10 @@ private:
     vector<string> columnNames; // Column names
     vector<size_t> indexLabels; // Row index labels
 
+    // helper functions
+    void describeNumericColumn(size_t index, const Array<double> &array) const;
+    void describeStringColumn(size_t index, const Array<string> &array) const;
+
 public:
     // Constructors
     DataFrame();

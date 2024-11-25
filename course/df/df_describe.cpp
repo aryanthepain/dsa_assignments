@@ -1,35 +1,47 @@
 #include "../include/df.h"
 
-// Describe method implementation
+// Implementation of the describe function
 void DataFrame::describe() const
 {
     for (size_t i = 0; i < columns.size(); ++i)
     {
         visit([this, i](const auto &array)
               {
-                  // Check if the array is of type Array<double>
-                  if constexpr (std::is_same_v<decltype(array), Array<double>>) 
-                  {
-                      cout << "Column: " << columnNames[i] << endl;
-                      cout << "Count: " << array.size() << endl;
-                      cout << "Mean: " << array.mean() << endl;
-                      cout << "Median: " << array.median() << endl; // Assuming you implement a median function in Array
-                      auto [q1, q2, q3] = array.quartiles(); // Assuming quartiles returns a tuple of Q1, Q2, Q3
-                      cout << "Quartiles: " << q1 << ", " << q2 << ", " << q3 << endl;
-                  }
-                  // Check if the array is of type Array<string>
-                  else if constexpr (std::is_same_v<decltype(array), Array<string>>) 
-                  {
-                      cout << "Column: " << columnNames[i] << endl;
-                      cout << "Count: " << array.size() << endl;
-                      cout << "Unique Values: ";
-                      Array<string> uniqueValues = array.unique(); // Assuming unique() returns unique values
-                      for (const auto &value : uniqueValues.getData()) {
-                          cout << value << " ";
-                      }
-                      cout << endl;
-                  } }, columns[i]);
+            using ArrayType = decltype(array);
+            if constexpr (std::is_same_v<ArrayType, Array<double>>) {
+                describeNumericColumn(i, array);
+            } else if constexpr (std::is_same_v<ArrayType, Array<string>>) {
+                describeStringColumn(i, array);
+            } else {
+                cout << "Column: " << columnNames[i] << " has unsupported type." << endl;
+            } }, columns[i]);
     }
+}
+
+// Function to describe numeric columns
+void DataFrame::describeNumericColumn(size_t index, const Array<double> &array) const
+{
+    cout << "Column: " << columnNames[index] << endl;
+    cout << "Count: " << array.size() << endl;
+    cout << "Mean: " << array.mean() << endl;
+    auto [q1, q2, q3] = array.quartiles(); // Assuming quartiles returns a tuple of Q1, Q2, Q3
+    cout << "Quartiles: " << q1 << ", " << q2 << ", " << q3 << endl;
+    cout << "Max: " << array.max() << endl;
+    cout << "Min: " << array.min() << endl;
+}
+
+// Function to describe string columns
+void DataFrame::describeStringColumn(size_t index, const Array<string> &array) const
+{
+    cout << "Column: " << columnNames[index] << endl;
+    cout << "Count: " << array.size() << endl;
+    cout << "Unique Values: ";
+    Array<string> uniqueValues = array.unique(); // Assuming unique() returns unique values
+    for (const auto &value : uniqueValues.getData())
+    {
+        cout << value << " ";
+    }
+    cout << endl;
 }
 
 // Shape method implementation
