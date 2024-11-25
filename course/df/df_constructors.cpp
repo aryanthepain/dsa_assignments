@@ -1,3 +1,4 @@
+// author: Aryanthepain
 #include "../include/df.h"
 
 DataFrame::DataFrame()
@@ -196,7 +197,7 @@ void DataFrame::addColumn(const string &name, const ColumnType &data)
     }
 }
 
-void DataFrame::addIndexLabel(size_t label)
-{
-    indexLabels.push_back(label);
-}
+// void DataFrame::addIndexLabel(size_t label)
+// {
+//     indexLabels.push_back(label);
+// }

@@ -1,3 +1,4 @@
+// author: Aryanthepain
 #include "../include/df.h"
 
 // Print function
@@ -7,7 +8,7 @@ void DataFrame::print() const
     cout << setw(10) << ""; // Space for row labels
     for (const auto &colName : columnNames)
     {
-        cout << setw(10) << colName; // Adjust width as needed
+        cout << setw(10) << colName;
     }
     cout << endl;
 
@@ -33,7 +34,7 @@ void DataFrame::print() const
 }
 
 // Head method implementation
-void DataFrame::head(size_t n) const
+void DataFrame::head(size_t n = 5) const
 {
     for (size_t i = 0; i < min(n, indexLabels.size()); ++i)
     {
@@ -55,7 +56,7 @@ void DataFrame::head(size_t n) const
 }
 
 // Tail method implementation
-void DataFrame::tail(size_t n) const
+void DataFrame::tail(size_t n = 5) const
 {
     for (size_t i = max(static_cast<int>(indexLabels.size()) - static_cast<int>(n), 0); i < indexLabels.size(); ++i)
     {

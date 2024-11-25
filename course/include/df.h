@@ -1,3 +1,4 @@
+// author: Aryanthepain
 #ifndef DF_H
 #define DF_H
 
@@ -26,7 +27,7 @@ public:
               const vector<string> &colNames);
 
     DataFrame(const string &csvFilePath);
-    void addIndexLabel(size_t label);
+    // void addIndexLabel(size_t label);
     void addColumn(const string &name, const ColumnType &data);
     void addColumn(const string &name, const Array<double> &data);
     void addColumn(const string &name, const Array<string> &data);
