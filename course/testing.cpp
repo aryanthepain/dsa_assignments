@@ -5,50 +5,46 @@ int main()
     // Create a sample DataFrame
     DataFrame df;
 
-    // Assume we have methods to add columns to the DataFrame
-    // For this example, let's say we have two columns: one with doubles and one with strings
+    // Create sample data for the DataFrame
     Array<double> doubleColumn({1.0, 2.0, 2.0, 3.0, 4.0});
     Array<string> stringColumn({"apple", "banana", "apple", "orange", "banana"});
 
-    // Add these columns to the DataFrame
+    // Add columns to the DataFrame
     df.addColumn("Numbers", doubleColumn);
     df.addColumn("Fruits", stringColumn);
 
+    // Print the DataFrame
+    cout << "DataFrame:" << endl;
     df.print();
-
-    // Test the describe function
-    cout << "Describing the DataFrame:" << endl;
-    df.describe();
     cout << endl;
 
-    // Test the shape function
-    auto shape = df.shape();
-    cout << "Shape of the DataFrame: " << shape.first << " rows, " << shape.second << " columns." << endl;
-    cout << endl;
+    // // Describe the DataFrame
+    // cout << "Describing the DataFrame:" << endl;
+    // df.describe();
+    // cout << endl;
 
-    // Test the unique function for the double column
-    vector<string> uniqueNumbers = df.unique(0); // Assuming 0 is the index for the "Numbers" column
+    // // Get and print the shape of the DataFrame
+    // auto shape = df.shape();
+    // cout << "Shape of the DataFrame: " << shape.first << " rows, " << shape.second << " columns." << endl;
+    // cout << endl;
+
+    // Get and print unique values for the "Numbers" column
     cout << "Unique values in the 'Numbers' column: ";
-    for (const auto &value : uniqueNumbers)
-    {
-        cout << value << " ";
-    }
+    auto uniqueNumbers = df.unique(0); // Assuming 0 is the index for the "Numbers" column
+    uniqueNumbers.print();
     cout << endl;
 
-    // Test the unique function for the string column
-    vector<string> uniqueFruits = df.unique(1); // Assuming 1 is the index for the "Fruits" column
+    // Get and print unique values for the "Fruits" column
     cout << "Unique values in the 'Fruits' column: ";
-    for (const auto &value : uniqueFruits)
-    {
-        cout << value << " ";
-    }
+    auto uniqueFruits = df.uniqueString(1); // Assuming 1 is the index for the "Fruits" column
+    uniqueFruits.print();
     cout << endl;
 
-    // Test the nunique function for the double column
+    // Get and print the count of unique values for the "Numbers" column
     size_t uniqueCountNumbers = df.nunique(0);
     cout << "Number of unique values in the 'Numbers' column: " << uniqueCountNumbers << endl;
 
-    // Test the nunique function for the string column
+    // Get and print the count of unique values for the "Fruits" column
     size_t uniqueCountFruits = df.nunique(1);
     cout << "Number of unique values in the 'Fruits' column: " << uniqueCountFruits << endl;
 

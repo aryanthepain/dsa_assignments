@@ -3,40 +3,55 @@
 // Implementation of the describe function
 void DataFrame::describe() const
 {
+    cout << "DataFrame Description:" << endl;
+    cout << "----------------------" << endl;
+
     for (size_t i = 0; i < columns.size(); ++i)
     {
-        visit([this, i](const auto &array)
-              {
-            using ArrayType = decltype(array);
-            if constexpr (std::is_same_v<ArrayType, Array<double>>) {
-                describeNumericColumn(i, array);
-            } else if constexpr (std::is_same_v<ArrayType, Array<string>>) {
-                describeStringColumn(i, array);
-            } else {
-                cout << "Column: " << columnNames[i] << " has unsupported type." << endl;
-            } }, columns[i]);
+        cout << "Column: " << columnNames[i] << endl;
+
+        // Check the type of the column and call the appropriate describe function
+        if (holds_alternative<Array<double>>(columns[i]))
+        {
+            describeNumericColumn(i);
+        }
+        else if (holds_alternative<Array<string>>(columns[i]))
+        {
+            describeStringColumn(i);
+        }
+        else
+        {
+            cout << "Unsupported column type." << endl;
+        }
+
+        cout << endl; // Add a newline for better readability between columns
     }
 }
 
 // Function to describe numeric columns
-void DataFrame::describeNumericColumn(size_t index, const Array<double> &array) const
+void DataFrame::describeNumericColumn(size_t index) const
 {
-    cout << "Column: " << columnNames[index] << endl;
+    const Array<double> &array = get<Array<double>>(columns[index]);
+    cout << "Type: Numeric" << endl;
     cout << "Count: " << array.size() << endl;
     cout << "Mean: " << array.mean() << endl;
+
     auto [q1, q2, q3] = array.quartiles(); // Assuming quartiles returns a tuple of Q1, Q2, Q3
-    cout << "Quartiles: " << q1 << ", " << q2 << ", " << q3 << endl;
+    cout << "Quartiles: Q1 = " << q1 << ", Q2 (Median) = " << q2 << ", Q3 = " << q3 << endl;
+
     cout << "Max: " << array.max() << endl;
     cout << "Min: " << array.min() << endl;
 }
 
 // Function to describe string columns
-void DataFrame::describeStringColumn(size_t index, const Array<string> &array) const
+void DataFrame::describeStringColumn(size_t index) const
 {
-    cout << "Column: " << columnNames[index] << endl;
+    const Array<string> &array = get<Array<string>>(columns[index]);
+    cout << "Type: Categorical" << endl;
     cout << "Count: " << array.size() << endl;
-    cout << "Unique Values: ";
+
     Array<string> uniqueValues = array.unique(); // Assuming unique() returns unique values
+    cout << "Unique Values: ";
     for (const auto &value : uniqueValues.getData())
     {
         cout << value << " ";
@@ -50,43 +65,78 @@ pair<size_t, size_t> DataFrame::shape() const
     return {indexLabels.size(), columns.size()};
 }
 
-// Unique method implementation
-vector<string> DataFrame::unique(size_t col) const
+Array<double> DataFrame::unique(size_t col) const
 {
-    vector<string> uniqueValues;
-
     // Check if the column index is valid
     if (col >= columns.size())
     {
         cout << "Column index out of bounds!" << endl;
-        return uniqueValues;
+        return Array<double>(); // Return an empty Array<double> as a fallback
     }
 
-    // Use std::visit to handle different types in the columns
-    visit([&uniqueValues](const auto &array)
-          {
-              using T = std::decay_t<decltype(array)>; // Determine the type of the array
-              if constexpr (std::is_same_v<T, Array<double>>) 
-              {
-                  // Handle Array<double>
-                  set<string> uniqueSet;
-                  for (const auto& value : array.getData()) {
-                      uniqueSet.insert(to_string(value)); // Convert double to string
-                  }
-                  uniqueValues.assign(uniqueSet.begin(), uniqueSet.end());
-              }
-              else if constexpr (std::is_same_v<T, Array<string>>) 
-              {
-                  // Handle Array<string>
-                  set<string> uniqueSet(array.getData().begin(), array.getData().end());
-                  uniqueValues.assign(uniqueSet.begin(), uniqueSet.end());
-              } }, columns[col]);
+    // Check the type of the column and handle accordingly
+    if (holds_alternative<Array<double>>(columns[col]))
+    {
+        // Handle Array<double>
+        const Array<double> &array = get<Array<double>>(columns[col]);
+        return array.unique(); // Use the unique method from Array<double>
+    }
+    else
+    {
+        cout << "Unsupported column type. Expected Array<double>." << endl;
+        return Array<double>(); // Return an empty Array<double> as a fallback
+    }
+}
 
-    return uniqueValues;
+Array<string> DataFrame::uniqueString(size_t col) const
+{
+    // Check if the column index is valid
+    if (col >= columns.size())
+    {
+        cout << "Column index out of bounds!" << endl;
+        return Array<string>(); // Return an empty Array<string> as a fallback
+    }
+
+    // Check the type of the column and handle accordingly
+    if (holds_alternative<Array<string>>(columns[col]))
+    {
+        // Handle Array<string>
+        const Array<string> &array = get<Array<string>>(columns[col]);
+        return array.unique(); // Use the unique method from Array<string>
+    }
+    else
+    {
+        cout << "Unsupported column type. Expected Array<string>." << endl;
+        return Array<string>(); // Return an empty Array<string> as a fallback
+    }
 }
 
 // Nunique method implementation
 size_t DataFrame::nunique(size_t col) const
 {
-    return unique(col).size();
+    // Check if the column index is valid
+    if (col >= columns.size())
+    {
+        cout << "Column index out of bounds!" << endl;
+        return 0; // Return 0 as a fallback for invalid column index
+    }
+
+    // Check the type of the column and handle accordingly
+    if (holds_alternative<Array<double>>(columns[col]))
+    {
+        // Handle Array<double>
+        const Array<double> &array = get<Array<double>>(columns[col]);
+        return array.unique().size(); // Call nunique on Array<double>
+    }
+    else if (holds_alternative<Array<string>>(columns[col]))
+    {
+        // Handle Array<string>
+        const Array<string> &array = get<Array<string>>(columns[col]);
+        return array.unique().size(); // Call nunique on Array<string>
+    }
+    else
+    {
+        cout << "Unsupported column type." << endl; // Handle unsupported types
+        return 0;                                   // Return 0 for unsupported types
+    }
 }

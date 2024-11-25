@@ -16,8 +16,8 @@ private:
     vector<size_t> indexLabels; // Row index labels
 
     // helper functions
-    void describeNumericColumn(size_t index, const Array<double> &array) const;
-    void describeStringColumn(size_t index, const Array<string> &array) const;
+    void describeNumericColumn(size_t index) const;
+    void describeStringColumn(size_t index) const;
 
 public:
     // Constructors
@@ -48,10 +48,12 @@ public:
     void to_csv(const string &filePath) const; // Export to CSV
 
     // Describe the dataframe
-    void describe() const;                   // describe the entire dataframe
-    pair<size_t, size_t> shape() const;      // give the row*column as a pair
-    vector<string> unique(size_t col) const; // unique values
-    size_t nunique(size_t col) const;        // number of unique values
+    void describe() const;              // describe the entire dataframe
+    pair<size_t, size_t> shape() const; // give the row*column as a pair
+    // unique values
+    Array<double> unique(size_t col) const;
+    Array<string> uniqueString(size_t col) const;
+    size_t nunique(size_t col) const; // number of unique values
 };
 
 #endif // DF_H
