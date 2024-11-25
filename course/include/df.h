@@ -35,8 +35,8 @@ public:
 
     // Access methods
     void print() const;                                                         // print the entire DataFrame
-    void head(size_t n) const;                                                  // get top n values
-    void tail(size_t n) const;                                                  // get bottom n values
+    void head(size_t n = 5) const;                                              // get top n values
+    void tail(size_t n = 5) const;                                              // get bottom n values
     vector<string> getColumns() const;                                          // get column names
     vector<size_t> getIndex() const;                                            // get row index labels
     DataFrame copy() const;                                                     // Copy method
@@ -63,11 +63,11 @@ public:
     tuple<double, double, double> quartiles(size_t col) const; // Quartiles of a column
 
     // manipulate dataframe
-    DataFrame filter(size_t col, double threshold) const;                                           // Filter method
+    DataFrame filter(size_t col, double threshold, bool ifMinimum = true) const;                    // Filter method
     void drop(size_t col);                                                                          // Drop a column
     DataFrame merge(const DataFrame &other, const string &onColumn) const;                          // merge df
     DataFrame concat(const DataFrame &other, bool axis = 0) const;                                  // concat df
-    void sort_values(size_t col);                                                                   // Sort method
+    void sort_values(size_t col, bool ascending = true);                                            // Sort method
     DataFrame groupby(const string &colLabel) const;                                                // Groupby method
     DataFrame apply(function<variant<double, string>(const variant<double, string> &)> func) const; // Apply method
 };

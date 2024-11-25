@@ -34,7 +34,7 @@ void DataFrame::print() const
 }
 
 // Head method implementation
-void DataFrame::head(size_t n = 5) const
+void DataFrame::head(size_t n) const
 {
     for (size_t i = 0; i < min(n, indexLabels.size()); ++i)
     {
@@ -56,7 +56,7 @@ void DataFrame::head(size_t n = 5) const
 }
 
 // Tail method implementation
-void DataFrame::tail(size_t n = 5) const
+void DataFrame::tail(size_t n) const
 {
     for (size_t i = max(static_cast<int>(indexLabels.size()) - static_cast<int>(n), 0); i < indexLabels.size(); ++i)
     {
