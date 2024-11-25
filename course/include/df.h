@@ -17,6 +17,7 @@ private:
 
 public:
     // Constructors
+    DataFrame();
     DataFrame(const vector<vector<variant<double, string>>> &inputData,
               const vector<string> &colNames);
 

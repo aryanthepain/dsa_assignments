@@ -1,5 +1,11 @@
 #include "../include/df.h"
 
+DataFrame::DataFrame()
+{
+    columnNames.clear(); // Clear column names
+    columns.clear();     // Clear columns
+}
+
 DataFrame::DataFrame(const vector<vector<variant<double, string>>> &inputData,
                      const vector<string> &colNames)
     : columnNames(colNames), columns(colNames.size()) // Initialize columns with the number of columns
