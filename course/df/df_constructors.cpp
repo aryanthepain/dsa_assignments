@@ -141,6 +141,18 @@ void DataFrame::addColumn(const string &name, const ColumnType &data)
     columnNames.push_back(name);
     columns.push_back(data);
 }
+// Implementation of the addColumn function for Array<double>
+void DataFrame::addColumn(const string &name, const Array<double> &data)
+{
+    columnNames.push_back(name);
+    columns.push_back(ColumnType(data)); // Convert Array<double> to ColumnType
+}
+// Implementation of the addColumn function for Array<string>
+void DataFrame::addColumn(const string &name, const Array<string> &data)
+{
+    columnNames.push_back(name);
+    columns.push_back(ColumnType(data)); // Convert Array<string> to ColumnType
+}
 
 void DataFrame::addIndexLabel(size_t label)
 {

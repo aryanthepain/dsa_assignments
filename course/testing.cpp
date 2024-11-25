@@ -2,30 +2,55 @@
 
 int main()
 {
-    // Sample data for testing
-    DataFrame df("./data.csv");
+    // Create a sample DataFrame
+    DataFrame df;
+
+    // Assume we have methods to add columns to the DataFrame
+    // For this example, let's say we have two columns: one with doubles and one with strings
+    Array<double> doubleColumn({1.0, 2.0, 2.0, 3.0, 4.0});
+    Array<string> stringColumn({"apple", "banana", "apple", "orange", "banana"});
+
+    // Add these columns to the DataFrame
+    df.addColumn("Numbers", doubleColumn);
+    df.addColumn("Fruits", stringColumn);
 
     df.print();
 
-    // Test search functions
-    cout << "Testing searchRowByColumn:" << endl;
-    cout << "Searching for Age 30.0: Column Index = " << df.searchRowByColumn("Age", 30.0) << endl;                              // Expected: 0
-    cout << "Searching for Age 25.0: Column Index = " << df.searchRowByColumn("Age", 25.0) << endl;                              // Expected: 1
-    cout << "Searching for Height 5.5: Column Index = " << df.searchRowByColumn("Height", 5.5) << endl;                          // Expected: 0
-    cout << "Searching for Name 'Alice': Column Index = " << df.searchRowByColumn("Name", std::string("Alice")) << endl;         // Expected: 0
-    cout << "Searching for Name 'NotInList': Column Index = " << df.searchRowByColumn("Name", std::string("NotInList")) << endl; // Expected: -1
+    // Test the describe function
+    cout << "Describing the DataFrame:" << endl;
+    df.describe();
+    cout << endl;
 
-    // Out of bounds test for searchRowByColumn
-    cout << "Searching for non-existent column 'NonExistent': Column Index = " << df.searchRowByColumn("NonExistent", 30.0) << endl; // Expected: -1
+    // Test the shape function
+    auto shape = df.shape();
+    cout << "Shape of the DataFrame: " << shape.first << " rows, " << shape.second << " columns." << endl;
+    cout << endl;
 
-    cout << "\nTesting searchColumn ByRow:" << endl;
-    cout << "Searching for 'Bob' in row 1: Result = " << df.searchColumnByRow(1, std::string("Bob")) << endl;         // Expected: 0
-    cout << "Searching for 'Alice' in row 0: Result = " << df.searchColumnByRow(0, std::string("Alice")) << endl;     // Expected: 0
-    cout << "Searching for 'Charlie' in row 2: Result = " << df.searchColumnByRow(2, std::string("Charlie")) << endl; // Expected: 0
+    // Test the unique function for the double column
+    vector<string> uniqueNumbers = df.unique(0); // Assuming 0 is the index for the "Numbers" column
+    cout << "Unique values in the 'Numbers' column: ";
+    for (const auto &value : uniqueNumbers)
+    {
+        cout << value << " ";
+    }
+    cout << endl;
 
-    // Out of bounds test for searchColumnByRow
-    cout << "Searching in out of bounds row 10: Result = " << df.searchColumnByRow(10, std::string("Bob")) << endl;   // Expected: -1
-    cout << "Searching in out of bounds row -1: Result = " << df.searchColumnByRow(-1, std::string("Alice")) << endl; // Expected: -1
+    // Test the unique function for the string column
+    vector<string> uniqueFruits = df.unique(1); // Assuming 1 is the index for the "Fruits" column
+    cout << "Unique values in the 'Fruits' column: ";
+    for (const auto &value : uniqueFruits)
+    {
+        cout << value << " ";
+    }
+    cout << endl;
+
+    // Test the nunique function for the double column
+    size_t uniqueCountNumbers = df.nunique(0);
+    cout << "Number of unique values in the 'Numbers' column: " << uniqueCountNumbers << endl;
+
+    // Test the nunique function for the string column
+    size_t uniqueCountFruits = df.nunique(1);
+    cout << "Number of unique values in the 'Fruits' column: " << uniqueCountFruits << endl;
 
     return 0;
 }
