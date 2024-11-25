@@ -2,8 +2,9 @@
 
 DataFrame::DataFrame()
 {
-    columnNames.clear(); // Clear column names
-    columns.clear();     // Clear columns
+    columnNames.clear();
+    columns.clear();
+    indexLabels.clear();
 }
 
 DataFrame::DataFrame(const vector<vector<variant<double, string>>> &inputData,
@@ -136,22 +137,63 @@ DataFrame::DataFrame(const string &csvFilePath)
     }
 }
 
+// Method to add a column with Array<double>
+void DataFrame::addColumn(const string &name, const Array<double> &data)
+{
+    columnNames.push_back(name);
+    columns.push_back(data); // Directly store the Array<double>
+
+    // If this is the first column, initialize indexLabels
+    if (indexLabels.empty())
+    {
+        for (size_t i = 0; i < data.size(); ++i)
+        {
+            indexLabels.push_back(i); // Add default index labels
+        }
+    }
+}
+// Method to add a column with Array<string>
+void DataFrame::addColumn(const string &name, const Array<string> &data)
+{
+    columnNames.push_back(name);
+    columns.push_back(data); // Directly store the Array<string>
+
+    // If this is the first column, initialize indexLabels
+    if (indexLabels.empty())
+    {
+        for (size_t i = 0; i < data.size(); ++i)
+        {
+            indexLabels.push_back(i); // Add default index labels
+        }
+    }
+}
+// Method to add a column with ColumnType
 void DataFrame::addColumn(const string &name, const ColumnType &data)
 {
     columnNames.push_back(name);
     columns.push_back(data);
-}
-// Implementation of the addColumn function for Array<double>
-void DataFrame::addColumn(const string &name, const Array<double> &data)
-{
-    columnNames.push_back(name);
-    columns.push_back(ColumnType(data)); // Convert Array<double> to ColumnType
-}
-// Implementation of the addColumn function for Array<string>
-void DataFrame::addColumn(const string &name, const Array<string> &data)
-{
-    columnNames.push_back(name);
-    columns.push_back(ColumnType(data)); // Convert Array<string> to ColumnType
+
+    // If this is the first column, initialize indexLabels
+    if (indexLabels.empty())
+    {
+        // Assume the first column is either Array<double> or Array<string>
+        if (holds_alternative<Array<double>>(data))
+        {
+            const auto &arrayData = get<Array<double>>(data);
+            for (size_t i = 0; i < arrayData.size(); ++i)
+            {
+                indexLabels.push_back(i); // Add default index labels
+            }
+        }
+        else if (holds_alternative<Array<string>>(data))
+        {
+            const auto &arrayData = get<Array<string>>(data);
+            for (size_t i = 0; i < arrayData.size(); ++i)
+            {
+                indexLabels.push_back(i); // Add default index labels
+            }
+        }
+    }
 }
 
 void DataFrame::addIndexLabel(size_t label)

@@ -22,8 +22,10 @@ public:
               const vector<string> &colNames);
 
     DataFrame(const string &csvFilePath);
-    void addColumn(const string &name, const ColumnType &data);
     void addIndexLabel(size_t label);
+    void addColumn(const string &name, const ColumnType &data);
+    void addColumn(const string &name, const Array<double> &data);
+    void addColumn(const string &name, const Array<string> &data);
 
     // Access methods
     void print() const;                // print the entire DataFrame
