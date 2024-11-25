@@ -70,6 +70,16 @@ public:
     void sort_values(size_t col, bool ascending = true);                                            // Sort method
     DataFrame groupby(const string &colLabel) const;                                                // Groupby method
     DataFrame apply(function<variant<double, string>(const variant<double, string> &)> func) const; // Apply method
+
+    // Missing value methods
+    vector<bool> is_na(size_t col) const;
+    void fillna(const variant<double, string> &value);
+    void dropna();
+
+    // Plotting methods
+    void plot() const;
+    void hist(size_t col) const;
+    void boxplot(size_t col) const;
 };
 
 #endif // DF_H
