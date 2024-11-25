@@ -232,3 +232,25 @@ int DataFrame::searchColumnByRow(size_t rowIndex, const variant<double, string> 
     cerr << "Value not found in row!" << endl;
     return -1; // Value not found
 }
+
+// Copy method implementation
+DataFrame DataFrame::copy() const
+{
+    DataFrame df;
+
+    for (size_t i = 0; i < columns.size(); i++)
+    {
+        if (holds_alternative<Array<double>>(columns[i]))
+        {
+            const auto &arrayData = get<Array<double>>(columns[i]);
+            df.addColumn(columnNames[i], arrayData);
+        }
+        else if (holds_alternative<Array<string>>(columns[i]))
+        {
+            const auto &arrayData = get<Array<string>>(columns[i]);
+            df.addColumn(columnNames[i], arrayData);
+        }
+    }
+
+    return df;
+}

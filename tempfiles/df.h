@@ -46,7 +46,6 @@ public:
     // Statistical methods
     double sum(size_t col) const;                              // Sum of a column (for double columns)
     double mean(size_t col) const;                             // Mean of a column (for double columns)
-    double median(size_t col) const;                           // Median of a column (for double columns)
     tuple<double, double, double> quartiles(size_t col) const; // Quartiles of a column
 
     // manipulate dataframe

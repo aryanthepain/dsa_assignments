@@ -181,24 +181,6 @@ double DataFrame::mean(size_t col) const
     // Implementation for mean
 }
 
-double DataFrame::median(size_t col) const
-{
-    if (col >= columns.size())
-    {
-        cout << "Column index out of bounds!" << endl;
-        return 0.0;
-    }
-    return visit([](const auto &array)
-                 {
-        using T = decltype(array[0]);
-        if constexpr (is_same_v<T, double>) {
-            return array.median(); // Assuming Array has a median method
-        } else {
-            cerr << "Median operation is not valid for non-numeric columns." << endl;
-            return 0.0;
-        } }, columns[col]);
-}
-
 tuple<double, double, double> DataFrame::quartiles(size_t col) const
 {
     if (col >= columns.size())

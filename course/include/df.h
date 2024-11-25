@@ -32,12 +32,12 @@ public:
     void addColumn(const string &name, const Array<string> &data);
 
     // Access methods
-    void print() const;                // print the entire DataFrame
-    void head(size_t n) const;         // get top n values
-    void tail(size_t n) const;         // get bottom n values
-    vector<string> getColumns() const; // get column names
-    vector<size_t> getIndex() const;   // get row index labels
-    // Copy method
+    void print() const;                                                         // print the entire DataFrame
+    void head(size_t n) const;                                                  // get top n values
+    void tail(size_t n) const;                                                  // get bottom n values
+    vector<string> getColumns() const;                                          // get column names
+    vector<size_t> getIndex() const;                                            // get row index labels
+    DataFrame copy() const;                                                     // Copy method
     variant<double, string> iloc(size_t row, size_t col) const;                 // Integer-location based indexing
     variant<double, string> loc(size_t rowLabel, const string &colLabel) const; // Label-based indexing
     // search row name for an entry of a column
