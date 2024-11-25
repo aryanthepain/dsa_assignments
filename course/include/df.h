@@ -19,6 +19,7 @@ private:
     // helper functions
     void describeNumericColumn(size_t index) const;
     void describeStringColumn(size_t index) const;
+    bool OutOfBounds(size_t num) const;
 
 public:
     // Constructors
@@ -60,6 +61,15 @@ public:
     double sum(size_t col) const;                              // Sum of a column (for double columns)
     double mean(size_t col) const;                             // Mean of a column (for double columns)
     tuple<double, double, double> quartiles(size_t col) const; // Quartiles of a column
+
+    // manipulate dataframe
+    DataFrame filter(size_t col, double threshold) const;                                           // Filter method
+    void drop(size_t col);                                                                          // Drop a column
+    DataFrame merge(const DataFrame &other, const string &onColumn) const;                          // merge df
+    DataFrame concat(const DataFrame &other, bool axis = 0) const;                                  // concat df
+    void sort_values(size_t col);                                                                   // Sort method
+    DataFrame groupby(const string &colLabel) const;                                                // Groupby method
+    DataFrame apply(function<variant<double, string>(const variant<double, string> &)> func) const; // Apply method
 };
 
 #endif // DF_H
