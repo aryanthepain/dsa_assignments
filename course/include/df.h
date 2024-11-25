@@ -55,6 +55,11 @@ public:
     Array<double> unique(size_t col) const;
     Array<string> uniqueString(size_t col) const;
     size_t nunique(size_t col) const; // number of unique values
+
+    // Statistical methods
+    double sum(size_t col) const;                              // Sum of a column (for double columns)
+    double mean(size_t col) const;                             // Mean of a column (for double columns)
+    tuple<double, double, double> quartiles(size_t col) const; // Quartiles of a column
 };
 
 #endif // DF_H
