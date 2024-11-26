@@ -68,7 +68,6 @@ public:
     DataFrame merge(const DataFrame &other, const string &onColumn) const;                          // merge df
     DataFrame concat(const DataFrame &other, bool axis = 0) const;                                  // concat df
     void sort_values(size_t col, bool ascending = true);                                            // Sort method
-    DataFrame groupby(const string &colLabel) const;                                                // Groupby method
     DataFrame apply(function<variant<double, string>(const variant<double, string> &)> func) const; // Apply method
 
     // Missing value methods
