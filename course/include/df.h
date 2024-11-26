@@ -20,6 +20,8 @@ private:
     void describeNumericColumn(size_t index) const;
     void describeStringColumn(size_t index) const;
     bool OutOfBounds(size_t num) const;
+    DataFrame concatColumns(const DataFrame &other) const;
+    DataFrame concatRows(const DataFrame &other) const;
 
 public:
     // Constructors
@@ -63,12 +65,13 @@ public:
     tuple<double, double, double> quartiles(size_t col) const; // Quartiles of a column
 
     // manipulate dataframe
-    DataFrame filter(size_t col, double threshold, bool ifMinimum = true) const;                    // Filter method
-    void drop(size_t col);                                                                          // Drop a column
-    DataFrame merge(const DataFrame &other, const string &onColumn) const;                          // merge df
-    DataFrame concat(const DataFrame &other, bool axis = 0) const;                                  // concat df
-    void sort_values(size_t col, bool ascending = true);                                            // Sort method
-    DataFrame apply(function<variant<double, string>(const variant<double, string> &)> func) const; // Apply method
+
+    DataFrame filterString(size_t col, string threshold, bool ifMinimumLimit = true) const;
+    DataFrame filterDouble(size_t col, double threshold, bool ifMinimumLimit = true) const;
+    void drop(size_t col);                                         // Drop a column
+    DataFrame concat(const DataFrame &other, bool axis = 0) const; // concat df
+    void sort_values(size_t col, bool ascending = true);           // Sort method
+    DataFrame apply(size_t col, function<variant<double, string>(const variant<double, string> &)> func) const;
 
     // Missing value methods
     vector<bool> is_na(size_t col) const;

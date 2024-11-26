@@ -2,63 +2,47 @@
 
 int main()
 {
-    // Create a sample DataFrame
-    DataFrame df;
-    df.columnNames = {"A", "B", "C"};
-    df.indexLabels = {"row1", "row2", "row3", "row4"};
+    DataFrame df("./data.csv");
 
-    // Sample numeric column
-    df.columns.push_back(Array<double>({1.0, 2.0, 3.0, 4.0})); // Column A
-    // Sample string column
-    df.columns.push_back(Array<string>({"foo", "bar", "baz", "qux"})); // Column B
-    // Sample numeric column
-    df.columns.push_back(Array<double>({10.0, 20.0, 30.0, 40.0})); // Column C
+    df.print();
 
-    cout << "Original DataFrame:\n";
-    printDataFrame(df);
+    // // filter method
+    // df.filterString(0, "Bob").print();
+    // df.filterString(0, "Bob", false).print();
+    // df.filterDouble(1, 28, false).print();
+    // df.filterDouble(1, 28).print();
 
-    // Test filter method
-    cout << "\nFiltered DataFrame (A >= 3.0):\n";
-    DataFrame filtered = df.filter(0, 3.0, true);
-    printDataFrame(filtered);
+    // // drop function
+    //  df.drop(1);
 
-    // Test drop method
-    cout << "\nDataFrame after dropping column B:\n";
-    df.drop(1); // Drop column B
-    printDataFrame(df);
+    // DataFrame df2("./data2.csv");
+    // df2.print();
+    // // concat function
+    // df.concat(df, 0).print();
+    // df.concat(df2, 1).print();
 
-    // Create another DataFrame for merging
-    DataFrame df2;
-    df2.columnNames = {"A", "D"};
-    df2.indexLabels = {"row1", "row2", "row3", "row4"};
-    df2.columns.push_back(Array<double>({1.0, 2.0, 3.0, 4.0}));                // Column A
-    df2.columns.push_back(Array<string>({"alpha", "beta", "gamma", "delta"})); // Column D
+    // // sort function
+    // df.sort_values(2);
+    // df.print();
+    // df.sort_values(2, false);
+    // df.print();
 
-    cout << "\nMerged DataFrame:\n";
-    DataFrame merged = df.merge(df2, "A");
-    printDataFrame(merged);
+    // apply function
+    auto square = [](const variant<double, string> &x) -> variant<double, string>
+    {
+        if (holds_alternative<double>(x))
+        {
+            return get<double>(x) * get<double>(x);
+        }
+        else
+        {
+            return x;
+        }
+    };
 
-    // Test concat method
-    cout << "\nConcatenated DataFrame:\n";
-    DataFrame concatenated = df.concat(df2, 0); // Concatenate along rows
-    printDataFrame(concatenated);
+    DataFrame result = df.apply(1, square);
 
-    // Test sort_values method
-    cout << "\nDataFrame sorted by column A:\n";
-    df.sort_values(0, true); // Sort by column A in ascending order
-    printDataFrame(df);
-
-    // Test apply method
-    cout << "\nDataFrame after applying a function (double * 2):\n";
-    DataFrame applied = df.apply([](const variant<double, string> &val)
-                                 {
-                                     if (holds_alternative<double>(val))
-                                     {
-                                         return get<double>(val) * 2; // Double the value
-                                     }
-                                     return val; // Return the original if it's a string
-                                 });
-    printDataFrame(applied);
+    result.print();
 
     return 0;
 }
