@@ -11,6 +11,10 @@ EXECUTABLE = $(OBJDIR)/heyyo
 SOURCES = testing.cpp $(foreach dir, $(SRCDIRS), $(wildcard $(dir)/*.cpp))
 OBJECTS = $(patsubst %.cpp, $(OBJDIR)/%.o, $(SOURCES))
 
+# Temporary files and plots that need to be deleted
+TEMPFILES = temp_data.txt
+PLOT_DIR = plots
+
 # Default target to build the executable
 all: $(EXECUTABLE)
 	@echo "Build complete. Executable: $(EXECUTABLE)"
@@ -48,7 +52,7 @@ push:
 
 # Clean up build artifacts
 clean:
-	rm -rf $(OBJDIR)
+	rm -rf $(OBJDIR) $(PLOT_DIR)/* $(TEMPFILES)
 	@echo "Cleaned up generated files."
 
 # Declare phony targets
