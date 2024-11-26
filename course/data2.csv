@@ -1,6 +1,11 @@
-Name,Country,Occupation
-Eve,Germany,Artist
-David,Australia,Scientist
-Charlie,Canada,Teacher
-Bob,UK,Doctor
-Alice,USA,Engineer
+Name,Country,Age
+Eve,Germany,25
+David,Australia,30
+Charlie,Canada,28
+Bob,UK,40
+Alice,USA,35
+Eve,Germany,25
+David,Australia,
+Charlie,Canada,28
+Bob,,40
+Alice,USA,35

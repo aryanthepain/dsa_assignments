@@ -73,11 +73,6 @@ public:
     void sort_values(size_t col, bool ascending = true);           // Sort method
     DataFrame apply(size_t col, function<variant<double, string>(const variant<double, string> &)> func) const;
 
-    // Missing value methods
-    vector<bool> is_na(size_t col) const;
-    void fillna(const variant<double, string> &value);
-    void dropna();
-
     // Plotting methods
     void plot() const;
     void hist(size_t col) const;

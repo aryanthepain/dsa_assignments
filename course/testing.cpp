@@ -2,47 +2,62 @@
 
 int main()
 {
-    DataFrame df("./data.csv");
+    DataFrame df("./data2.csv");
 
     df.print();
 
-    // // filter method
-    // df.filterString(0, "Bob").print();
-    // df.filterString(0, "Bob", false).print();
-    // df.filterDouble(1, 28, false).print();
-    // df.filterDouble(1, 28).print();
+    vector<bool> missingValuesA = df.is_na(1);
+    vector<bool> missingValuesB = df.is_na(2);
 
-    // // drop function
-    //  df.drop(1);
-
-    // DataFrame df2("./data2.csv");
-    // df2.print();
-    // // concat function
-    // df.concat(df, 0).print();
-    // df.concat(df2, 1).print();
-
-    // // sort function
-    // df.sort_values(2);
-    // df.print();
-    // df.sort_values(2, false);
-    // df.print();
-
-    // apply function
-    auto square = [](const variant<double, string> &x) -> variant<double, string>
+    for (bool value : missingValuesA)
     {
-        if (holds_alternative<double>(x))
-        {
-            return get<double>(x) * get<double>(x);
-        }
-        else
-        {
-            return x;
-        }
-    };
+        cout << value << " ";
+    }
+    cout << endl;
 
-    DataFrame result = df.apply(1, square);
+    for (bool value : missingValuesB)
+    {
+        cout << value << " ";
+    }
+    cout << endl;
+    df.print();
 
-    result.print();
+    df.fillna(2, 0.0);
+    df.fillna(1, "Unknown");
+    df.print();
+
+    missingValuesA = df.is_na(1);
+    missingValuesB = df.is_na(2);
+
+    for (bool value : missingValuesA)
+    {
+        cout << value << " ";
+    }
+    cout << endl;
+
+    for (bool value : missingValuesB)
+    {
+        cout << value << " ";
+    }
+    cout << endl;
+
+    df.dropna(1);
+    df.print();
+
+    missingValuesA = df.is_na(1);
+    missingValuesB = df.is_na(2);
+
+    for (bool value : missingValuesA)
+    {
+        cout << value << " ";
+    }
+    cout << endl;
+
+    for (bool value : missingValuesB)
+    {
+        cout << value << " ";
+    }
+    cout << endl;
 
     return 0;
 }
