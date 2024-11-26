@@ -1,6 +1,7 @@
 // author: Aryanthepain
 #include "../include/df.h"
 
+// default constructor
 DataFrame::DataFrame()
 {
     columnNames.clear();
@@ -8,12 +9,18 @@ DataFrame::DataFrame()
     indexLabels.clear();
 }
 
+// construct with vectors
 DataFrame::DataFrame(const vector<vector<variant<double, string>>> &inputData,
                      const vector<string> &colNames)
     : columnNames(colNames), columns(colNames.size()) // Initialize columns with the number of columns
 {
     if (!inputData.empty())
     {
+        if (inputData.size() != colNames.size())
+        {
+            throw runtime_error("Number of columns in input data does not match the number of column names");
+        }
+
         size_t numCols = inputData[0].size();
 
         // Initialize each column based on type
@@ -45,7 +52,7 @@ DataFrame::DataFrame(const vector<vector<variant<double, string>>> &inputData,
             }
         }
 
-        // Automatically assign index labels as "1", "2", "3", ...
+        // Automatically assign index labels as 1, 2, 3, ...
         indexLabels.resize(inputData.size());
         for (size_t i = 0; i < inputData.size(); ++i)
         {
@@ -54,7 +61,7 @@ DataFrame::DataFrame(const vector<vector<variant<double, string>>> &inputData,
     }
 }
 
-// CSV constructor implementation
+// construct with csv file
 DataFrame::DataFrame(const string &csvFilePath)
 {
     ifstream file(csvFilePath);
@@ -196,8 +203,3 @@ void DataFrame::addColumn(const string &name, const ColumnType &data)
         }
     }
 }
-
-// void DataFrame::addIndexLabel(size_t label)
-// {
-//     indexLabels.push_back(label);
-// }

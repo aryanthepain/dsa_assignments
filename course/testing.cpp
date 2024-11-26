@@ -2,13 +2,13 @@
 
 int main()
 {
-    DataFrame df("./data2.csv");
+    DataFrame df("./data.csv");
 
     df.print();
-
-    df.plot();
-    df.hist(1);
-    df.boxplot(2);
+    DataFrame hi = df.head();
+    hi.print();
+    hi = df.tail();
+    hi.print();
 
     return 0;
 }

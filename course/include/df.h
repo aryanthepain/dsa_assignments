@@ -25,17 +25,17 @@ private:
 
 public:
     // Constructors
+
     DataFrame();
     DataFrame(const vector<vector<variant<double, string>>> &inputData,
               const vector<string> &colNames);
-
     DataFrame(const string &csvFilePath);
-    // void addIndexLabel(size_t label);
     void addColumn(const string &name, const ColumnType &data);
     void addColumn(const string &name, const Array<double> &data);
     void addColumn(const string &name, const Array<string> &data);
 
     // Access methods
+
     void print() const;                                                         // print the entire DataFrame
     void head(size_t n = 5) const;                                              // get top n values
     void tail(size_t n = 5) const;                                              // get bottom n values
@@ -48,18 +48,17 @@ public:
     int searchRowByColumn(const string &colLabel, const variant<double, string> &value) const;
     // search column name for an entry of a row
     int searchColumnByRow(size_t rowIndex, const variant<double, string> &value) const;
-    // Sample method
     void to_csv(const string &filePath) const; // Export to CSV
 
     // Describe the dataframe
-    void describe() const;              // describe the entire dataframe
-    pair<size_t, size_t> shape() const; // give the row*column as a pair
-    // unique values
-    Array<double> unique(size_t col) const;
-    Array<string> uniqueString(size_t col) const;
-    size_t nunique(size_t col) const; // number of unique values
+
+    void describe() const;               // describe the entire dataframe
+    pair<size_t, size_t> shape() const;  // give the row*column as a pair
+    ColumnType unique(size_t col) const; // unique values
+    size_t nunique(size_t col) const;    // number of unique values
 
     // Statistical methods
+
     double sum(size_t col) const;                              // Sum of a column (for double columns)
     double mean(size_t col) const;                             // Mean of a column (for double columns)
     tuple<double, double, double> quartiles(size_t col) const; // Quartiles of a column
@@ -74,7 +73,8 @@ public:
     DataFrame apply(size_t col, function<variant<double, string>(const variant<double, string> &)> func) const;
 
     // Plotting methods
-    void plot() const;
+
+    void plot(size_t col) const;
     void hist(size_t col) const;
     void boxplot(size_t col) const;
 };

@@ -33,7 +33,7 @@ void DataFrame::print() const
     }
 }
 
-// Head method implementation
+// get first n rows
 void DataFrame::head(size_t n) const
 {
     for (size_t i = 0; i < min(n, indexLabels.size()); ++i)
@@ -55,7 +55,7 @@ void DataFrame::head(size_t n) const
     }
 }
 
-// Tail method implementation
+// get last n rows
 void DataFrame::tail(size_t n) const
 {
     for (size_t i = max(static_cast<int>(indexLabels.size()) - static_cast<int>(n), 0); i < indexLabels.size(); ++i)
@@ -77,18 +77,19 @@ void DataFrame::tail(size_t n) const
     }
 }
 
-// Getters for columns and index
+// get column names
 vector<string> DataFrame::getColumns() const
 {
     return columnNames;
 }
 
+// get index values
 vector<size_t> DataFrame::getIndex() const
 {
     return indexLabels;
 }
 
-// Indexing methods implementation
+// Find element with integer values
 variant<double, string> DataFrame::iloc(size_t row, size_t col) const
 {
     // Check for out-of-bounds indices
@@ -110,6 +111,7 @@ variant<double, string> DataFrame::iloc(size_t row, size_t col) const
                  columns[col]);
 }
 
+// find element with string values
 variant<double, string> DataFrame::loc(size_t rowIndex, const string &colLabel) const
 {
     // Check if the row index is within bounds
@@ -131,7 +133,8 @@ variant<double, string> DataFrame::loc(size_t rowIndex, const string &colLabel) 
     // Use iloc to retrieve the value at the specified row and column
     return iloc(rowIndex, colIndex);
 }
-// Export to CSV method implementation
+
+// Export to CSV
 void DataFrame::to_csv(const string &filePath) const
 {
     ofstream file(filePath);
@@ -173,6 +176,7 @@ void DataFrame::to_csv(const string &filePath) const
     }
 }
 
+// return index value by a column and element
 int DataFrame::searchRowByColumn(const string &colLabel, const variant<double, string> &value) const
 {
     auto colIt = find(columnNames.begin(), columnNames.end(), colLabel);
@@ -199,6 +203,7 @@ int DataFrame::searchRowByColumn(const string &colLabel, const variant<double, s
                       columnData);
 }
 
+// return column name by index value and element
 int DataFrame::searchColumnByRow(size_t rowIndex, const variant<double, string> &value) const
 {
     if (rowIndex >= indexLabels.size())
@@ -234,7 +239,7 @@ int DataFrame::searchColumnByRow(size_t rowIndex, const variant<double, string> 
     return -1; // Value not found
 }
 
-// Copy method implementation
+// return a copy of the dataframe
 DataFrame DataFrame::copy() const
 {
     DataFrame df;

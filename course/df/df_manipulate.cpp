@@ -1,6 +1,7 @@
 // author: Aryanthepain
 #include "../include/df.h"
 
+// filter based on double
 DataFrame DataFrame::filterDouble(size_t col, double threshold, bool ifMinimumLimit) const
 {
     try
@@ -77,6 +78,7 @@ DataFrame DataFrame::filterDouble(size_t col, double threshold, bool ifMinimumLi
     return DataFrame();
 }
 
+// filter based on string
 DataFrame DataFrame::filterString(size_t col, string threshold, bool ifMinimumLimit) const
 {
     try
@@ -154,7 +156,7 @@ DataFrame DataFrame::filterString(size_t col, string threshold, bool ifMinimumLi
     return DataFrame();
 }
 
-// Drop method implementation
+// Drop column
 void DataFrame::drop(size_t col)
 {
     this->OutOfBounds(col);
@@ -163,7 +165,7 @@ void DataFrame::drop(size_t col)
     columnNames.erase(columnNames.begin() + col);
 }
 
-// Concat method implementation
+// Concatenate dataframe, 0 for rows, 1 for columns
 DataFrame DataFrame::concat(const DataFrame &other, bool axis) const
 {
     if (axis == 0)

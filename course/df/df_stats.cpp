@@ -1,7 +1,7 @@
 // author: Aryanthepain
 #include "../include/df.h"
 
-// Statistical methods implementations
+// return sum of a column
 double DataFrame::sum(size_t col) const
 {
     if (col >= columns.size())
@@ -20,6 +20,7 @@ double DataFrame::sum(size_t col) const
     }
 }
 
+// return mean of a column
 double DataFrame::mean(size_t col) const
 {
     if (col >= columns.size())
@@ -38,6 +39,7 @@ double DataFrame::mean(size_t col) const
     }
 }
 
+// return quartiles of a column
 tuple<double, double, double> DataFrame::quartiles(size_t col) const
 {
     if (col >= columns.size())

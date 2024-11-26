@@ -1,6 +1,7 @@
+// author: Aryanthepain
 #include "../include/df.h"
 
-// Implementation of the describe function
+// Describe the dataframe
 void DataFrame::describe() const
 {
     cout << "DataFrame Description:" << endl;
@@ -36,7 +37,7 @@ void DataFrame::describeNumericColumn(size_t index) const
     cout << "Count: " << array.size() << endl;
     cout << "Mean: " << array.mean() << endl;
 
-    auto [q1, q2, q3] = array.quartiles(); // Assuming quartiles returns a tuple of Q1, Q2, Q3
+    auto [q1, q2, q3] = array.quartiles();
     cout << "Quartiles: Q1 = " << q1 << ", Q2 (Median) = " << q2 << ", Q3 = " << q3 << endl;
 
     cout << "Max: " << array.max() << endl;
@@ -50,7 +51,7 @@ void DataFrame::describeStringColumn(size_t index) const
     cout << "Type: Categorical" << endl;
     cout << "Count: " << array.size() << endl;
 
-    Array<string> uniqueValues = array.unique(); // Assuming unique() returns unique values
+    Array<string> uniqueValues = array.unique();
     cout << "Unique Values: ";
     for (const auto &value : uniqueValues.getData())
     {
@@ -59,19 +60,23 @@ void DataFrame::describeStringColumn(size_t index) const
     cout << endl;
 }
 
-// Shape method implementation
+// get the dimensions of the DataFrame
 pair<size_t, size_t> DataFrame::shape() const
 {
     return {indexLabels.size(), columns.size()};
 }
 
-Array<double> DataFrame::unique(size_t col) const
+// get unique values of a column
+ColumnType DataFrame::unique(size_t col) const
 {
-    // Check if the column index is valid
-    if (col >= columns.size())
+    try
     {
-        cout << "Column index out of bounds!" << endl;
-        return Array<double>(); // Return an empty Array<double> as a fallback
+        this->OutOfBounds(col);
+    }
+    catch (const std::out_of_range &e)
+    {
+        std::cerr << e.what() << '\n';
+        return Array<double>();
     }
 
     // Check the type of the column and handle accordingly
@@ -79,46 +84,32 @@ Array<double> DataFrame::unique(size_t col) const
     {
         // Handle Array<double>
         const Array<double> &array = get<Array<double>>(columns[col]);
-        return array.unique(); // Use the unique method from Array<double>
+        return array.unique();
     }
-    else
-    {
-        cout << "Unsupported column type. Expected Array<double>." << endl;
-        return Array<double>(); // Return an empty Array<double> as a fallback
-    }
-}
-
-Array<string> DataFrame::uniqueString(size_t col) const
-{
-    // Check if the column index is valid
-    if (col >= columns.size())
-    {
-        cout << "Column index out of bounds!" << endl;
-        return Array<string>(); // Return an empty Array<string> as a fallback
-    }
-
-    // Check the type of the column and handle accordingly
-    if (holds_alternative<Array<string>>(columns[col]))
+    else if (holds_alternative<Array<string>>(columns[col]))
     {
         // Handle Array<string>
         const Array<string> &array = get<Array<string>>(columns[col]);
-        return array.unique(); // Use the unique method from Array<string>
+        return array.unique();
     }
     else
     {
-        cout << "Unsupported column type. Expected Array<string>." << endl;
-        return Array<string>(); // Return an empty Array<string> as a fallback
+        throw std::invalid_argument("Unsupported column type. String or double column only");
+        return Array<double>(); // Return an empty Array as a fallback
     }
 }
 
-// Nunique method implementation
+// Number of unique values in a column
 size_t DataFrame::nunique(size_t col) const
 {
-    // Check if the column index is valid
-    if (col >= columns.size())
+    try
     {
-        cout << "Column index out of bounds!" << endl;
-        return 0; // Return 0 as a fallback for invalid column index
+        this->OutOfBounds(col);
+    }
+    catch (const std::out_of_range &e)
+    {
+        std::cerr << e.what() << '\n';
+        return 0;
     }
 
     // Check the type of the column and handle accordingly
@@ -136,7 +127,7 @@ size_t DataFrame::nunique(size_t col) const
     }
     else
     {
-        cout << "Unsupported column type." << endl; // Handle unsupported types
-        return 0;                                   // Return 0 for unsupported types
+        throw std::invalid_argument("Unsupported column type. String or Double only");
+        return 0; // Return 0 for unsupported types
     }
 }

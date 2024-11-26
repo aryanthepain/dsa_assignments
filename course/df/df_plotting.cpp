@@ -1,41 +1,45 @@
 // author: Aryanthepain
 #include "../include/df.h"
 
-void DataFrame::plot() const
+// create line plot
+void DataFrame::plot(size_t colNum) const
 {
-    for (size_t i = 0; i < columns.size(); ++i)
+    this->OutOfBounds(colNum);
+
+    size_t i = colNum;
+
+    std::cout
+        << "Plotting column " << i << std::endl;
+
+    if (holds_alternative<Array<double>>(columns[i]))
     {
-        std::cout << "Plotting column " << i << std::endl;
+        const auto &array = get<Array<double>>(columns[i]);
+        const auto &data = array.getData();
 
-        if (holds_alternative<Array<double>>(columns[i]))
+        // Write data to a temporary file
+        std::ofstream outFile("temp_data.txt");
+        for (size_t j = 0; j < data.size(); ++j)
         {
-            const auto &array = get<Array<double>>(columns[i]);
-            const auto &data = array.getData();
-
-            // Write data to a temporary file
-            std::ofstream outFile("temp_data.txt");
-            for (size_t j = 0; j < data.size(); ++j)
-            {
-                outFile << j << " " << data[j] << std::endl; // x, y format
-            }
-            outFile.close();
-
-            // Call gnuplot to plot the data
-            std::string command =
-                "gnuplot -e \"set terminal png; "
-                "set output 'plots/plot_" +
-                std::to_string(i) + ".png'; "
-                                    "set title 'Plot of Column " +
-                std::to_string(i) + "'; "
-                                    "set xlabel 'Index'; "
-                                    "set ylabel 'Value'; "
-                                    "plot 'temp_data.txt' with lines title 'Column " +
-                std::to_string(i) + "';\"";
-            std::system(command.c_str());
+            outFile << j << " " << data[j] << std::endl; // x, y format
         }
+        outFile.close();
+
+        // Call gnuplot to plot the data
+        std::string command =
+            "gnuplot -e \"set terminal png; "
+            "set output 'plots/plot_" +
+            std::to_string(i) + ".png'; "
+                                "set title 'Plot of Column " +
+            std::to_string(i) + "'; "
+                                "set xlabel 'Index'; "
+                                "set ylabel 'Value'; "
+                                "plot 'temp_data.txt' with lines title 'Column " +
+            std::to_string(i) + "';\"";
+        std::system(command.c_str());
     }
 }
 
+// create hist plot
 void DataFrame::hist(size_t col) const
 {
     if (col < columns.size())
@@ -78,6 +82,7 @@ void DataFrame::hist(size_t col) const
     }
 }
 
+// create boxplot
 void DataFrame::boxplot(size_t col) const
 {
     if (col < columns.size())
