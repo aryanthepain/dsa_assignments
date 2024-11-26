@@ -1,4 +1,4 @@
-#include "include/Array.h"
+#include "../include/Array.h"
 
 // Mathematical Operations
 template <>

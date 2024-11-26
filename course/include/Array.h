@@ -16,6 +16,7 @@ private:
 
 public:
     // Constructors
+    Array() : data() {} // Initializes an empty vector
     Array(const vector<T> &data) : data(data) {}
     static Array<T> zeros(size_t size);
     static Array<T> ones(size_t size);
@@ -27,6 +28,8 @@ public:
     const T &operator[](size_t index) const;
     void print() const;        // Print function
     vector<T> getData() const; // Return the data
+    size_t search(const T &value) const;
+    size_t size() const; // Return the size of the array
 
     // Array Manipulation
     static Array<T> concatenate(const Array<T> &a, const Array<T> &b); // concatenate two arrays

@@ -1,53 +1,59 @@
-# Compiler
+# Compiler settings
 CC = g++
-
-# Compiler flags
 CXXFLAGS = -Iinclude -Wall -Wextra -pedantic
 
-# Source and object files
+# Directories for source files and object files
+SRCDIRS = array df
 OBJDIR = obj
-SOURCES = $(wildcard *.cpp)
+EXECUTABLE = $(OBJDIR)/heyyo
+
+# Gather all source files from specified directories
+SOURCES = testing.cpp $(foreach dir, $(SRCDIRS), $(wildcard $(dir)/*.cpp))
 OBJECTS = $(patsubst %.cpp, $(OBJDIR)/%.o, $(SOURCES))
-OBJ_NAME = $(OBJDIR)/heyyo
 
-# Default rule
-all: $(OBJ_NAME)
-	@echo "Build complete. Executable: $(OBJ_NAME)"
+# Temporary files and plots that need to be deleted
+TEMPFILES = temp_data.txt
+PLOT_DIR = plots
 
+# Default target to build the executable
+all: $(EXECUTABLE)
+	@echo "Build complete. Executable: $(EXECUTABLE)"
+
+# Target to run the executable
 run: all
-	time ./$(OBJ_NAME)
+	time ./$(EXECUTABLE)
 
-# Link the executable
-$(OBJ_NAME): $(OBJECTS)
+# Link object files to create the executable
+$(EXECUTABLE): $(OBJECTS)
 	$(CC) $(OBJECTS) -o $@
 	@echo "Linking complete. Created executable: $@"
 
-# Compile source files to object files
+# Compile source files into object files
 $(OBJDIR)/%.o: %.cpp | $(OBJDIR)
+	@mkdir -p $(@D)
 	$(CC) $(CXXFLAGS) -c $< -o $@
 	@echo "Compiled: $< -> $@"
 
-# Create the object directory if it doesn't exist
+# Ensure the object directory exists
 $(OBJDIR):
-	mkdir -p $(OBJDIR)
+	@mkdir -p $(OBJDIR)
 	@echo "Created directory: $(OBJDIR)"
 
-# to add to github repo
-# make git m="message" b="your-branch(main by defualt)"
-b?=main
-m?=$(shell date '+%d-%m-%Y %H:%M:%S')
+# Git operations for version control
+branch?=main
+message?=$(shell date '+%d-%m-%Y %H:%M:%S')
 git:
 	git add .
-	git commit -m "$(m)"
-	git push origin $(b)
+	git commit -m "$(message)"
+	git push origin $(branch)
 
 push:
-	git push origin $(b)
+	git push origin $(branch)
 
-# Clean up generated files
+# Clean up build artifacts
 clean:
-	rm -rf $(OBJDIR)
+	rm -rf $(OBJDIR) $(PLOT_DIR)/* $(TEMPFILES)
 	@echo "Cleaned up generated files."
 
-# Phony targets.
+# Declare phony targets
 .PHONY: all run git push clean
