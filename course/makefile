@@ -8,7 +8,7 @@ OBJDIR = obj
 EXECUTABLE = $(OBJDIR)/heyyo
 
 # Gather all source files from specified directories
-SOURCES = testing.cpp $(foreach dir, $(SRCDIRS), $(wildcard $(dir)/*.cpp))
+SOURCES = EDA.cpp $(foreach dir, $(SRCDIRS), $(wildcard $(dir)/*.cpp))
 OBJECTS = $(patsubst %.cpp, $(OBJDIR)/%.o, $(SOURCES))
 
 # Temporary files and plots that need to be deleted

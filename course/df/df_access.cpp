@@ -33,47 +33,61 @@ void DataFrame::print() const
     }
 }
 
-// get first n rows
 void DataFrame::head(size_t n) const
 {
+    cout << setw(10) << ""; // Space for row labels
+    for (const auto &colName : columnNames)
+    {
+        cout << setw(10) << colName;
+    }
+    cout << endl;
+
     for (size_t i = 0; i < min(n, indexLabels.size()); ++i)
     {
-        cout << indexLabels[i] << ": ";
-        for (const auto &column : columns)
+        cout << setw(10) << indexLabels[i]; // Print row label
+        for (size_t col = 0; col < columns.size(); ++col)
         {
-            visit([i](const auto &array)
+            // Use visit to handle the variant type
+            visit([i](auto &&arg)
                   {
                       // Ensure we access within bounds
-                      if (i < array.size())
-                          cout << array[i] << " ";
+                      if (i < arg.size())
+                          cout << setw(10) << arg[i]; // Access the i-th element of the column
                       else
-                          cout << "N/A "; // Indicate missing data
+                          cout << setw(10) << "N/A"; // Indicate missing data
                   },
-                  column);
+                  columns[col]);
         }
-        cout << endl;
+        cout << endl; // New line after each row
     }
 }
 
-// get last n rows
 void DataFrame::tail(size_t n) const
 {
+    cout << setw(10) << ""; // Space for row labels
+    for (const auto &colName : columnNames)
+    {
+        cout << setw(10) << colName;
+    }
+    cout << endl;
+
     for (size_t i = max(static_cast<int>(indexLabels.size()) - static_cast<int>(n), 0); i < indexLabels.size(); ++i)
     {
-        cout << indexLabels[i] << ": ";
-        for (const auto &column : columns)
+        cout << setw(10) << indexLabels[i]; // Print row label
+        for (size_t col = 0; col < columns.size(); ++col)
         {
-            visit([i](const auto &array)
+            // Use visit to handle the variant type
+            visit([i](auto &&arg)
                   {
                       // Ensure we access within bounds
-                      if (i < array.size())
-                          cout << array[i] << " ";
+                      if (i < arg.size())
+                          cout << setw(10) << arg[i]; // Access the i-th element of the column
                       else
-                          cout << "N/A "; // Indicate missing data
+                          cout << setw(10) << "N/A"; // Indicate missing data
                   },
-                  column);
+                  columns[col]);
         }
-        cout << endl;
+        cout << endl; // New line after each row
     }
 }
 

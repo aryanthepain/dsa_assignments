@@ -52,7 +52,7 @@ public:
 
     // Describe the dataframe
 
-    void describe() const;               // describe the entire dataframe
+    void describe(int col = -1) const;   // describe the entire dataframe
     pair<size_t, size_t> shape() const;  // give the row*column as a pair
     ColumnType unique(size_t col) const; // unique values
     size_t nunique(size_t col) const;    // number of unique values
