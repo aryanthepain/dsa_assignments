@@ -1,18 +1,6 @@
 // author: Aryanthepain
 #include "include/testing.h"
 
-/*
-int main()
-{
-    DataFrame df("data2.csv");
-
-    DataFrame hi = df.filterString(0, "Bob");
-    hi.print();
-
-    return 0;
-}
-// */
-// /*
 int main()
 {
     // Load the dataframe
@@ -85,12 +73,8 @@ int main()
     cout << "\nPlotting 'mpg' column distribution:" << endl;
     df.hist(mpgColumn);
 
-    cout << "\nBoxplot for 'mpg' column:" << endl;
-    df.boxplot(mpgColumn);
-
-    cout << "\nLine plot for 'mpg' column:" << endl;
-    df.plot(mpgColumn);
+    cout << "\nLine plot for sorted 'mpg' column:" << endl;
+    sortedDf.plot(mpgColumn);
 
     return 0;
 }
-// */
