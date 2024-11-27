@@ -1,10 +1,10 @@
 // author: Aryanthepain
 #include "include/testing.h"
 
-// /*
+/*
 int main()
 {
-    DataFrame df("data.csv");
+    DataFrame df("data2.csv");
 
     DataFrame hi = df.filterString(0, "Bob");
     hi.print();
@@ -12,7 +12,7 @@ int main()
     return 0;
 }
 // */
-/*
+// /*
 int main()
 {
     // Load the dataframe
@@ -27,7 +27,8 @@ int main()
          << endl;
     df.describe();
 
-    cout << "Analyzing the name column" << endl;
+    cout << "Analyzing the name column:\n"
+         << endl;
     size_t nameColumn = 8;
     df.describe(nameColumn);
     cout << "All of the names should be common, however they are not.\n"
@@ -92,4 +93,4 @@ int main()
 
     return 0;
 }
-*/
+// */
