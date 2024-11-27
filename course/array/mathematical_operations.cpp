@@ -1,6 +1,8 @@
 #include "../include/Array.h"
 
 // Mathematical Operations
+
+// add two arrays
 template <>
 Array<double> Array<double>::add(const Array &other) const
 {
@@ -8,6 +10,7 @@ Array<double> Array<double>::add(const Array &other) const
                                 { return a + b; });
 }
 
+// subtract two arrays
 template <>
 Array<double> Array<double>::subtract(const Array &other) const
 {
@@ -15,6 +18,7 @@ Array<double> Array<double>::subtract(const Array &other) const
                                 { return a - b; });
 }
 
+// multiply two arrays
 template <>
 Array<double> Array<double>::multiply(const Array &other) const
 {
@@ -22,6 +26,7 @@ Array<double> Array<double>::multiply(const Array &other) const
                                 { return a * b; });
 }
 
+// divide two arrays
 template <>
 Array<double> Array<double>::divide(const Array &other) const
 {
@@ -31,6 +36,7 @@ Array<double> Array<double>::divide(const Array &other) const
         return a / b; });
 }
 
+// exponent two arrays
 template <>
 Array<double> Array<double>::power(double exponent) const
 {
@@ -38,18 +44,21 @@ Array<double> Array<double>::power(double exponent) const
                                 { return pow(a, exponent); });
 }
 
+// sum of an array
 template <>
 double Array<double>::sum() const
 {
     return accumulate(data.begin(), data.end(), 0.0);
 }
 
+// mean of an array
 template <>
 double Array<double>::mean() const
 {
     return sum() / data.size();
 }
 
+// standard deviation of an array
 template <>
 double Array<double>::std() const
 {
@@ -62,12 +71,14 @@ double Array<double>::std() const
     return sqrt(accum / data.size());
 }
 
+// variance of an array
 template <>
 double Array<double>::var() const
 {
     return std() * std();
 }
 
+// cumulative sum of an array
 template <>
 Array<double> Array<double>::cumsum() const
 {
@@ -80,6 +91,7 @@ Array<double> Array<double>::cumsum() const
     return Array(result);
 }
 
+// cumulative product of an array
 template <>
 Array<double> Array<double>::cumprod() const
 {
@@ -92,6 +104,7 @@ Array<double> Array<double>::cumprod() const
     return Array(result);
 }
 
+// sin of an array
 template <>
 Array<double> Array<double>::sin() const
 {
@@ -99,6 +112,7 @@ Array<double> Array<double>::sin() const
                                 { return std::sin(a); });
 }
 
+// cos of an array
 template <>
 Array<double> Array<double>::cos() const
 {
@@ -106,6 +120,7 @@ Array<double> Array<double>::cos() const
                                 { return std::cos(a); });
 }
 
+// power of an array
 template <>
 Array<double> Array<double>::exp() const
 {
@@ -113,6 +128,7 @@ Array<double> Array<double>::exp() const
                                 { return std::exp(a); });
 }
 
+// log of an array
 template <>
 Array<double> Array<double>::log() const
 {
@@ -122,6 +138,7 @@ Array<double> Array<double>::log() const
         return std::log(a); });
 }
 
+// quartiles of an array
 template <>
 tuple<double, double, double> Array<double>::quartiles() const
 {
@@ -148,6 +165,7 @@ tuple<double, double, double> Array<double>::quartiles() const
     return make_tuple(Q1, Q2, Q3);
 }
 
+// max of an array
 template <>
 double Array<double>::max() const
 {
@@ -156,6 +174,7 @@ double Array<double>::max() const
     return *max_element(data.begin(), data.end());
 }
 
+// min of an array
 template <>
 double Array<double>::min() const
 {
