@@ -2,31 +2,61 @@
 #include "../include/df.h"
 
 // Describe the dataframe
-void DataFrame::describe() const
+void DataFrame::describe(int col) const
 {
-    cout << "DataFrame Description:" << endl;
-    cout << "----------------------" << endl;
-
-    for (size_t i = 0; i < columns.size(); ++i)
+    // -1 for all columns
+    if (col != -1)
     {
-        cout << "Column: " << columnNames[i] << endl;
-
-        // Check the type of the column and call the appropriate describe function
-        if (holds_alternative<Array<double>>(columns[i]))
-        {
-            describeNumericColumn(i);
-        }
-        else if (holds_alternative<Array<string>>(columns[i]))
-        {
-            describeStringColumn(i);
-        }
-        else
-        {
-            cout << "Unsupported column type." << endl;
-        }
-
-        cout << endl; // Add a newline for better readability between columns
+        this->OutOfBounds(col);
     }
+    else
+    {
+
+        cout << "DataFrame Description:" << endl;
+        cout << "----------------------" << endl;
+
+        for (size_t i = 0; i < columns.size(); ++i)
+        {
+            cout << "Column: " << columnNames[i] << endl;
+
+            // Check the type of the column and call the appropriate describe function
+            if (holds_alternative<Array<double>>(columns[i]))
+            {
+                describeNumericColumn(i);
+            }
+            else if (holds_alternative<Array<string>>(columns[i]))
+            {
+                describeStringColumn(i);
+            }
+            else
+            {
+                cout << "Unsupported column type." << endl;
+            }
+
+            cout << endl; // Add a newline for better readability between columns
+        }
+        return;
+    }
+
+    int i = col;
+
+    cout << "Column: " << columnNames[i] << endl;
+
+    // Check the type of the column and call the appropriate describe function
+    if (holds_alternative<Array<double>>(columns[i]))
+    {
+        describeNumericColumn(i);
+    }
+    else if (holds_alternative<Array<string>>(columns[i]))
+    {
+        describeStringColumn(i);
+    }
+    else
+    {
+        cout << "Unsupported column type." << endl;
+    }
+
+    cout << endl; // Add a newline for better readability between columns
 }
 
 // Function to describe numeric columns
@@ -50,13 +80,7 @@ void DataFrame::describeStringColumn(size_t index) const
     const Array<string> &array = get<Array<string>>(columns[index]);
     cout << "Type: Categorical" << endl;
     cout << "Count: " << array.size() << endl;
-
-    Array<string> uniqueValues = array.unique();
-    cout << "Unique Values: ";
-    for (const auto &value : uniqueValues.getData())
-    {
-        cout << value << " ";
-    }
+    cout << "Unique Values: " << array.unique().size();
     cout << endl;
 }
 
