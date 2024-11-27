@@ -29,12 +29,12 @@ void DataFrame::plot(size_t colNum) const
             "gnuplot -e \"set terminal png; "
             "set output 'plots/plot_" +
             std::to_string(i) + ".png'; "
-                                "set title 'Plot of Column " +
-            std::to_string(i) + "'; "
-                                "set xlabel 'Index'; "
-                                "set ylabel 'Value'; "
-                                "plot 'temp_data.txt' with lines title 'Column " +
-            std::to_string(i) + "';\"";
+                                "set title 'Plot of " +
+            columnNames[i] + "'; "
+                             "set xlabel 'Index'; "
+                             "set ylabel 'Value'; "
+                             "plot 'temp_data.txt' with lines title 'Column " +
+            columnNames[i] + "';\"";
         std::system(command.c_str());
     }
 }
@@ -64,15 +64,15 @@ void DataFrame::hist(size_t col) const
                 "gnuplot -e \"set terminal png; "
                 "set output 'plots/histogram_" +
                 std::to_string(col) + ".png'; "
-                                      "set title 'Histogram of Column " +
-                std::to_string(col) + "'; "
-                                      "set xlabel 'Value'; "
-                                      "set ylabel 'Frequency'; "
-                                      "binwidth=1; "
-                                      "bin(x,width)=width*floor(x/width); "
-                                      "set style fill solid; "
-                                      "set boxwidth binwidth; "
-                                      "plot 'temp_data.txt' using (bin($1,binwidth)):(1.0) smooth freq with boxes title 'Frequency';\"";
+                                      "set title 'Histogram of " +
+                columnNames[col] + "'; "
+                                   "set xlabel 'Value'; "
+                                   "set ylabel 'Frequency'; "
+                                   "binwidth=1; "
+                                   "bin(x,width)=width*floor(x/width); "
+                                   "set style fill solid; "
+                                   "set boxwidth binwidth; "
+                                   "plot 'temp_data.txt' using (bin($1,binwidth)):(1.0) smooth freq with boxes title 'Frequency';\"";
             std::system(command.c_str());
         }
     }
@@ -107,11 +107,11 @@ void DataFrame::boxplot(size_t col) const
                 "gnuplot -e \"set terminal png; "
                 "set output 'plots/boxplot_" +
                 std::to_string(col) + ".png'; "
-                                      "set title 'Box Plot of Column " +
-                std::to_string(col) + "'; "
-                                      "set style fill solid; "
-                                      "plot 'temp_data.txt' using 1:1 with boxplot title 'Column " +
-                std::to_string(col) + "';\"";
+                                      "set title 'Box Plot of " +
+                columnNames[col] + "'; "
+                                   "set style fill solid; "
+                                   "plot 'temp_data.txt' using 1:1 with boxplot title '" +
+                columnNames[col] + "';\"";
             std::system(command.c_str());
         }
     }
