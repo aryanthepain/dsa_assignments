@@ -2,7 +2,7 @@
 
 ## About Me
 
-I am **Aryan Gupta**. Roll No. - **230150003**.  
+I am **Aryan Gupta**.  
 I was tasked to implement core functionalities of **NumPy** and **Pandas** libraries in C++. These libraries replicate the data manipulation and analysis capabilities provided in Python, tailored to the needs of C++ developers.
 
 **You can view the html documentation by opening the index.html in html folder in the source directory**
@@ -46,4 +46,4 @@ The primary goal was to bring the capabilities of popular Python data libraries 
 ## Author
 
 - Name: Aryan Gupta
-- Roll No.: 230150003
+- Github ID: aryanthepain
